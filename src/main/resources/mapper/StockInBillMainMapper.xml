@@ -1,0 +1,778 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.binger.stock.dao.StockInBillMainMapper">
+  <resultMap id="BaseResultMap" type="com.binger.stock.domain.StockInBillMain">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="stock_in_bill_main_code" jdbcType="VARCHAR" property="stockInBillMainCode" />
+    <result column="product_order_code" jdbcType="VARCHAR" property="productOrderCode" />
+    <result column="bill_type" jdbcType="INTEGER" property="billType" />
+    <result column="stockin_date" jdbcType="TIMESTAMP" property="stockinDate" />
+    <result column="auditor" jdbcType="VARCHAR" property="auditor" />
+    <result column="audit_date" jdbcType="TIMESTAMP" property="auditDate" />
+    <result column="warehouse_id" jdbcType="INTEGER" property="warehouseId" />
+    <result column="track_number" jdbcType="VARCHAR" property="trackNumber" />
+    <result column="stockin_status" jdbcType="INTEGER" property="stockinStatus" />
+    <result column="supplier_id" jdbcType="INTEGER" property="supplierId" />
+    <result column="supplier_code" jdbcType="VARCHAR" property="supplierCode" />
+    <result column="supplier_name" jdbcType="VARCHAR" property="supplierName" />
+    <result column="apply_quantity" jdbcType="INTEGER" property="applyQuantity" />
+    <result column="quantity" jdbcType="INTEGER" property="quantity" />
+    <result column="defective_quantity" jdbcType="INTEGER" property="defectiveQuantity" />
+    <result column="bill_date" jdbcType="TIMESTAMP" property="billDate" />
+    <result column="receiver_name" jdbcType="VARCHAR" property="receiverName" />
+    <result column="stock_in_money" jdbcType="DECIMAL" property="stockInMoney" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="VARCHAR" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, stock_in_bill_main_code, product_order_code, bill_type, stockin_date, auditor, 
+    audit_date, warehouse_id, track_number, stockin_status, supplier_id, supplier_code, 
+    supplier_name, apply_quantity, quantity, defective_quantity, bill_date, receiver_name, 
+    stock_in_money, remark, creator, create_time, modifier, modify_time
+  </sql>
+  <select id="selectByExample" parameterType="com.binger.stock.domain.StockInBillMainExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from stock_in_bill_main
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from stock_in_bill_main
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from stock_in_bill_main
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.binger.stock.domain.StockInBillMainExample">
+    delete from stock_in_bill_main
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.binger.stock.domain.StockInBillMain">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into stock_in_bill_main (stock_in_bill_main_code, product_order_code, 
+      bill_type, stockin_date, auditor, 
+      audit_date, warehouse_id, track_number, 
+      stockin_status, supplier_id, supplier_code, 
+      supplier_name, apply_quantity, quantity, 
+      defective_quantity, bill_date, receiver_name, 
+      stock_in_money, remark, creator, 
+      create_time, modifier, modify_time
+      )
+    values (#{stockInBillMainCode,jdbcType=VARCHAR}, #{productOrderCode,jdbcType=VARCHAR}, 
+      #{billType,jdbcType=INTEGER}, #{stockinDate,jdbcType=TIMESTAMP}, #{auditor,jdbcType=VARCHAR}, 
+      #{auditDate,jdbcType=TIMESTAMP}, #{warehouseId,jdbcType=INTEGER}, #{trackNumber,jdbcType=VARCHAR}, 
+      #{stockinStatus,jdbcType=INTEGER}, #{supplierId,jdbcType=INTEGER}, #{supplierCode,jdbcType=VARCHAR}, 
+      #{supplierName,jdbcType=VARCHAR}, #{applyQuantity,jdbcType=INTEGER}, #{quantity,jdbcType=INTEGER}, 
+      #{defectiveQuantity,jdbcType=INTEGER}, #{billDate,jdbcType=TIMESTAMP}, #{receiverName,jdbcType=VARCHAR}, 
+      #{stockInMoney,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.binger.stock.domain.StockInBillMain">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into stock_in_bill_main
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stockInBillMainCode != null">
+        stock_in_bill_main_code,
+      </if>
+      <if test="productOrderCode != null">
+        product_order_code,
+      </if>
+      <if test="billType != null">
+        bill_type,
+      </if>
+      <if test="stockinDate != null">
+        stockin_date,
+      </if>
+      <if test="auditor != null">
+        auditor,
+      </if>
+      <if test="auditDate != null">
+        audit_date,
+      </if>
+      <if test="warehouseId != null">
+        warehouse_id,
+      </if>
+      <if test="trackNumber != null">
+        track_number,
+      </if>
+      <if test="stockinStatus != null">
+        stockin_status,
+      </if>
+      <if test="supplierId != null">
+        supplier_id,
+      </if>
+      <if test="supplierCode != null">
+        supplier_code,
+      </if>
+      <if test="supplierName != null">
+        supplier_name,
+      </if>
+      <if test="applyQuantity != null">
+        apply_quantity,
+      </if>
+      <if test="quantity != null">
+        quantity,
+      </if>
+      <if test="defectiveQuantity != null">
+        defective_quantity,
+      </if>
+      <if test="billDate != null">
+        bill_date,
+      </if>
+      <if test="receiverName != null">
+        receiver_name,
+      </if>
+      <if test="stockInMoney != null">
+        stock_in_money,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stockInBillMainCode != null">
+        #{stockInBillMainCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productOrderCode != null">
+        #{productOrderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="billType != null">
+        #{billType,jdbcType=INTEGER},
+      </if>
+      <if test="stockinDate != null">
+        #{stockinDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditor != null">
+        #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDate != null">
+        #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="warehouseId != null">
+        #{warehouseId,jdbcType=INTEGER},
+      </if>
+      <if test="trackNumber != null">
+        #{trackNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="stockinStatus != null">
+        #{stockinStatus,jdbcType=INTEGER},
+      </if>
+      <if test="supplierId != null">
+        #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="supplierCode != null">
+        #{supplierCode,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierName != null">
+        #{supplierName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyQuantity != null">
+        #{applyQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="quantity != null">
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="defectiveQuantity != null">
+        #{defectiveQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="billDate != null">
+        #{billDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receiverName != null">
+        #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="stockInMoney != null">
+        #{stockInMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.binger.stock.domain.StockInBillMainExample" resultType="java.lang.Long">
+    select count(*) from stock_in_bill_main
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update stock_in_bill_main
+    <set>
+      <if test="record.billType != null">
+        <if test="record.billType == -99999">
+          bill_type= null,
+        </if>
+        <if test="record.billType != -99999">
+          bill_type= #{record.billType,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.warehouseId != null">
+        <if test="record.warehouseId == -99999">
+          warehouse_id= null,
+        </if>
+        <if test="record.warehouseId != -99999">
+          warehouse_id= #{record.warehouseId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.stockinStatus != null">
+        <if test="record.stockinStatus == -99999">
+          stockin_status= null,
+        </if>
+        <if test="record.stockinStatus != -99999">
+          stockin_status= #{record.stockinStatus,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.supplierId != null">
+        <if test="record.supplierId == -99999">
+          supplier_id= null,
+        </if>
+        <if test="record.supplierId != -99999">
+          supplier_id= #{record.supplierId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.applyQuantity != null">
+        <if test="record.applyQuantity == -99999">
+          apply_quantity= null,
+        </if>
+        <if test="record.applyQuantity != -99999">
+          apply_quantity= #{record.applyQuantity,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.quantity != null">
+        <if test="record.quantity == -99999">
+          quantity= null,
+        </if>
+        <if test="record.quantity != -99999">
+          quantity= #{record.quantity,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.defectiveQuantity != null">
+        <if test="record.defectiveQuantity == -99999">
+          defective_quantity= null,
+        </if>
+        <if test="record.defectiveQuantity != -99999">
+          defective_quantity= #{record.defectiveQuantity,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.stockInMoney != null">
+        <if test="record.stockInMoney == -99999">
+          stock_in_money= null,
+        </if>
+        <if test="record.stockInMoney != -99999">
+          stock_in_money= #{record.stockInMoney,jdbcType=DECIMAL},
+        </if>
+      </if>
+      <if test="record.stockinDate != null">
+        <if test="record.stockinDate.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
+          stockin_date= null,
+        </if>
+        <if test="record.stockinDate.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
+          stockin_date= #{record.stockinDate,jdbcType=TIMESTAMP},
+        </if>
+      </if>
+      <if test="record.auditDate != null">
+        <if test="record.auditDate.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
+          audit_date= null,
+        </if>
+        <if test="record.auditDate.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
+          audit_date= #{record.auditDate,jdbcType=TIMESTAMP},
+        </if>
+      </if>
+      <if test="record.billDate != null">
+        <if test="record.billDate.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
+          bill_date= null,
+        </if>
+        <if test="record.billDate.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
+          bill_date= #{record.billDate,jdbcType=TIMESTAMP},
+        </if>
+      </if>
+      <if test="record.createTime != null">
+        <if test="record.createTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
+          create_time= null,
+        </if>
+        <if test="record.createTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
+          create_time= #{record.createTime,jdbcType=TIMESTAMP},
+        </if>
+      </if>
+      <if test="record.modifyTime != null">
+        <if test="record.modifyTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
+          modify_time= null,
+        </if>
+        <if test="record.modifyTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
+          modify_time= #{record.modifyTime,jdbcType=TIMESTAMP},
+        </if>
+      </if>
+      <if test="record.stockInBillMainCode != null">
+        <if test="record.stockInBillMainCode == 'erpsetnull'">
+          stock_in_bill_main_code= null,
+        </if>
+        <if test="record.stockInBillMainCode != 'erpsetnull'">
+          stock_in_bill_main_code= #{record.stockInBillMainCode,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.productOrderCode != null">
+        <if test="record.productOrderCode == 'erpsetnull'">
+          product_order_code= null,
+        </if>
+        <if test="record.productOrderCode != 'erpsetnull'">
+          product_order_code= #{record.productOrderCode,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.auditor != null">
+        <if test="record.auditor == 'erpsetnull'">
+          auditor= null,
+        </if>
+        <if test="record.auditor != 'erpsetnull'">
+          auditor= #{record.auditor,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.trackNumber != null">
+        <if test="record.trackNumber == 'erpsetnull'">
+          track_number= null,
+        </if>
+        <if test="record.trackNumber != 'erpsetnull'">
+          track_number= #{record.trackNumber,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.supplierCode != null">
+        <if test="record.supplierCode == 'erpsetnull'">
+          supplier_code= null,
+        </if>
+        <if test="record.supplierCode != 'erpsetnull'">
+          supplier_code= #{record.supplierCode,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.supplierName != null">
+        <if test="record.supplierName == 'erpsetnull'">
+          supplier_name= null,
+        </if>
+        <if test="record.supplierName != 'erpsetnull'">
+          supplier_name= #{record.supplierName,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.receiverName != null">
+        <if test="record.receiverName == 'erpsetnull'">
+          receiver_name= null,
+        </if>
+        <if test="record.receiverName != 'erpsetnull'">
+          receiver_name= #{record.receiverName,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.remark != null">
+        <if test="record.remark == 'erpsetnull'">
+          remark= null,
+        </if>
+        <if test="record.remark != 'erpsetnull'">
+          remark= #{record.remark,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.creator != null">
+        <if test="record.creator == 'erpsetnull'">
+          creator= null,
+        </if>
+        <if test="record.creator != 'erpsetnull'">
+          creator= #{record.creator,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.modifier != null">
+        <if test="record.modifier == 'erpsetnull'">
+          modifier= null,
+        </if>
+        <if test="record.modifier != 'erpsetnull'">
+          modifier= #{record.modifier,jdbcType=VARCHAR},
+        </if>
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update stock_in_bill_main
+    set id = #{record.id,jdbcType=INTEGER},
+      stock_in_bill_main_code = #{record.stockInBillMainCode,jdbcType=VARCHAR},
+      product_order_code = #{record.productOrderCode,jdbcType=VARCHAR},
+      bill_type = #{record.billType,jdbcType=INTEGER},
+      stockin_date = #{record.stockinDate,jdbcType=TIMESTAMP},
+      auditor = #{record.auditor,jdbcType=VARCHAR},
+      audit_date = #{record.auditDate,jdbcType=TIMESTAMP},
+      warehouse_id = #{record.warehouseId,jdbcType=INTEGER},
+      track_number = #{record.trackNumber,jdbcType=VARCHAR},
+      stockin_status = #{record.stockinStatus,jdbcType=INTEGER},
+      supplier_id = #{record.supplierId,jdbcType=INTEGER},
+      supplier_code = #{record.supplierCode,jdbcType=VARCHAR},
+      supplier_name = #{record.supplierName,jdbcType=VARCHAR},
+      apply_quantity = #{record.applyQuantity,jdbcType=INTEGER},
+      quantity = #{record.quantity,jdbcType=INTEGER},
+      defective_quantity = #{record.defectiveQuantity,jdbcType=INTEGER},
+      bill_date = #{record.billDate,jdbcType=TIMESTAMP},
+      receiver_name = #{record.receiverName,jdbcType=VARCHAR},
+      stock_in_money = #{record.stockInMoney,jdbcType=DECIMAL},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      creator = #{record.creator,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      modifier = #{record.modifier,jdbcType=VARCHAR},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.binger.stock.domain.StockInBillMain">
+    update stock_in_bill_main
+    <set>
+      <if test="billType != null">
+        <if test="billType == -99999">
+          bill_type= null,
+        </if>
+        <if test="billType != -99999">
+          bill_type= #{billType,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="warehouseId != null">
+        <if test="warehouseId == -99999">
+          warehouse_id= null,
+        </if>
+        <if test="warehouseId != -99999">
+          warehouse_id= #{warehouseId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="stockinStatus != null">
+        <if test="stockinStatus == -99999">
+          stockin_status= null,
+        </if>
+        <if test="stockinStatus != -99999">
+          stockin_status= #{stockinStatus,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="supplierId != null">
+        <if test="supplierId == -99999">
+          supplier_id= null,
+        </if>
+        <if test="supplierId != -99999">
+          supplier_id= #{supplierId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="applyQuantity != null">
+        <if test="applyQuantity == -99999">
+          apply_quantity= null,
+        </if>
+        <if test="applyQuantity != -99999">
+          apply_quantity= #{applyQuantity,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="quantity != null">
+        <if test="quantity == -99999">
+          quantity= null,
+        </if>
+        <if test="quantity != -99999">
+          quantity= #{quantity,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="defectiveQuantity != null">
+        <if test="defectiveQuantity == -99999">
+          defective_quantity= null,
+        </if>
+        <if test="defectiveQuantity != -99999">
+          defective_quantity= #{defectiveQuantity,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="stockInMoney != null">
+        <if test="stockInMoney == -99999">
+          stock_in_money= null,
+        </if>
+        <if test="stockInMoney != -99999">
+          stock_in_money= #{stockInMoney,jdbcType=DECIMAL},
+        </if>
+      </if>
+      <if test="stockinDate != null">
+        <if test="stockinDate.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
+          stockin_date= null,
+        </if>
+        <if test="stockinDate.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
+          stockin_date= #{stockinDate,jdbcType=TIMESTAMP},
+        </if>
+      </if>
+      <if test="auditDate != null">
+        <if test="auditDate.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
+          audit_date= null,
+        </if>
+        <if test="auditDate.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
+          audit_date= #{auditDate,jdbcType=TIMESTAMP},
+        </if>
+      </if>
+      <if test="billDate != null">
+        <if test="billDate.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
+          bill_date= null,
+        </if>
+        <if test="billDate.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
+          bill_date= #{billDate,jdbcType=TIMESTAMP},
+        </if>
+      </if>
+      <if test="createTime != null">
+        <if test="createTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
+          create_time= null,
+        </if>
+        <if test="createTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
+          create_time= #{createTime,jdbcType=TIMESTAMP},
+        </if>
+      </if>
+      <if test="modifyTime != null">
+        <if test="modifyTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
+          modify_time= null,
+        </if>
+        <if test="modifyTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
+          modify_time= #{modifyTime,jdbcType=TIMESTAMP},
+        </if>
+      </if>
+      <if test="stockInBillMainCode != null">
+        <if test="stockInBillMainCode == 'erpsetnull'">
+          stock_in_bill_main_code= null,
+        </if>
+        <if test="stockInBillMainCode != 'erpsetnull'">
+          stock_in_bill_main_code= #{stockInBillMainCode,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="productOrderCode != null">
+        <if test="productOrderCode == 'erpsetnull'">
+          product_order_code= null,
+        </if>
+        <if test="productOrderCode != 'erpsetnull'">
+          product_order_code= #{productOrderCode,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="auditor != null">
+        <if test="auditor == 'erpsetnull'">
+          auditor= null,
+        </if>
+        <if test="auditor != 'erpsetnull'">
+          auditor= #{auditor,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="trackNumber != null">
+        <if test="trackNumber == 'erpsetnull'">
+          track_number= null,
+        </if>
+        <if test="trackNumber != 'erpsetnull'">
+          track_number= #{trackNumber,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="supplierCode != null">
+        <if test="supplierCode == 'erpsetnull'">
+          supplier_code= null,
+        </if>
+        <if test="supplierCode != 'erpsetnull'">
+          supplier_code= #{supplierCode,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="supplierName != null">
+        <if test="supplierName == 'erpsetnull'">
+          supplier_name= null,
+        </if>
+        <if test="supplierName != 'erpsetnull'">
+          supplier_name= #{supplierName,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="receiverName != null">
+        <if test="receiverName == 'erpsetnull'">
+          receiver_name= null,
+        </if>
+        <if test="receiverName != 'erpsetnull'">
+          receiver_name= #{receiverName,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="remark != null">
+        <if test="remark == 'erpsetnull'">
+          remark= null,
+        </if>
+        <if test="remark != 'erpsetnull'">
+          remark= #{remark,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="creator != null">
+        <if test="creator == 'erpsetnull'">
+          creator= null,
+        </if>
+        <if test="creator != 'erpsetnull'">
+          creator= #{creator,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="modifier != null">
+        <if test="modifier == 'erpsetnull'">
+          modifier= null,
+        </if>
+        <if test="modifier != 'erpsetnull'">
+          modifier= #{modifier,jdbcType=VARCHAR},
+        </if>
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.binger.stock.domain.StockInBillMain">
+    update stock_in_bill_main
+    set stock_in_bill_main_code = #{stockInBillMainCode,jdbcType=VARCHAR},
+      product_order_code = #{productOrderCode,jdbcType=VARCHAR},
+      bill_type = #{billType,jdbcType=INTEGER},
+      stockin_date = #{stockinDate,jdbcType=TIMESTAMP},
+      auditor = #{auditor,jdbcType=VARCHAR},
+      audit_date = #{auditDate,jdbcType=TIMESTAMP},
+      warehouse_id = #{warehouseId,jdbcType=INTEGER},
+      track_number = #{trackNumber,jdbcType=VARCHAR},
+      stockin_status = #{stockinStatus,jdbcType=INTEGER},
+      supplier_id = #{supplierId,jdbcType=INTEGER},
+      supplier_code = #{supplierCode,jdbcType=VARCHAR},
+      supplier_name = #{supplierName,jdbcType=VARCHAR},
+      apply_quantity = #{applyQuantity,jdbcType=INTEGER},
+      quantity = #{quantity,jdbcType=INTEGER},
+      defective_quantity = #{defectiveQuantity,jdbcType=INTEGER},
+      bill_date = #{billDate,jdbcType=TIMESTAMP},
+      receiver_name = #{receiverName,jdbcType=VARCHAR},
+      stock_in_money = #{stockInMoney,jdbcType=DECIMAL},
+      remark = #{remark,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleWithColSelected" parameterType="com.binger.stock.domain.StockInBillMainExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    ${selectiveField.toString()} 
+    from stock_in_bill_main
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKeyWithColSelected" resultMap="BaseResultMap">
+    select 
+    ${selectiveField.toString()} 
+    from stock_in_bill_main
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+</mapper>

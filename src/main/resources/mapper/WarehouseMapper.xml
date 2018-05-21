@@ -1,0 +1,688 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.binger.stock.dao.WarehouseMapper">
+  <resultMap id="BaseResultMap" type="com.binger.stock.domain.Warehouse">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="pid" jdbcType="INTEGER" property="pid" />
+    <result column="warehouse_code" jdbcType="VARCHAR" property="warehouseCode" />
+    <result column="warehouse_name" jdbcType="VARCHAR" property="warehouseName" />
+    <result column="warehouse_category" jdbcType="VARCHAR" property="warehouseCategory" />
+    <result column="ware_manager_id" jdbcType="INTEGER" property="wareManagerId" />
+    <result column="ware_manager" jdbcType="VARCHAR" property="wareManager" />
+    <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
+    <result column="country_id" jdbcType="INTEGER" property="countryId" />
+    <result column="country" jdbcType="VARCHAR" property="country" />
+    <result column="state_id" jdbcType="INTEGER" property="stateId" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="city_id" jdbcType="INTEGER" property="cityId" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="status" jdbcType="BIT" property="status" />
+    <result column="block_time" jdbcType="TIMESTAMP" property="blockTime" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="VARCHAR" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, pid, warehouse_code, warehouse_name, warehouse_category, ware_manager_id, ware_manager, 
+    phone_number, country_id, country, state_id, state, city_id, city, address, status, 
+    block_time, creator, create_time, modifier, modify_time
+  </sql>
+  <select id="selectByExample" parameterType="com.binger.stock.domain.WarehouseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from warehouse
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from warehouse
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from warehouse
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.binger.stock.domain.WarehouseExample">
+    delete from warehouse
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.binger.stock.domain.Warehouse">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into warehouse (pid, warehouse_code, warehouse_name, 
+      warehouse_category, ware_manager_id, ware_manager, 
+      phone_number, country_id, country, 
+      state_id, state, city_id, 
+      city, address, status, 
+      block_time, creator, create_time, 
+      modifier, modify_time)
+    values (#{pid,jdbcType=INTEGER}, #{warehouseCode,jdbcType=VARCHAR}, #{warehouseName,jdbcType=VARCHAR}, 
+      #{warehouseCategory,jdbcType=VARCHAR}, #{wareManagerId,jdbcType=INTEGER}, #{wareManager,jdbcType=VARCHAR}, 
+      #{phoneNumber,jdbcType=VARCHAR}, #{countryId,jdbcType=INTEGER}, #{country,jdbcType=VARCHAR}, 
+      #{stateId,jdbcType=INTEGER}, #{state,jdbcType=VARCHAR}, #{cityId,jdbcType=INTEGER}, 
+      #{city,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{status,jdbcType=BIT}, 
+      #{blockTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifier,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.binger.stock.domain.Warehouse">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into warehouse
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="warehouseCode != null">
+        warehouse_code,
+      </if>
+      <if test="warehouseName != null">
+        warehouse_name,
+      </if>
+      <if test="warehouseCategory != null">
+        warehouse_category,
+      </if>
+      <if test="wareManagerId != null">
+        ware_manager_id,
+      </if>
+      <if test="wareManager != null">
+        ware_manager,
+      </if>
+      <if test="phoneNumber != null">
+        phone_number,
+      </if>
+      <if test="countryId != null">
+        country_id,
+      </if>
+      <if test="country != null">
+        country,
+      </if>
+      <if test="stateId != null">
+        state_id,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="cityId != null">
+        city_id,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="blockTime != null">
+        block_time,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pid != null">
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="warehouseCode != null">
+        #{warehouseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseName != null">
+        #{warehouseName,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseCategory != null">
+        #{warehouseCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="wareManagerId != null">
+        #{wareManagerId,jdbcType=INTEGER},
+      </if>
+      <if test="wareManager != null">
+        #{wareManager,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNumber != null">
+        #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="countryId != null">
+        #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="country != null">
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="stateId != null">
+        #{stateId,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null">
+        #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="blockTime != null">
+        #{blockTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.binger.stock.domain.WarehouseExample" resultType="java.lang.Long">
+    select count(*) from warehouse
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update warehouse
+    <set>
+      <if test="record.warehouseCode != null">
+        <if test="record.warehouseCode == 'erpsetnull'">
+          warehouse_code= null,
+        </if>
+        <if test="record.warehouseCode != 'erpsetnull'">
+          warehouse_code= #{record.warehouseCode,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.warehouseName != null">
+        <if test="record.warehouseName == 'erpsetnull'">
+          warehouse_name= null,
+        </if>
+        <if test="record.warehouseName != 'erpsetnull'">
+          warehouse_name= #{record.warehouseName,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.warehouseCategory != null">
+        <if test="record.warehouseCategory == 'erpsetnull'">
+          warehouse_category= null,
+        </if>
+        <if test="record.warehouseCategory != 'erpsetnull'">
+          warehouse_category= #{record.warehouseCategory,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.wareManager != null">
+        <if test="record.wareManager == 'erpsetnull'">
+          ware_manager= null,
+        </if>
+        <if test="record.wareManager != 'erpsetnull'">
+          ware_manager= #{record.wareManager,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.phoneNumber != null">
+        <if test="record.phoneNumber == 'erpsetnull'">
+          phone_number= null,
+        </if>
+        <if test="record.phoneNumber != 'erpsetnull'">
+          phone_number= #{record.phoneNumber,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.country != null">
+        <if test="record.country == 'erpsetnull'">
+          country= null,
+        </if>
+        <if test="record.country != 'erpsetnull'">
+          country= #{record.country,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.state != null">
+        <if test="record.state == 'erpsetnull'">
+          state= null,
+        </if>
+        <if test="record.state != 'erpsetnull'">
+          state= #{record.state,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.city != null">
+        <if test="record.city == 'erpsetnull'">
+          city= null,
+        </if>
+        <if test="record.city != 'erpsetnull'">
+          city= #{record.city,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.address != null">
+        <if test="record.address == 'erpsetnull'">
+          address= null,
+        </if>
+        <if test="record.address != 'erpsetnull'">
+          address= #{record.address,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.creator != null">
+        <if test="record.creator == 'erpsetnull'">
+          creator= null,
+        </if>
+        <if test="record.creator != 'erpsetnull'">
+          creator= #{record.creator,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.modifier != null">
+        <if test="record.modifier == 'erpsetnull'">
+          modifier= null,
+        </if>
+        <if test="record.modifier != 'erpsetnull'">
+          modifier= #{record.modifier,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.pid != null">
+        <if test="record.pid == -99999">
+          pid= null,
+        </if>
+        <if test="record.pid != -99999">
+          pid= #{record.pid,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.wareManagerId != null">
+        <if test="record.wareManagerId == -99999">
+          ware_manager_id= null,
+        </if>
+        <if test="record.wareManagerId != -99999">
+          ware_manager_id= #{record.wareManagerId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.countryId != null">
+        <if test="record.countryId == -99999">
+          country_id= null,
+        </if>
+        <if test="record.countryId != -99999">
+          country_id= #{record.countryId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.stateId != null">
+        <if test="record.stateId == -99999">
+          state_id= null,
+        </if>
+        <if test="record.stateId != -99999">
+          state_id= #{record.stateId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.cityId != null">
+        <if test="record.cityId == -99999">
+          city_id= null,
+        </if>
+        <if test="record.cityId != -99999">
+          city_id= #{record.cityId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.blockTime != null">
+        <if test="record.blockTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
+          block_time= null,
+        </if>
+        <if test="record.blockTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
+          block_time= #{record.blockTime,jdbcType=TIMESTAMP},
+        </if>
+      </if>
+      <if test="record.createTime != null">
+        <if test="record.createTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
+          create_time= null,
+        </if>
+        <if test="record.createTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
+          create_time= #{record.createTime,jdbcType=TIMESTAMP},
+        </if>
+      </if>
+      <if test="record.modifyTime != null">
+        <if test="record.modifyTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
+          modify_time= null,
+        </if>
+        <if test="record.modifyTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
+          modify_time= #{record.modifyTime,jdbcType=TIMESTAMP},
+        </if>
+      </if>
+      <if test="record.status != null">
+        status= #{record.status,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update warehouse
+    set id = #{record.id,jdbcType=INTEGER},
+      pid = #{record.pid,jdbcType=INTEGER},
+      warehouse_code = #{record.warehouseCode,jdbcType=VARCHAR},
+      warehouse_name = #{record.warehouseName,jdbcType=VARCHAR},
+      warehouse_category = #{record.warehouseCategory,jdbcType=VARCHAR},
+      ware_manager_id = #{record.wareManagerId,jdbcType=INTEGER},
+      ware_manager = #{record.wareManager,jdbcType=VARCHAR},
+      phone_number = #{record.phoneNumber,jdbcType=VARCHAR},
+      country_id = #{record.countryId,jdbcType=INTEGER},
+      country = #{record.country,jdbcType=VARCHAR},
+      state_id = #{record.stateId,jdbcType=INTEGER},
+      state = #{record.state,jdbcType=VARCHAR},
+      city_id = #{record.cityId,jdbcType=INTEGER},
+      city = #{record.city,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=BIT},
+      block_time = #{record.blockTime,jdbcType=TIMESTAMP},
+      creator = #{record.creator,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      modifier = #{record.modifier,jdbcType=VARCHAR},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.binger.stock.domain.Warehouse">
+    update warehouse
+    <set>
+      <if test="warehouseCode != null">
+        <if test="warehouseCode == 'erpsetnull'">
+          warehouse_code= null,
+        </if>
+        <if test="warehouseCode != 'erpsetnull'">
+          warehouse_code= #{warehouseCode,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="warehouseName != null">
+        <if test="warehouseName == 'erpsetnull'">
+          warehouse_name= null,
+        </if>
+        <if test="warehouseName != 'erpsetnull'">
+          warehouse_name= #{warehouseName,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="warehouseCategory != null">
+        <if test="warehouseCategory == 'erpsetnull'">
+          warehouse_category= null,
+        </if>
+        <if test="warehouseCategory != 'erpsetnull'">
+          warehouse_category= #{warehouseCategory,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="wareManager != null">
+        <if test="wareManager == 'erpsetnull'">
+          ware_manager= null,
+        </if>
+        <if test="wareManager != 'erpsetnull'">
+          ware_manager= #{wareManager,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="phoneNumber != null">
+        <if test="phoneNumber == 'erpsetnull'">
+          phone_number= null,
+        </if>
+        <if test="phoneNumber != 'erpsetnull'">
+          phone_number= #{phoneNumber,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="country != null">
+        <if test="country == 'erpsetnull'">
+          country= null,
+        </if>
+        <if test="country != 'erpsetnull'">
+          country= #{country,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="state != null">
+        <if test="state == 'erpsetnull'">
+          state= null,
+        </if>
+        <if test="state != 'erpsetnull'">
+          state= #{state,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="city != null">
+        <if test="city == 'erpsetnull'">
+          city= null,
+        </if>
+        <if test="city != 'erpsetnull'">
+          city= #{city,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="address != null">
+        <if test="address == 'erpsetnull'">
+          address= null,
+        </if>
+        <if test="address != 'erpsetnull'">
+          address= #{address,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="creator != null">
+        <if test="creator == 'erpsetnull'">
+          creator= null,
+        </if>
+        <if test="creator != 'erpsetnull'">
+          creator= #{creator,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="modifier != null">
+        <if test="modifier == 'erpsetnull'">
+          modifier= null,
+        </if>
+        <if test="modifier != 'erpsetnull'">
+          modifier= #{modifier,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="pid != null">
+        <if test="pid == -99999">
+          pid= null,
+        </if>
+        <if test="pid != -99999">
+          pid= #{pid,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="wareManagerId != null">
+        <if test="wareManagerId == -99999">
+          ware_manager_id= null,
+        </if>
+        <if test="wareManagerId != -99999">
+          ware_manager_id= #{wareManagerId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="countryId != null">
+        <if test="countryId == -99999">
+          country_id= null,
+        </if>
+        <if test="countryId != -99999">
+          country_id= #{countryId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="stateId != null">
+        <if test="stateId == -99999">
+          state_id= null,
+        </if>
+        <if test="stateId != -99999">
+          state_id= #{stateId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="cityId != null">
+        <if test="cityId == -99999">
+          city_id= null,
+        </if>
+        <if test="cityId != -99999">
+          city_id= #{cityId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="blockTime != null">
+        <if test="blockTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
+          block_time= null,
+        </if>
+        <if test="blockTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
+          block_time= #{blockTime,jdbcType=TIMESTAMP},
+        </if>
+      </if>
+      <if test="createTime != null">
+        <if test="createTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
+          create_time= null,
+        </if>
+        <if test="createTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
+          create_time= #{createTime,jdbcType=TIMESTAMP},
+        </if>
+      </if>
+      <if test="modifyTime != null">
+        <if test="modifyTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
+          modify_time= null,
+        </if>
+        <if test="modifyTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
+          modify_time= #{modifyTime,jdbcType=TIMESTAMP},
+        </if>
+      </if>
+      <if test="status != null">
+        status= #{status,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.binger.stock.domain.Warehouse">
+    update warehouse
+    set pid = #{pid,jdbcType=INTEGER},
+      warehouse_code = #{warehouseCode,jdbcType=VARCHAR},
+      warehouse_name = #{warehouseName,jdbcType=VARCHAR},
+      warehouse_category = #{warehouseCategory,jdbcType=VARCHAR},
+      ware_manager_id = #{wareManagerId,jdbcType=INTEGER},
+      ware_manager = #{wareManager,jdbcType=VARCHAR},
+      phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      country_id = #{countryId,jdbcType=INTEGER},
+      country = #{country,jdbcType=VARCHAR},
+      state_id = #{stateId,jdbcType=INTEGER},
+      state = #{state,jdbcType=VARCHAR},
+      city_id = #{cityId,jdbcType=INTEGER},
+      city = #{city,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      status = #{status,jdbcType=BIT},
+      block_time = #{blockTime,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleWithColSelected" parameterType="com.binger.stock.domain.WarehouseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    ${selectiveField.toString()} 
+    from warehouse
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKeyWithColSelected" resultMap="BaseResultMap">
+    select 
+    ${selectiveField.toString()} 
+    from warehouse
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+</mapper>

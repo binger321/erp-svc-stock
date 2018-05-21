@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.binger.stock.dao.StockInBillMainMapper">
+    <select id="countByQueryDto" resultType="long">
+        SELECT
+        COUNT (1)
+        FROM stock_in_bill_main m
+        <include refid="StockInBillMainDto_Where_Clause"/>
+    </select>
+
+    <sql id="StockInBillMainDto_Where_Clause">
+        <where>
+            <if test="queryDto.stockInBillMainCode != null">
+                m.stock_id_bill_main_code like '%${queryDto.stockInBillMainCode}%'
+            </if>
+            <if test="queryDto.productOrderCode != null">
+                m.product_order_code like '%${queryDto.productOrderCode}%'
+            </if>
+            <if test="queryDto.billType != null">
+                m.bill_type = #{queryDto.billType}
+            </if>
+            <if test="queryDto.auditor != null">
+                m.auditor like '%${queryDto.auditor}%'
+            </if>
+            <if test="queryDto.warehouseId != null">
+                m.warehouseId = #{queryDto.warehouseId}
+            </if>
+            <if test="queryDto.trackNumber != null">
+                m.trackNumber like '%${queryDto.trackNumber}%'
+            </if>
+            <if test="queryDto.stockinStatus != null">
+                m.stockinStatus = #{queryDto.stockinStatus}
+            </if>
+            <if test="queryDto.supplierId != null">
+                m.supplierId = #{queryDto.supplierId}
+            </if>
+            <if test="queryDto.receiverName != null">
+                m.reveiverName like '%${queryDto.receiverName}%'
+            </if>
+        </where>
+    </sql>
+
+    <resultMap id="StockInMainMap" type="com.binger.stock.dto.ret.StockInMainRetDto">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="stock_in_bill_main_code" jdbcType="VARCHAR" property="stockInBillMainCode" />
+        <result column="product_order_code" jdbcType="VARCHAR" property="productOrderCode" />
+        <result column="bill_type" jdbcType="INTEGER" property="billType" />
+        <result column="stockin_date" jdbcType="TIMESTAMP" property="stockinDate" />
+        <result column="auditor" jdbcType="VARCHAR" property="auditor" />
+        <result column="audit_date" jdbcType="TIMESTAMP" property="auditDate" />
+        <result column="warehouse_id" jdbcType="INTEGER" property="warehouseId" />
+        <result column="warehouse_code" jdbcType="VARCHAR" property="warehouseCode"/>
+        <result column="warehouse_name" jdbcType="VARCHAR" property="warehouseName"/>
+        <result column="track_number" jdbcType="VARCHAR" property="trackNumber" />
+        <result column="stockin_status" jdbcType="INTEGER" property="stockinStatus" />
+        <result column="supplier_id" jdbcType="INTEGER" property="supplierId" />
+        <result column="supplier_code" jdbcType="VARCHAR" property="supplierCode" />
+        <result column="supplier_name" jdbcType="VARCHAR" property="supplierName" />
+        <result column="apply_quantity" jdbcType="INTEGER" property="applyQuantity" />
+        <result column="quantity" jdbcType="INTEGER" property="quantity" />
+        <result column="defective_quantity" jdbcType="INTEGER" property="defectiveQuantity" />
+        <result column="bill_date" jdbcType="TIMESTAMP" property="billDate" />
+        <result column="receiver_name" jdbcType="VARCHAR" property="receiverName" />
+        <result column="stock_in_money" jdbcType="DECIMAL" property="stockInMoney" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    </resultMap>
+    <select id="selectByQuery" resultMap="StockInMainMap">
+        SELECT
+        m.id,
+        m.stock_in_bill_main_code,
+        m.product_order_code,
+        m.bill_type,
+        m.stockin_date,
+        m.auditor,
+        m.audit_date,
+        m.warehouse_id,
+        w.warehouse_code,
+        w.warehouse_name,
+        m.track_number,
+        m.stockin_status,
+        m.supplier_id,
+        m.supplier_code,
+        m.supplier_name,
+        m.apply_quantity,
+        m.quantity,
+        m.defective_quantity,
+        m.bill_date,
+        m.receiver_name,
+        m.stock_in_money,
+        m.remark,
+        m.create_time,
+        m.modify_time
+        FROM stock_in_bill_main m
+        LEFT JOIN warehouse w on m.warehouse_id = w.id
+        <include refid="StockInBillMainDto_Where_Clause"/>
+        <if test="queryDto.orderByClause != null">
+            ORDER BY #{queryDto.orderByClause}
+        </if>
+        <if test="queryDto.limit != null">
+            <if test="queryDto.offset != null">
+                limit #{queryDto.offset},#{queryDto.limit}
+            </if>
+            <if test="queryDto.limit != null">
+                limit #{queryDto.limit}
+            </if>
+        </if>
+
+    </select>
+
+</mapper>

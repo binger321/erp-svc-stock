@@ -1,0 +1,1103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.binger.stock.dao.ProductOrderDetailMapper">
+  <resultMap id="BaseResultMap" type="com.binger.stock.domain.ProductOrderDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="product_order_main_id" jdbcType="VARCHAR" property="productOrderMainId" />
+    <result column="product_order_sub_code" jdbcType="VARCHAR" property="productOrderSubCode" />
+    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <result column="goods_code" jdbcType="VARCHAR" property="goodsCode" />
+    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="main_img_url" jdbcType="VARCHAR" property="mainImgUrl" />
+    <result column="goods_img_id" jdbcType="INTEGER" property="goodsImgId" />
+    <result column="goods_img_url" jdbcType="VARCHAR" property="goodsImgUrl" />
+    <result column="sku_id" jdbcType="INTEGER" property="skuId" />
+    <result column="sku_code" jdbcType="VARCHAR" property="skuCode" />
+    <result column="sku_name" jdbcType="VARCHAR" property="skuName" />
+    <result column="color_id" jdbcType="INTEGER" property="colorId" />
+    <result column="color_code" jdbcType="VARCHAR" property="colorCode" />
+    <result column="color_name" jdbcType="VARCHAR" property="colorName" />
+    <result column="size_id" jdbcType="INTEGER" property="sizeId" />
+    <result column="size_code" jdbcType="VARCHAR" property="sizeCode" />
+    <result column="size_name" jdbcType="VARCHAR" property="sizeName" />
+    <result column="quantity" jdbcType="INTEGER" property="quantity" />
+    <result column="stock_quantity" jdbcType="INTEGER" property="stockQuantity" />
+    <result column="out_of_stock_quantity" jdbcType="INTEGER" property="outOfStockQuantity" />
+    <result column="weight" jdbcType="DECIMAL" property="weight" />
+    <result column="last_price" jdbcType="DECIMAL" property="lastPrice" />
+    <result column="local_price" jdbcType="DECIMAL" property="localPrice" />
+    <result column="local_amount" jdbcType="DECIMAL" property="localAmount" />
+    <result column="ware_quantity" jdbcType="INTEGER" property="wareQuantity" />
+    <result column="unware_quantity" jdbcType="INTEGER" property="unwareQuantity" />
+    <result column="is_storage" jdbcType="BIT" property="isStorage" />
+    <result column="comments" jdbcType="VARCHAR" property="comments" />
+    <result column="return_quantity" jdbcType="INTEGER" property="returnQuantity" />
+    <result column="defective_quantity" jdbcType="INTEGER" property="defectiveQuantity" />
+    <result column="total_ware_quantity" jdbcType="INTEGER" property="totalWareQuantity" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="VARCHAR" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, product_order_main_id, product_order_sub_code, goods_id, goods_code, goods_name, 
+    unit, main_img_url, goods_img_id, goods_img_url, sku_id, sku_code, sku_name, color_id, 
+    color_code, color_name, size_id, size_code, size_name, quantity, stock_quantity, 
+    out_of_stock_quantity, weight, last_price, local_price, local_amount, ware_quantity, 
+    unware_quantity, is_storage, comments, return_quantity, defective_quantity, total_ware_quantity, 
+    creator, create_time, modifier, modify_time
+  </sql>
+  <select id="selectByExample" parameterType="com.binger.stock.domain.ProductOrderDetailExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from product_order_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from product_order_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from product_order_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.binger.stock.domain.ProductOrderDetailExample">
+    delete from product_order_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.binger.stock.domain.ProductOrderDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into product_order_detail (product_order_main_id, product_order_sub_code, 
+      goods_id, goods_code, goods_name, 
+      unit, main_img_url, goods_img_id, 
+      goods_img_url, sku_id, sku_code, 
+      sku_name, color_id, color_code, 
+      color_name, size_id, size_code, 
+      size_name, quantity, stock_quantity, 
+      out_of_stock_quantity, weight, last_price, 
+      local_price, local_amount, ware_quantity, 
+      unware_quantity, is_storage, comments, 
+      return_quantity, defective_quantity, total_ware_quantity, 
+      creator, create_time, modifier, 
+      modify_time)
+    values (#{productOrderMainId,jdbcType=VARCHAR}, #{productOrderSubCode,jdbcType=VARCHAR}, 
+      #{goodsId,jdbcType=INTEGER}, #{goodsCode,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, 
+      #{unit,jdbcType=VARCHAR}, #{mainImgUrl,jdbcType=VARCHAR}, #{goodsImgId,jdbcType=INTEGER}, 
+      #{goodsImgUrl,jdbcType=VARCHAR}, #{skuId,jdbcType=INTEGER}, #{skuCode,jdbcType=VARCHAR}, 
+      #{skuName,jdbcType=VARCHAR}, #{colorId,jdbcType=INTEGER}, #{colorCode,jdbcType=VARCHAR}, 
+      #{colorName,jdbcType=VARCHAR}, #{sizeId,jdbcType=INTEGER}, #{sizeCode,jdbcType=VARCHAR}, 
+      #{sizeName,jdbcType=VARCHAR}, #{quantity,jdbcType=INTEGER}, #{stockQuantity,jdbcType=INTEGER}, 
+      #{outOfStockQuantity,jdbcType=INTEGER}, #{weight,jdbcType=DECIMAL}, #{lastPrice,jdbcType=DECIMAL}, 
+      #{localPrice,jdbcType=DECIMAL}, #{localAmount,jdbcType=DECIMAL}, #{wareQuantity,jdbcType=INTEGER}, 
+      #{unwareQuantity,jdbcType=INTEGER}, #{isStorage,jdbcType=BIT}, #{comments,jdbcType=VARCHAR}, 
+      #{returnQuantity,jdbcType=INTEGER}, #{defectiveQuantity,jdbcType=INTEGER}, #{totalWareQuantity,jdbcType=INTEGER}, 
+      #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, 
+      #{modifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.binger.stock.domain.ProductOrderDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into product_order_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="productOrderMainId != null">
+        product_order_main_id,
+      </if>
+      <if test="productOrderSubCode != null">
+        product_order_sub_code,
+      </if>
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="goodsCode != null">
+        goods_code,
+      </if>
+      <if test="goodsName != null">
+        goods_name,
+      </if>
+      <if test="unit != null">
+        unit,
+      </if>
+      <if test="mainImgUrl != null">
+        main_img_url,
+      </if>
+      <if test="goodsImgId != null">
+        goods_img_id,
+      </if>
+      <if test="goodsImgUrl != null">
+        goods_img_url,
+      </if>
+      <if test="skuId != null">
+        sku_id,
+      </if>
+      <if test="skuCode != null">
+        sku_code,
+      </if>
+      <if test="skuName != null">
+        sku_name,
+      </if>
+      <if test="colorId != null">
+        color_id,
+      </if>
+      <if test="colorCode != null">
+        color_code,
+      </if>
+      <if test="colorName != null">
+        color_name,
+      </if>
+      <if test="sizeId != null">
+        size_id,
+      </if>
+      <if test="sizeCode != null">
+        size_code,
+      </if>
+      <if test="sizeName != null">
+        size_name,
+      </if>
+      <if test="quantity != null">
+        quantity,
+      </if>
+      <if test="stockQuantity != null">
+        stock_quantity,
+      </if>
+      <if test="outOfStockQuantity != null">
+        out_of_stock_quantity,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="lastPrice != null">
+        last_price,
+      </if>
+      <if test="localPrice != null">
+        local_price,
+      </if>
+      <if test="localAmount != null">
+        local_amount,
+      </if>
+      <if test="wareQuantity != null">
+        ware_quantity,
+      </if>
+      <if test="unwareQuantity != null">
+        unware_quantity,
+      </if>
+      <if test="isStorage != null">
+        is_storage,
+      </if>
+      <if test="comments != null">
+        comments,
+      </if>
+      <if test="returnQuantity != null">
+        return_quantity,
+      </if>
+      <if test="defectiveQuantity != null">
+        defective_quantity,
+      </if>
+      <if test="totalWareQuantity != null">
+        total_ware_quantity,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="productOrderMainId != null">
+        #{productOrderMainId,jdbcType=VARCHAR},
+      </if>
+      <if test="productOrderSubCode != null">
+        #{productOrderSubCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsCode != null">
+        #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null">
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="mainImgUrl != null">
+        #{mainImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsImgId != null">
+        #{goodsImgId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsImgUrl != null">
+        #{goodsImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="skuId != null">
+        #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="skuCode != null">
+        #{skuCode,jdbcType=VARCHAR},
+      </if>
+      <if test="skuName != null">
+        #{skuName,jdbcType=VARCHAR},
+      </if>
+      <if test="colorId != null">
+        #{colorId,jdbcType=INTEGER},
+      </if>
+      <if test="colorCode != null">
+        #{colorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="colorName != null">
+        #{colorName,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeId != null">
+        #{sizeId,jdbcType=INTEGER},
+      </if>
+      <if test="sizeCode != null">
+        #{sizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeName != null">
+        #{sizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null">
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="stockQuantity != null">
+        #{stockQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="outOfStockQuantity != null">
+        #{outOfStockQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="lastPrice != null">
+        #{lastPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="localPrice != null">
+        #{localPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="localAmount != null">
+        #{localAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="wareQuantity != null">
+        #{wareQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="unwareQuantity != null">
+        #{unwareQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="isStorage != null">
+        #{isStorage,jdbcType=BIT},
+      </if>
+      <if test="comments != null">
+        #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="returnQuantity != null">
+        #{returnQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="defectiveQuantity != null">
+        #{defectiveQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="totalWareQuantity != null">
+        #{totalWareQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.binger.stock.domain.ProductOrderDetailExample" resultType="java.lang.Long">
+    select count(*) from product_order_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update product_order_detail
+    <set>
+      <if test="record.goodsId != null">
+        <if test="record.goodsId == -99999">
+          goods_id= null,
+        </if>
+        <if test="record.goodsId != -99999">
+          goods_id= #{record.goodsId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.goodsImgId != null">
+        <if test="record.goodsImgId == -99999">
+          goods_img_id= null,
+        </if>
+        <if test="record.goodsImgId != -99999">
+          goods_img_id= #{record.goodsImgId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.skuId != null">
+        <if test="record.skuId == -99999">
+          sku_id= null,
+        </if>
+        <if test="record.skuId != -99999">
+          sku_id= #{record.skuId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.colorId != null">
+        <if test="record.colorId == -99999">
+          color_id= null,
+        </if>
+        <if test="record.colorId != -99999">
+          color_id= #{record.colorId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.sizeId != null">
+        <if test="record.sizeId == -99999">
+          size_id= null,
+        </if>
+        <if test="record.sizeId != -99999">
+          size_id= #{record.sizeId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.quantity != null">
+        <if test="record.quantity == -99999">
+          quantity= null,
+        </if>
+        <if test="record.quantity != -99999">
+          quantity= #{record.quantity,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.stockQuantity != null">
+        <if test="record.stockQuantity == -99999">
+          stock_quantity= null,
+        </if>
+        <if test="record.stockQuantity != -99999">
+          stock_quantity= #{record.stockQuantity,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.outOfStockQuantity != null">
+        <if test="record.outOfStockQuantity == -99999">
+          out_of_stock_quantity= null,
+        </if>
+        <if test="record.outOfStockQuantity != -99999">
+          out_of_stock_quantity= #{record.outOfStockQuantity,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.weight != null">
+        <if test="record.weight == -99999">
+          weight= null,
+        </if>
+        <if test="record.weight != -99999">
+          weight= #{record.weight,jdbcType=DECIMAL},
+        </if>
+      </if>
+      <if test="record.lastPrice != null">
+        <if test="record.lastPrice == -99999">
+          last_price= null,
+        </if>
+        <if test="record.lastPrice != -99999">
+          last_price= #{record.lastPrice,jdbcType=DECIMAL},
+        </if>
+      </if>
+      <if test="record.localPrice != null">
+        <if test="record.localPrice == -99999">
+          local_price= null,
+        </if>
+        <if test="record.localPrice != -99999">
+          local_price= #{record.localPrice,jdbcType=DECIMAL},
+        </if>
+      </if>
+      <if test="record.localAmount != null">
+        <if test="record.localAmount == -99999">
+          local_amount= null,
+        </if>
+        <if test="record.localAmount != -99999">
+          local_amount= #{record.localAmount,jdbcType=DECIMAL},
+        </if>
+      </if>
+      <if test="record.wareQuantity != null">
+        <if test="record.wareQuantity == -99999">
+          ware_quantity= null,
+        </if>
+        <if test="record.wareQuantity != -99999">
+          ware_quantity= #{record.wareQuantity,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.unwareQuantity != null">
+        <if test="record.unwareQuantity == -99999">
+          unware_quantity= null,
+        </if>
+        <if test="record.unwareQuantity != -99999">
+          unware_quantity= #{record.unwareQuantity,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.returnQuantity != null">
+        <if test="record.returnQuantity == -99999">
+          return_quantity= null,
+        </if>
+        <if test="record.returnQuantity != -99999">
+          return_quantity= #{record.returnQuantity,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.defectiveQuantity != null">
+        <if test="record.defectiveQuantity == -99999">
+          defective_quantity= null,
+        </if>
+        <if test="record.defectiveQuantity != -99999">
+          defective_quantity= #{record.defectiveQuantity,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.totalWareQuantity != null">
+        <if test="record.totalWareQuantity == -99999">
+          total_ware_quantity= null,
+        </if>
+        <if test="record.totalWareQuantity != -99999">
+          total_ware_quantity= #{record.totalWareQuantity,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.createTime != null">
+        <if test="record.createTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
+          create_time= null,
+        </if>
+        <if test="record.createTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
+          create_time= #{record.createTime,jdbcType=TIMESTAMP},
+        </if>
+      </if>
+      <if test="record.modifyTime != null">
+        <if test="record.modifyTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
+          modify_time= null,
+        </if>
+        <if test="record.modifyTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
+          modify_time= #{record.modifyTime,jdbcType=TIMESTAMP},
+        </if>
+      </if>
+      <if test="record.productOrderMainId != null">
+        <if test="record.productOrderMainId == 'erpsetnull'">
+          product_order_main_id= null,
+        </if>
+        <if test="record.productOrderMainId != 'erpsetnull'">
+          product_order_main_id= #{record.productOrderMainId,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.productOrderSubCode != null">
+        <if test="record.productOrderSubCode == 'erpsetnull'">
+          product_order_sub_code= null,
+        </if>
+        <if test="record.productOrderSubCode != 'erpsetnull'">
+          product_order_sub_code= #{record.productOrderSubCode,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.goodsCode != null">
+        <if test="record.goodsCode == 'erpsetnull'">
+          goods_code= null,
+        </if>
+        <if test="record.goodsCode != 'erpsetnull'">
+          goods_code= #{record.goodsCode,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.goodsName != null">
+        <if test="record.goodsName == 'erpsetnull'">
+          goods_name= null,
+        </if>
+        <if test="record.goodsName != 'erpsetnull'">
+          goods_name= #{record.goodsName,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.unit != null">
+        <if test="record.unit == 'erpsetnull'">
+          unit= null,
+        </if>
+        <if test="record.unit != 'erpsetnull'">
+          unit= #{record.unit,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.mainImgUrl != null">
+        <if test="record.mainImgUrl == 'erpsetnull'">
+          main_img_url= null,
+        </if>
+        <if test="record.mainImgUrl != 'erpsetnull'">
+          main_img_url= #{record.mainImgUrl,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.goodsImgUrl != null">
+        <if test="record.goodsImgUrl == 'erpsetnull'">
+          goods_img_url= null,
+        </if>
+        <if test="record.goodsImgUrl != 'erpsetnull'">
+          goods_img_url= #{record.goodsImgUrl,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.skuCode != null">
+        <if test="record.skuCode == 'erpsetnull'">
+          sku_code= null,
+        </if>
+        <if test="record.skuCode != 'erpsetnull'">
+          sku_code= #{record.skuCode,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.skuName != null">
+        <if test="record.skuName == 'erpsetnull'">
+          sku_name= null,
+        </if>
+        <if test="record.skuName != 'erpsetnull'">
+          sku_name= #{record.skuName,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.colorCode != null">
+        <if test="record.colorCode == 'erpsetnull'">
+          color_code= null,
+        </if>
+        <if test="record.colorCode != 'erpsetnull'">
+          color_code= #{record.colorCode,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.colorName != null">
+        <if test="record.colorName == 'erpsetnull'">
+          color_name= null,
+        </if>
+        <if test="record.colorName != 'erpsetnull'">
+          color_name= #{record.colorName,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.sizeCode != null">
+        <if test="record.sizeCode == 'erpsetnull'">
+          size_code= null,
+        </if>
+        <if test="record.sizeCode != 'erpsetnull'">
+          size_code= #{record.sizeCode,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.sizeName != null">
+        <if test="record.sizeName == 'erpsetnull'">
+          size_name= null,
+        </if>
+        <if test="record.sizeName != 'erpsetnull'">
+          size_name= #{record.sizeName,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.comments != null">
+        <if test="record.comments == 'erpsetnull'">
+          comments= null,
+        </if>
+        <if test="record.comments != 'erpsetnull'">
+          comments= #{record.comments,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.creator != null">
+        <if test="record.creator == 'erpsetnull'">
+          creator= null,
+        </if>
+        <if test="record.creator != 'erpsetnull'">
+          creator= #{record.creator,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.modifier != null">
+        <if test="record.modifier == 'erpsetnull'">
+          modifier= null,
+        </if>
+        <if test="record.modifier != 'erpsetnull'">
+          modifier= #{record.modifier,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.isStorage != null">
+        is_storage= #{record.isStorage,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update product_order_detail
+    set id = #{record.id,jdbcType=INTEGER},
+      product_order_main_id = #{record.productOrderMainId,jdbcType=VARCHAR},
+      product_order_sub_code = #{record.productOrderSubCode,jdbcType=VARCHAR},
+      goods_id = #{record.goodsId,jdbcType=INTEGER},
+      goods_code = #{record.goodsCode,jdbcType=VARCHAR},
+      goods_name = #{record.goodsName,jdbcType=VARCHAR},
+      unit = #{record.unit,jdbcType=VARCHAR},
+      main_img_url = #{record.mainImgUrl,jdbcType=VARCHAR},
+      goods_img_id = #{record.goodsImgId,jdbcType=INTEGER},
+      goods_img_url = #{record.goodsImgUrl,jdbcType=VARCHAR},
+      sku_id = #{record.skuId,jdbcType=INTEGER},
+      sku_code = #{record.skuCode,jdbcType=VARCHAR},
+      sku_name = #{record.skuName,jdbcType=VARCHAR},
+      color_id = #{record.colorId,jdbcType=INTEGER},
+      color_code = #{record.colorCode,jdbcType=VARCHAR},
+      color_name = #{record.colorName,jdbcType=VARCHAR},
+      size_id = #{record.sizeId,jdbcType=INTEGER},
+      size_code = #{record.sizeCode,jdbcType=VARCHAR},
+      size_name = #{record.sizeName,jdbcType=VARCHAR},
+      quantity = #{record.quantity,jdbcType=INTEGER},
+      stock_quantity = #{record.stockQuantity,jdbcType=INTEGER},
+      out_of_stock_quantity = #{record.outOfStockQuantity,jdbcType=INTEGER},
+      weight = #{record.weight,jdbcType=DECIMAL},
+      last_price = #{record.lastPrice,jdbcType=DECIMAL},
+      local_price = #{record.localPrice,jdbcType=DECIMAL},
+      local_amount = #{record.localAmount,jdbcType=DECIMAL},
+      ware_quantity = #{record.wareQuantity,jdbcType=INTEGER},
+      unware_quantity = #{record.unwareQuantity,jdbcType=INTEGER},
+      is_storage = #{record.isStorage,jdbcType=BIT},
+      comments = #{record.comments,jdbcType=VARCHAR},
+      return_quantity = #{record.returnQuantity,jdbcType=INTEGER},
+      defective_quantity = #{record.defectiveQuantity,jdbcType=INTEGER},
+      total_ware_quantity = #{record.totalWareQuantity,jdbcType=INTEGER},
+      creator = #{record.creator,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      modifier = #{record.modifier,jdbcType=VARCHAR},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.binger.stock.domain.ProductOrderDetail">
+    update product_order_detail
+    <set>
+      <if test="goodsId != null">
+        <if test="goodsId == -99999">
+          goods_id= null,
+        </if>
+        <if test="goodsId != -99999">
+          goods_id= #{goodsId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="goodsImgId != null">
+        <if test="goodsImgId == -99999">
+          goods_img_id= null,
+        </if>
+        <if test="goodsImgId != -99999">
+          goods_img_id= #{goodsImgId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="skuId != null">
+        <if test="skuId == -99999">
+          sku_id= null,
+        </if>
+        <if test="skuId != -99999">
+          sku_id= #{skuId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="colorId != null">
+        <if test="colorId == -99999">
+          color_id= null,
+        </if>
+        <if test="colorId != -99999">
+          color_id= #{colorId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="sizeId != null">
+        <if test="sizeId == -99999">
+          size_id= null,
+        </if>
+        <if test="sizeId != -99999">
+          size_id= #{sizeId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="quantity != null">
+        <if test="quantity == -99999">
+          quantity= null,
+        </if>
+        <if test="quantity != -99999">
+          quantity= #{quantity,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="stockQuantity != null">
+        <if test="stockQuantity == -99999">
+          stock_quantity= null,
+        </if>
+        <if test="stockQuantity != -99999">
+          stock_quantity= #{stockQuantity,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="outOfStockQuantity != null">
+        <if test="outOfStockQuantity == -99999">
+          out_of_stock_quantity= null,
+        </if>
+        <if test="outOfStockQuantity != -99999">
+          out_of_stock_quantity= #{outOfStockQuantity,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="weight != null">
+        <if test="weight == -99999">
+          weight= null,
+        </if>
+        <if test="weight != -99999">
+          weight= #{weight,jdbcType=DECIMAL},
+        </if>
+      </if>
+      <if test="lastPrice != null">
+        <if test="lastPrice == -99999">
+          last_price= null,
+        </if>
+        <if test="lastPrice != -99999">
+          last_price= #{lastPrice,jdbcType=DECIMAL},
+        </if>
+      </if>
+      <if test="localPrice != null">
+        <if test="localPrice == -99999">
+          local_price= null,
+        </if>
+        <if test="localPrice != -99999">
+          local_price= #{localPrice,jdbcType=DECIMAL},
+        </if>
+      </if>
+      <if test="localAmount != null">
+        <if test="localAmount == -99999">
+          local_amount= null,
+        </if>
+        <if test="localAmount != -99999">
+          local_amount= #{localAmount,jdbcType=DECIMAL},
+        </if>
+      </if>
+      <if test="wareQuantity != null">
+        <if test="wareQuantity == -99999">
+          ware_quantity= null,
+        </if>
+        <if test="wareQuantity != -99999">
+          ware_quantity= #{wareQuantity,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="unwareQuantity != null">
+        <if test="unwareQuantity == -99999">
+          unware_quantity= null,
+        </if>
+        <if test="unwareQuantity != -99999">
+          unware_quantity= #{unwareQuantity,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="returnQuantity != null">
+        <if test="returnQuantity == -99999">
+          return_quantity= null,
+        </if>
+        <if test="returnQuantity != -99999">
+          return_quantity= #{returnQuantity,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="defectiveQuantity != null">
+        <if test="defectiveQuantity == -99999">
+          defective_quantity= null,
+        </if>
+        <if test="defectiveQuantity != -99999">
+          defective_quantity= #{defectiveQuantity,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="totalWareQuantity != null">
+        <if test="totalWareQuantity == -99999">
+          total_ware_quantity= null,
+        </if>
+        <if test="totalWareQuantity != -99999">
+          total_ware_quantity= #{totalWareQuantity,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="createTime != null">
+        <if test="createTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
+          create_time= null,
+        </if>
+        <if test="createTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
+          create_time= #{createTime,jdbcType=TIMESTAMP},
+        </if>
+      </if>
+      <if test="modifyTime != null">
+        <if test="modifyTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
+          modify_time= null,
+        </if>
+        <if test="modifyTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
+          modify_time= #{modifyTime,jdbcType=TIMESTAMP},
+        </if>
+      </if>
+      <if test="productOrderMainId != null">
+        <if test="productOrderMainId == 'erpsetnull'">
+          product_order_main_id= null,
+        </if>
+        <if test="productOrderMainId != 'erpsetnull'">
+          product_order_main_id= #{productOrderMainId,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="productOrderSubCode != null">
+        <if test="productOrderSubCode == 'erpsetnull'">
+          product_order_sub_code= null,
+        </if>
+        <if test="productOrderSubCode != 'erpsetnull'">
+          product_order_sub_code= #{productOrderSubCode,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="goodsCode != null">
+        <if test="goodsCode == 'erpsetnull'">
+          goods_code= null,
+        </if>
+        <if test="goodsCode != 'erpsetnull'">
+          goods_code= #{goodsCode,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="goodsName != null">
+        <if test="goodsName == 'erpsetnull'">
+          goods_name= null,
+        </if>
+        <if test="goodsName != 'erpsetnull'">
+          goods_name= #{goodsName,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="unit != null">
+        <if test="unit == 'erpsetnull'">
+          unit= null,
+        </if>
+        <if test="unit != 'erpsetnull'">
+          unit= #{unit,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="mainImgUrl != null">
+        <if test="mainImgUrl == 'erpsetnull'">
+          main_img_url= null,
+        </if>
+        <if test="mainImgUrl != 'erpsetnull'">
+          main_img_url= #{mainImgUrl,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="goodsImgUrl != null">
+        <if test="goodsImgUrl == 'erpsetnull'">
+          goods_img_url= null,
+        </if>
+        <if test="goodsImgUrl != 'erpsetnull'">
+          goods_img_url= #{goodsImgUrl,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="skuCode != null">
+        <if test="skuCode == 'erpsetnull'">
+          sku_code= null,
+        </if>
+        <if test="skuCode != 'erpsetnull'">
+          sku_code= #{skuCode,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="skuName != null">
+        <if test="skuName == 'erpsetnull'">
+          sku_name= null,
+        </if>
+        <if test="skuName != 'erpsetnull'">
+          sku_name= #{skuName,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="colorCode != null">
+        <if test="colorCode == 'erpsetnull'">
+          color_code= null,
+        </if>
+        <if test="colorCode != 'erpsetnull'">
+          color_code= #{colorCode,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="colorName != null">
+        <if test="colorName == 'erpsetnull'">
+          color_name= null,
+        </if>
+        <if test="colorName != 'erpsetnull'">
+          color_name= #{colorName,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="sizeCode != null">
+        <if test="sizeCode == 'erpsetnull'">
+          size_code= null,
+        </if>
+        <if test="sizeCode != 'erpsetnull'">
+          size_code= #{sizeCode,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="sizeName != null">
+        <if test="sizeName == 'erpsetnull'">
+          size_name= null,
+        </if>
+        <if test="sizeName != 'erpsetnull'">
+          size_name= #{sizeName,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="comments != null">
+        <if test="comments == 'erpsetnull'">
+          comments= null,
+        </if>
+        <if test="comments != 'erpsetnull'">
+          comments= #{comments,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="creator != null">
+        <if test="creator == 'erpsetnull'">
+          creator= null,
+        </if>
+        <if test="creator != 'erpsetnull'">
+          creator= #{creator,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="modifier != null">
+        <if test="modifier == 'erpsetnull'">
+          modifier= null,
+        </if>
+        <if test="modifier != 'erpsetnull'">
+          modifier= #{modifier,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="isStorage != null">
+        is_storage= #{isStorage,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.binger.stock.domain.ProductOrderDetail">
+    update product_order_detail
+    set product_order_main_id = #{productOrderMainId,jdbcType=VARCHAR},
+      product_order_sub_code = #{productOrderSubCode,jdbcType=VARCHAR},
+      goods_id = #{goodsId,jdbcType=INTEGER},
+      goods_code = #{goodsCode,jdbcType=VARCHAR},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      unit = #{unit,jdbcType=VARCHAR},
+      main_img_url = #{mainImgUrl,jdbcType=VARCHAR},
+      goods_img_id = #{goodsImgId,jdbcType=INTEGER},
+      goods_img_url = #{goodsImgUrl,jdbcType=VARCHAR},
+      sku_id = #{skuId,jdbcType=INTEGER},
+      sku_code = #{skuCode,jdbcType=VARCHAR},
+      sku_name = #{skuName,jdbcType=VARCHAR},
+      color_id = #{colorId,jdbcType=INTEGER},
+      color_code = #{colorCode,jdbcType=VARCHAR},
+      color_name = #{colorName,jdbcType=VARCHAR},
+      size_id = #{sizeId,jdbcType=INTEGER},
+      size_code = #{sizeCode,jdbcType=VARCHAR},
+      size_name = #{sizeName,jdbcType=VARCHAR},
+      quantity = #{quantity,jdbcType=INTEGER},
+      stock_quantity = #{stockQuantity,jdbcType=INTEGER},
+      out_of_stock_quantity = #{outOfStockQuantity,jdbcType=INTEGER},
+      weight = #{weight,jdbcType=DECIMAL},
+      last_price = #{lastPrice,jdbcType=DECIMAL},
+      local_price = #{localPrice,jdbcType=DECIMAL},
+      local_amount = #{localAmount,jdbcType=DECIMAL},
+      ware_quantity = #{wareQuantity,jdbcType=INTEGER},
+      unware_quantity = #{unwareQuantity,jdbcType=INTEGER},
+      is_storage = #{isStorage,jdbcType=BIT},
+      comments = #{comments,jdbcType=VARCHAR},
+      return_quantity = #{returnQuantity,jdbcType=INTEGER},
+      defective_quantity = #{defectiveQuantity,jdbcType=INTEGER},
+      total_ware_quantity = #{totalWareQuantity,jdbcType=INTEGER},
+      creator = #{creator,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleWithColSelected" parameterType="com.binger.stock.domain.ProductOrderDetailExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    ${selectiveField.toString()} 
+    from product_order_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKeyWithColSelected" resultMap="BaseResultMap">
+    select 
+    ${selectiveField.toString()} 
+    from product_order_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+</mapper>
