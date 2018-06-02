@@ -3,6 +3,8 @@ package com.binger.stock.dao;
 import com.binger.stock.domain.StockOutBillMain;
 import com.binger.stock.domain.StockOutBillMainExample;
 import java.util.List;
+import com.binger.stock.dto.query.StockOutMainQueryDto;
+import com.binger.stock.dto.ret.StockOutMainRetDto;
 import org.apache.ibatis.annotations.Param;
 
 public interface StockOutBillMainMapper {
@@ -31,4 +33,9 @@ public interface StockOutBillMainMapper {
     int updateByPrimaryKeySelective(StockOutBillMain record);
 
     int updateByPrimaryKey(StockOutBillMain record);
+
+
+    Long countByQuery(@Param("queryDto") StockOutMainQueryDto stockOutMainQueryDto);
+
+    List<StockOutMainRetDto> listByQuery(@Param("queryDto") StockOutMainQueryDto stockOutMainQueryDto);
 }

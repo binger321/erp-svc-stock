@@ -1,11 +1,11 @@
 package com.binger.stock.domain;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
 /**
  * 出库表主表
@@ -25,16 +25,16 @@ public class StockOutBillMain implements Serializable {
     private String stockoutBillMainCode;
 
     /**
+     * 退货单号
+     */
+    @ApiModelProperty(value="退货单号",required = false)
+    private String returnProductReturnCode;
+
+    /**
      * 销售订单号
      */
     @ApiModelProperty(value="销售订单号",required = false)
     private String orderSaleCode;
-
-    /**
-     * 发货单ID，wms_shipment_main
-     */
-    @ApiModelProperty(value="发货单ID，wms_shipment_main",required = false)
-    private Integer shipmentId;
 
     /**
      * 出库仓库
@@ -43,28 +43,16 @@ public class StockOutBillMain implements Serializable {
     private Integer warehouseId;
 
     /**
-     * '出库类型,100订单出库-发货出库 200其他出库-盘亏出库 300其他出库-报废出库 400返修出库,默认残次品库出库 500调拨出库 600其他出库-改码'
+     * '出库类型,100订单出库-发货出库 200其他出库-报废出库 300返修出库,默认残次品库出库 400调拨出库 500其他出库-改码'
      */
-    @ApiModelProperty(value="'出库类型,100订单出库-发货出库 200其他出库-盘亏出库 300其他出库-报废出库 400返修出库,默认残次品库出库 500调拨出库 600其他出库-改码'",required = false)
+    @ApiModelProperty(value="'出库类型,100订单出库-发货出库 200其他出库-报废出库 300返修出库,默认残次品库出库 400调拨出库 500其他出库-改码'",required = false)
     private Integer billType;
-
-    /**
-     * 出库日期
-     */
-    @ApiModelProperty(value="出库日期",required = false)
-    private Date stockoutDate;
 
     /**
      * 审核时间
      */
     @ApiModelProperty(value="审核时间",required = false)
     private Date auditDate;
-
-    /**
-     * 审核人ID
-     */
-    @ApiModelProperty(value="审核人ID",required = false)
-    private Integer auditPersonId;
 
     /**
      * 审核人名字
@@ -83,12 +71,6 @@ public class StockOutBillMain implements Serializable {
      */
     @ApiModelProperty(value="数量",required = false)
     private Integer quantity;
-
-    /**
-     * 备注
-     */
-    @ApiModelProperty(value="备注",required = false)
-    private String remark;
 
     /**
      * 出库状态,100保存 200审核 900归档 9挂起
@@ -145,9 +127,9 @@ public class StockOutBillMain implements Serializable {
     private String logistCompanyName;
 
     /**
-     * 物流跟踪号,保留字段，原型图上没有
+     * 物流跟踪号
      */
-    @ApiModelProperty(value="物流跟踪号,保留字段，原型图上没有",required = false)
+    @ApiModelProperty(value="物流跟踪号",required = false)
     private String trackNumber;
 
     /**
@@ -157,27 +139,21 @@ public class StockOutBillMain implements Serializable {
     private BigDecimal logistMoney;
 
     /**
-     * 包装成本
+     * 出库总金额
      */
-    @ApiModelProperty(value="包装成本",required = false)
-    private BigDecimal packingCost;
+    @ApiModelProperty(value="出库总金额",required = false)
+    private BigDecimal totalAmount;
 
     /**
-     * 退货单号
+     * 备注
      */
-    @ApiModelProperty(value="退货单号",required = false)
-    private String returnGoodsCode;
-
-    /**
-     * 单据日期
-     */
-    @ApiModelProperty(value="单据日期",required = false)
-    private Date billDate;
+    @ApiModelProperty(value="备注",required = false)
+    private String remark;
 
     /**
      * 创建人
      */
-    @ApiModelProperty(value="创建人",required = true)
+    @ApiModelProperty(value="创建人",required = false)
     private String creator;
 
     /**
@@ -236,6 +212,22 @@ public class StockOutBillMain implements Serializable {
     }
 
     /**
+     * 退货单号
+     * @return return_product_return_code 退货单号
+     */
+    public String getReturnProductReturnCode() {
+        return returnProductReturnCode;
+    }
+
+    /**
+     * 退货单号
+     * @param returnProductReturnCode 退货单号
+     */
+    public void setReturnProductReturnCode(String returnProductReturnCode) {
+        this.returnProductReturnCode = returnProductReturnCode == null ? null : returnProductReturnCode.trim();
+    }
+
+    /**
      * 销售订单号
      * @return order_sale_code 销售订单号
      */
@@ -249,22 +241,6 @@ public class StockOutBillMain implements Serializable {
      */
     public void setOrderSaleCode(String orderSaleCode) {
         this.orderSaleCode = orderSaleCode == null ? null : orderSaleCode.trim();
-    }
-
-    /**
-     * 发货单ID，wms_shipment_main
-     * @return shipment_id 发货单ID，wms_shipment_main
-     */
-    public Integer getShipmentId() {
-        return shipmentId;
-    }
-
-    /**
-     * 发货单ID，wms_shipment_main
-     * @param shipmentId 发货单ID，wms_shipment_main
-     */
-    public void setShipmentId(Integer shipmentId) {
-        this.shipmentId = shipmentId;
     }
 
     /**
@@ -284,35 +260,19 @@ public class StockOutBillMain implements Serializable {
     }
 
     /**
-     * '出库类型,100订单出库-发货出库 200其他出库-盘亏出库 300其他出库-报废出库 400返修出库,默认残次品库出库 500调拨出库 600其他出库-改码'
-     * @return bill_type '出库类型,100订单出库-发货出库 200其他出库-盘亏出库 300其他出库-报废出库 400返修出库,默认残次品库出库 500调拨出库 600其他出库-改码'
+     * '出库类型,100订单出库-发货出库 200其他出库-报废出库 300返修出库,默认残次品库出库 400调拨出库 500其他出库-改码'
+     * @return bill_type '出库类型,100订单出库-发货出库 200其他出库-报废出库 300返修出库,默认残次品库出库 400调拨出库 500其他出库-改码'
      */
     public Integer getBillType() {
         return billType;
     }
 
     /**
-     * '出库类型,100订单出库-发货出库 200其他出库-盘亏出库 300其他出库-报废出库 400返修出库,默认残次品库出库 500调拨出库 600其他出库-改码'
-     * @param billType '出库类型,100订单出库-发货出库 200其他出库-盘亏出库 300其他出库-报废出库 400返修出库,默认残次品库出库 500调拨出库 600其他出库-改码'
+     * '出库类型,100订单出库-发货出库 200其他出库-报废出库 300返修出库,默认残次品库出库 400调拨出库 500其他出库-改码'
+     * @param billType '出库类型,100订单出库-发货出库 200其他出库-报废出库 300返修出库,默认残次品库出库 400调拨出库 500其他出库-改码'
      */
     public void setBillType(Integer billType) {
         this.billType = billType;
-    }
-
-    /**
-     * 出库日期
-     * @return stockout_date 出库日期
-     */
-    public Date getStockoutDate() {
-        return stockoutDate;
-    }
-
-    /**
-     * 出库日期
-     * @param stockoutDate 出库日期
-     */
-    public void setStockoutDate(Date stockoutDate) {
-        this.stockoutDate = stockoutDate;
     }
 
     /**
@@ -329,22 +289,6 @@ public class StockOutBillMain implements Serializable {
      */
     public void setAuditDate(Date auditDate) {
         this.auditDate = auditDate;
-    }
-
-    /**
-     * 审核人ID
-     * @return audit_person_id 审核人ID
-     */
-    public Integer getAuditPersonId() {
-        return auditPersonId;
-    }
-
-    /**
-     * 审核人ID
-     * @param auditPersonId 审核人ID
-     */
-    public void setAuditPersonId(Integer auditPersonId) {
-        this.auditPersonId = auditPersonId;
     }
 
     /**
@@ -393,22 +337,6 @@ public class StockOutBillMain implements Serializable {
      */
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
-    }
-
-    /**
-     * 备注
-     * @return remark 备注
-     */
-    public String getRemark() {
-        return remark;
-    }
-
-    /**
-     * 备注
-     * @param remark 备注
-     */
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
     }
 
     /**
@@ -556,16 +484,16 @@ public class StockOutBillMain implements Serializable {
     }
 
     /**
-     * 物流跟踪号,保留字段，原型图上没有
-     * @return track_number 物流跟踪号,保留字段，原型图上没有
+     * 物流跟踪号
+     * @return track_number 物流跟踪号
      */
     public String getTrackNumber() {
         return trackNumber;
     }
 
     /**
-     * 物流跟踪号,保留字段，原型图上没有
-     * @param trackNumber 物流跟踪号,保留字段，原型图上没有
+     * 物流跟踪号
+     * @param trackNumber 物流跟踪号
      */
     public void setTrackNumber(String trackNumber) {
         this.trackNumber = trackNumber == null ? null : trackNumber.trim();
@@ -588,51 +516,35 @@ public class StockOutBillMain implements Serializable {
     }
 
     /**
-     * 包装成本
-     * @return packing_cost 包装成本
+     * 出库总金额
+     * @return total_amount 出库总金额
      */
-    public BigDecimal getPackingCost() {
-        return packingCost;
+    public BigDecimal getTotalAmount() {
+        return totalAmount;
     }
 
     /**
-     * 包装成本
-     * @param packingCost 包装成本
+     * 出库总金额
+     * @param totalAmount 出库总金额
      */
-    public void setPackingCost(BigDecimal packingCost) {
-        this.packingCost = packingCost;
+    public void setTotalAmount(BigDecimal totalAmount) {
+        this.totalAmount = totalAmount;
     }
 
     /**
-     * 退货单号
-     * @return return_goods_code 退货单号
+     * 备注
+     * @return remark 备注
      */
-    public String getReturnGoodsCode() {
-        return returnGoodsCode;
+    public String getRemark() {
+        return remark;
     }
 
     /**
-     * 退货单号
-     * @param returnGoodsCode 退货单号
+     * 备注
+     * @param remark 备注
      */
-    public void setReturnGoodsCode(String returnGoodsCode) {
-        this.returnGoodsCode = returnGoodsCode == null ? null : returnGoodsCode.trim();
-    }
-
-    /**
-     * 单据日期
-     * @return bill_date 单据日期
-     */
-    public Date getBillDate() {
-        return billDate;
-    }
-
-    /**
-     * 单据日期
-     * @param billDate 单据日期
-     */
-    public void setBillDate(Date billDate) {
-        this.billDate = billDate;
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 
     /**
@@ -713,17 +625,14 @@ public class StockOutBillMain implements Serializable {
         StockOutBillMain other = (StockOutBillMain) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getStockoutBillMainCode() == null ? other.getStockoutBillMainCode() == null : this.getStockoutBillMainCode().equals(other.getStockoutBillMainCode()))
+            && (this.getReturnProductReturnCode() == null ? other.getReturnProductReturnCode() == null : this.getReturnProductReturnCode().equals(other.getReturnProductReturnCode()))
             && (this.getOrderSaleCode() == null ? other.getOrderSaleCode() == null : this.getOrderSaleCode().equals(other.getOrderSaleCode()))
-            && (this.getShipmentId() == null ? other.getShipmentId() == null : this.getShipmentId().equals(other.getShipmentId()))
             && (this.getWarehouseId() == null ? other.getWarehouseId() == null : this.getWarehouseId().equals(other.getWarehouseId()))
             && (this.getBillType() == null ? other.getBillType() == null : this.getBillType().equals(other.getBillType()))
-            && (this.getStockoutDate() == null ? other.getStockoutDate() == null : this.getStockoutDate().equals(other.getStockoutDate()))
             && (this.getAuditDate() == null ? other.getAuditDate() == null : this.getAuditDate().equals(other.getAuditDate()))
-            && (this.getAuditPersonId() == null ? other.getAuditPersonId() == null : this.getAuditPersonId().equals(other.getAuditPersonId()))
             && (this.getAuditor() == null ? other.getAuditor() == null : this.getAuditor().equals(other.getAuditor()))
             && (this.getStockoutTime() == null ? other.getStockoutTime() == null : this.getStockoutTime().equals(other.getStockoutTime()))
             && (this.getQuantity() == null ? other.getQuantity() == null : this.getQuantity().equals(other.getQuantity()))
-            && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
             && (this.getStockoutStatus() == null ? other.getStockoutStatus() == null : this.getStockoutStatus().equals(other.getStockoutStatus()))
             && (this.getCustomerName() == null ? other.getCustomerName() == null : this.getCustomerName().equals(other.getCustomerName()))
             && (this.getCountryId() == null ? other.getCountryId() == null : this.getCountryId().equals(other.getCountryId()))
@@ -735,9 +644,8 @@ public class StockOutBillMain implements Serializable {
             && (this.getLogistCompanyName() == null ? other.getLogistCompanyName() == null : this.getLogistCompanyName().equals(other.getLogistCompanyName()))
             && (this.getTrackNumber() == null ? other.getTrackNumber() == null : this.getTrackNumber().equals(other.getTrackNumber()))
             && (this.getLogistMoney() == null ? other.getLogistMoney() == null : this.getLogistMoney().equals(other.getLogistMoney()))
-            && (this.getPackingCost() == null ? other.getPackingCost() == null : this.getPackingCost().equals(other.getPackingCost()))
-            && (this.getReturnGoodsCode() == null ? other.getReturnGoodsCode() == null : this.getReturnGoodsCode().equals(other.getReturnGoodsCode()))
-            && (this.getBillDate() == null ? other.getBillDate() == null : this.getBillDate().equals(other.getBillDate()))
+            && (this.getTotalAmount() == null ? other.getTotalAmount() == null : this.getTotalAmount().equals(other.getTotalAmount()))
+            && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
             && (this.getCreator() == null ? other.getCreator() == null : this.getCreator().equals(other.getCreator()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getModifier() == null ? other.getModifier() == null : this.getModifier().equals(other.getModifier()))
@@ -750,17 +658,14 @@ public class StockOutBillMain implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getStockoutBillMainCode() == null) ? 0 : getStockoutBillMainCode().hashCode());
+        result = prime * result + ((getReturnProductReturnCode() == null) ? 0 : getReturnProductReturnCode().hashCode());
         result = prime * result + ((getOrderSaleCode() == null) ? 0 : getOrderSaleCode().hashCode());
-        result = prime * result + ((getShipmentId() == null) ? 0 : getShipmentId().hashCode());
         result = prime * result + ((getWarehouseId() == null) ? 0 : getWarehouseId().hashCode());
         result = prime * result + ((getBillType() == null) ? 0 : getBillType().hashCode());
-        result = prime * result + ((getStockoutDate() == null) ? 0 : getStockoutDate().hashCode());
         result = prime * result + ((getAuditDate() == null) ? 0 : getAuditDate().hashCode());
-        result = prime * result + ((getAuditPersonId() == null) ? 0 : getAuditPersonId().hashCode());
         result = prime * result + ((getAuditor() == null) ? 0 : getAuditor().hashCode());
         result = prime * result + ((getStockoutTime() == null) ? 0 : getStockoutTime().hashCode());
         result = prime * result + ((getQuantity() == null) ? 0 : getQuantity().hashCode());
-        result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         result = prime * result + ((getStockoutStatus() == null) ? 0 : getStockoutStatus().hashCode());
         result = prime * result + ((getCustomerName() == null) ? 0 : getCustomerName().hashCode());
         result = prime * result + ((getCountryId() == null) ? 0 : getCountryId().hashCode());
@@ -772,9 +677,8 @@ public class StockOutBillMain implements Serializable {
         result = prime * result + ((getLogistCompanyName() == null) ? 0 : getLogistCompanyName().hashCode());
         result = prime * result + ((getTrackNumber() == null) ? 0 : getTrackNumber().hashCode());
         result = prime * result + ((getLogistMoney() == null) ? 0 : getLogistMoney().hashCode());
-        result = prime * result + ((getPackingCost() == null) ? 0 : getPackingCost().hashCode());
-        result = prime * result + ((getReturnGoodsCode() == null) ? 0 : getReturnGoodsCode().hashCode());
-        result = prime * result + ((getBillDate() == null) ? 0 : getBillDate().hashCode());
+        result = prime * result + ((getTotalAmount() == null) ? 0 : getTotalAmount().hashCode());
+        result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         result = prime * result + ((getCreator() == null) ? 0 : getCreator().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getModifier() == null) ? 0 : getModifier().hashCode());
@@ -790,17 +694,14 @@ public class StockOutBillMain implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", stockoutBillMainCode=").append(stockoutBillMainCode);
+        sb.append(", returnProductReturnCode=").append(returnProductReturnCode);
         sb.append(", orderSaleCode=").append(orderSaleCode);
-        sb.append(", shipmentId=").append(shipmentId);
         sb.append(", warehouseId=").append(warehouseId);
         sb.append(", billType=").append(billType);
-        sb.append(", stockoutDate=").append(stockoutDate);
         sb.append(", auditDate=").append(auditDate);
-        sb.append(", auditPersonId=").append(auditPersonId);
         sb.append(", auditor=").append(auditor);
         sb.append(", stockoutTime=").append(stockoutTime);
         sb.append(", quantity=").append(quantity);
-        sb.append(", remark=").append(remark);
         sb.append(", stockoutStatus=").append(stockoutStatus);
         sb.append(", customerName=").append(customerName);
         sb.append(", countryId=").append(countryId);
@@ -812,9 +713,8 @@ public class StockOutBillMain implements Serializable {
         sb.append(", logistCompanyName=").append(logistCompanyName);
         sb.append(", trackNumber=").append(trackNumber);
         sb.append(", logistMoney=").append(logistMoney);
-        sb.append(", packingCost=").append(packingCost);
-        sb.append(", returnGoodsCode=").append(returnGoodsCode);
-        sb.append(", billDate=").append(billDate);
+        sb.append(", totalAmount=").append(totalAmount);
+        sb.append(", remark=").append(remark);
         sb.append(", creator=").append(creator);
         sb.append(", createTime=").append(createTime);
         sb.append(", modifier=").append(modifier);

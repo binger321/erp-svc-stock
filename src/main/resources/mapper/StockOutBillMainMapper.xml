@@ -4,17 +4,14 @@
   <resultMap id="BaseResultMap" type="com.binger.stock.domain.StockOutBillMain">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="stockout_bill_main_code" jdbcType="VARCHAR" property="stockoutBillMainCode" />
+    <result column="return_product_return_code" jdbcType="VARCHAR" property="returnProductReturnCode" />
     <result column="order_sale_code" jdbcType="VARCHAR" property="orderSaleCode" />
-    <result column="shipment_id" jdbcType="INTEGER" property="shipmentId" />
     <result column="warehouse_id" jdbcType="INTEGER" property="warehouseId" />
     <result column="bill_type" jdbcType="INTEGER" property="billType" />
-    <result column="stockout_date" jdbcType="TIMESTAMP" property="stockoutDate" />
     <result column="audit_date" jdbcType="TIMESTAMP" property="auditDate" />
-    <result column="audit_person_id" jdbcType="INTEGER" property="auditPersonId" />
     <result column="auditor" jdbcType="VARCHAR" property="auditor" />
     <result column="stockout_time" jdbcType="TIMESTAMP" property="stockoutTime" />
     <result column="quantity" jdbcType="INTEGER" property="quantity" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="stockout_status" jdbcType="INTEGER" property="stockoutStatus" />
     <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
     <result column="country_id" jdbcType="INTEGER" property="countryId" />
@@ -26,9 +23,8 @@
     <result column="logist_company_name" jdbcType="VARCHAR" property="logistCompanyName" />
     <result column="track_number" jdbcType="VARCHAR" property="trackNumber" />
     <result column="logist_money" jdbcType="DECIMAL" property="logistMoney" />
-    <result column="packing_cost" jdbcType="DECIMAL" property="packingCost" />
-    <result column="return_goods_code" jdbcType="VARCHAR" property="returnGoodsCode" />
-    <result column="bill_date" jdbcType="TIMESTAMP" property="billDate" />
+    <result column="total_amount" jdbcType="DECIMAL" property="totalAmount" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="creator" jdbcType="VARCHAR" property="creator" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="modifier" jdbcType="VARCHAR" property="modifier" />
@@ -93,11 +89,11 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, stockout_bill_main_code, order_sale_code, shipment_id, warehouse_id, bill_type, 
-    stockout_date, audit_date, audit_person_id, auditor, stockout_time, quantity, remark, 
-    stockout_status, customer_name, country_id, country_code, country_name, address1, 
-    delay_days, logist_status, logist_company_name, track_number, logist_money, packing_cost, 
-    return_goods_code, bill_date, creator, create_time, modifier, modify_time
+    id, stockout_bill_main_code, return_product_return_code, order_sale_code, warehouse_id, 
+    bill_type, audit_date, auditor, stockout_time, quantity, stockout_status, customer_name, 
+    country_id, country_code, country_name, address1, delay_days, logist_status, logist_company_name, 
+    track_number, logist_money, total_amount, remark, creator, create_time, modifier, 
+    modify_time
   </sql>
   <select id="selectByExample" parameterType="com.binger.stock.domain.StockOutBillMainExample" resultMap="BaseResultMap">
     select
@@ -142,28 +138,26 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into stock_out_bill_main (stockout_bill_main_code, order_sale_code, 
-      shipment_id, warehouse_id, bill_type, 
-      stockout_date, audit_date, audit_person_id, 
-      auditor, stockout_time, quantity, 
-      remark, stockout_status, customer_name, 
+    insert into stock_out_bill_main (stockout_bill_main_code, return_product_return_code, 
+      order_sale_code, warehouse_id, bill_type, 
+      audit_date, auditor, stockout_time, 
+      quantity, stockout_status, customer_name, 
       country_id, country_code, country_name, 
       address1, delay_days, logist_status, 
       logist_company_name, track_number, logist_money, 
-      packing_cost, return_goods_code, bill_date, 
-      creator, create_time, modifier, 
-      modify_time)
-    values (#{stockoutBillMainCode,jdbcType=VARCHAR}, #{orderSaleCode,jdbcType=VARCHAR}, 
-      #{shipmentId,jdbcType=INTEGER}, #{warehouseId,jdbcType=INTEGER}, #{billType,jdbcType=INTEGER}, 
-      #{stockoutDate,jdbcType=TIMESTAMP}, #{auditDate,jdbcType=TIMESTAMP}, #{auditPersonId,jdbcType=INTEGER}, 
-      #{auditor,jdbcType=VARCHAR}, #{stockoutTime,jdbcType=TIMESTAMP}, #{quantity,jdbcType=INTEGER}, 
-      #{remark,jdbcType=VARCHAR}, #{stockoutStatus,jdbcType=INTEGER}, #{customerName,jdbcType=VARCHAR}, 
+      total_amount, remark, creator, 
+      create_time, modifier, modify_time
+      )
+    values (#{stockoutBillMainCode,jdbcType=VARCHAR}, #{returnProductReturnCode,jdbcType=VARCHAR}, 
+      #{orderSaleCode,jdbcType=VARCHAR}, #{warehouseId,jdbcType=INTEGER}, #{billType,jdbcType=INTEGER}, 
+      #{auditDate,jdbcType=TIMESTAMP}, #{auditor,jdbcType=VARCHAR}, #{stockoutTime,jdbcType=TIMESTAMP}, 
+      #{quantity,jdbcType=INTEGER}, #{stockoutStatus,jdbcType=INTEGER}, #{customerName,jdbcType=VARCHAR}, 
       #{countryId,jdbcType=INTEGER}, #{countryCode,jdbcType=VARCHAR}, #{countryName,jdbcType=VARCHAR}, 
       #{address1,jdbcType=VARCHAR}, #{delayDays,jdbcType=INTEGER}, #{logistStatus,jdbcType=INTEGER}, 
       #{logistCompanyName,jdbcType=VARCHAR}, #{trackNumber,jdbcType=VARCHAR}, #{logistMoney,jdbcType=DECIMAL}, 
-      #{packingCost,jdbcType=DECIMAL}, #{returnGoodsCode,jdbcType=VARCHAR}, #{billDate,jdbcType=TIMESTAMP}, 
-      #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, 
-      #{modifyTime,jdbcType=TIMESTAMP})
+      #{totalAmount,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.binger.stock.domain.StockOutBillMain">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -174,11 +168,11 @@
       <if test="stockoutBillMainCode != null">
         stockout_bill_main_code,
       </if>
+      <if test="returnProductReturnCode != null">
+        return_product_return_code,
+      </if>
       <if test="orderSaleCode != null">
         order_sale_code,
-      </if>
-      <if test="shipmentId != null">
-        shipment_id,
       </if>
       <if test="warehouseId != null">
         warehouse_id,
@@ -186,14 +180,8 @@
       <if test="billType != null">
         bill_type,
       </if>
-      <if test="stockoutDate != null">
-        stockout_date,
-      </if>
       <if test="auditDate != null">
         audit_date,
-      </if>
-      <if test="auditPersonId != null">
-        audit_person_id,
       </if>
       <if test="auditor != null">
         auditor,
@@ -203,9 +191,6 @@
       </if>
       <if test="quantity != null">
         quantity,
-      </if>
-      <if test="remark != null">
-        remark,
       </if>
       <if test="stockoutStatus != null">
         stockout_status,
@@ -240,14 +225,11 @@
       <if test="logistMoney != null">
         logist_money,
       </if>
-      <if test="packingCost != null">
-        packing_cost,
+      <if test="totalAmount != null">
+        total_amount,
       </if>
-      <if test="returnGoodsCode != null">
-        return_goods_code,
-      </if>
-      <if test="billDate != null">
-        bill_date,
+      <if test="remark != null">
+        remark,
       </if>
       <if test="creator != null">
         creator,
@@ -266,11 +248,11 @@
       <if test="stockoutBillMainCode != null">
         #{stockoutBillMainCode,jdbcType=VARCHAR},
       </if>
+      <if test="returnProductReturnCode != null">
+        #{returnProductReturnCode,jdbcType=VARCHAR},
+      </if>
       <if test="orderSaleCode != null">
         #{orderSaleCode,jdbcType=VARCHAR},
-      </if>
-      <if test="shipmentId != null">
-        #{shipmentId,jdbcType=INTEGER},
       </if>
       <if test="warehouseId != null">
         #{warehouseId,jdbcType=INTEGER},
@@ -278,14 +260,8 @@
       <if test="billType != null">
         #{billType,jdbcType=INTEGER},
       </if>
-      <if test="stockoutDate != null">
-        #{stockoutDate,jdbcType=TIMESTAMP},
-      </if>
       <if test="auditDate != null">
         #{auditDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="auditPersonId != null">
-        #{auditPersonId,jdbcType=INTEGER},
       </if>
       <if test="auditor != null">
         #{auditor,jdbcType=VARCHAR},
@@ -295,9 +271,6 @@
       </if>
       <if test="quantity != null">
         #{quantity,jdbcType=INTEGER},
-      </if>
-      <if test="remark != null">
-        #{remark,jdbcType=VARCHAR},
       </if>
       <if test="stockoutStatus != null">
         #{stockoutStatus,jdbcType=INTEGER},
@@ -332,14 +305,11 @@
       <if test="logistMoney != null">
         #{logistMoney,jdbcType=DECIMAL},
       </if>
-      <if test="packingCost != null">
-        #{packingCost,jdbcType=DECIMAL},
+      <if test="totalAmount != null">
+        #{totalAmount,jdbcType=DECIMAL},
       </if>
-      <if test="returnGoodsCode != null">
-        #{returnGoodsCode,jdbcType=VARCHAR},
-      </if>
-      <if test="billDate != null">
-        #{billDate,jdbcType=TIMESTAMP},
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
       </if>
       <if test="creator != null">
         #{creator,jdbcType=VARCHAR},
@@ -364,148 +334,20 @@
   <update id="updateByExampleSelective" parameterType="map">
     update stock_out_bill_main
     <set>
-      <if test="record.shipmentId != null">
-        <if test="record.shipmentId == -99999">
-          shipment_id= null,
-        </if>
-        <if test="record.shipmentId != -99999">
-          shipment_id= #{record.shipmentId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="record.warehouseId != null">
-        <if test="record.warehouseId == -99999">
-          warehouse_id= null,
-        </if>
-        <if test="record.warehouseId != -99999">
-          warehouse_id= #{record.warehouseId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="record.billType != null">
-        <if test="record.billType == -99999">
-          bill_type= null,
-        </if>
-        <if test="record.billType != -99999">
-          bill_type= #{record.billType,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="record.auditPersonId != null">
-        <if test="record.auditPersonId == -99999">
-          audit_person_id= null,
-        </if>
-        <if test="record.auditPersonId != -99999">
-          audit_person_id= #{record.auditPersonId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="record.quantity != null">
-        <if test="record.quantity == -99999">
-          quantity= null,
-        </if>
-        <if test="record.quantity != -99999">
-          quantity= #{record.quantity,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="record.stockoutStatus != null">
-        <if test="record.stockoutStatus == -99999">
-          stockout_status= null,
-        </if>
-        <if test="record.stockoutStatus != -99999">
-          stockout_status= #{record.stockoutStatus,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="record.countryId != null">
-        <if test="record.countryId == -99999">
-          country_id= null,
-        </if>
-        <if test="record.countryId != -99999">
-          country_id= #{record.countryId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="record.delayDays != null">
-        <if test="record.delayDays == -99999">
-          delay_days= null,
-        </if>
-        <if test="record.delayDays != -99999">
-          delay_days= #{record.delayDays,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="record.logistStatus != null">
-        <if test="record.logistStatus == -99999">
-          logist_status= null,
-        </if>
-        <if test="record.logistStatus != -99999">
-          logist_status= #{record.logistStatus,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="record.logistMoney != null">
-        <if test="record.logistMoney == -99999">
-          logist_money= null,
-        </if>
-        <if test="record.logistMoney != -99999">
-          logist_money= #{record.logistMoney,jdbcType=DECIMAL},
-        </if>
-      </if>
-      <if test="record.packingCost != null">
-        <if test="record.packingCost == -99999">
-          packing_cost= null,
-        </if>
-        <if test="record.packingCost != -99999">
-          packing_cost= #{record.packingCost,jdbcType=DECIMAL},
-        </if>
-      </if>
-      <if test="record.stockoutDate != null">
-        <if test="record.stockoutDate.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
-          stockout_date= null,
-        </if>
-        <if test="record.stockoutDate.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
-          stockout_date= #{record.stockoutDate,jdbcType=TIMESTAMP},
-        </if>
-      </if>
-      <if test="record.auditDate != null">
-        <if test="record.auditDate.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
-          audit_date= null,
-        </if>
-        <if test="record.auditDate.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
-          audit_date= #{record.auditDate,jdbcType=TIMESTAMP},
-        </if>
-      </if>
-      <if test="record.stockoutTime != null">
-        <if test="record.stockoutTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
-          stockout_time= null,
-        </if>
-        <if test="record.stockoutTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
-          stockout_time= #{record.stockoutTime,jdbcType=TIMESTAMP},
-        </if>
-      </if>
-      <if test="record.billDate != null">
-        <if test="record.billDate.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
-          bill_date= null,
-        </if>
-        <if test="record.billDate.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
-          bill_date= #{record.billDate,jdbcType=TIMESTAMP},
-        </if>
-      </if>
-      <if test="record.createTime != null">
-        <if test="record.createTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
-          create_time= null,
-        </if>
-        <if test="record.createTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
-          create_time= #{record.createTime,jdbcType=TIMESTAMP},
-        </if>
-      </if>
-      <if test="record.modifyTime != null">
-        <if test="record.modifyTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
-          modify_time= null,
-        </if>
-        <if test="record.modifyTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
-          modify_time= #{record.modifyTime,jdbcType=TIMESTAMP},
-        </if>
-      </if>
       <if test="record.stockoutBillMainCode != null">
         <if test="record.stockoutBillMainCode == 'erpsetnull'">
           stockout_bill_main_code= null,
         </if>
         <if test="record.stockoutBillMainCode != 'erpsetnull'">
           stockout_bill_main_code= #{record.stockoutBillMainCode,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="record.returnProductReturnCode != null">
+        <if test="record.returnProductReturnCode == 'erpsetnull'">
+          return_product_return_code= null,
+        </if>
+        <if test="record.returnProductReturnCode != 'erpsetnull'">
+          return_product_return_code= #{record.returnProductReturnCode,jdbcType=VARCHAR},
         </if>
       </if>
       <if test="record.orderSaleCode != null">
@@ -522,14 +364,6 @@
         </if>
         <if test="record.auditor != 'erpsetnull'">
           auditor= #{record.auditor,jdbcType=VARCHAR},
-        </if>
-      </if>
-      <if test="record.remark != null">
-        <if test="record.remark == 'erpsetnull'">
-          remark= null,
-        </if>
-        <if test="record.remark != 'erpsetnull'">
-          remark= #{record.remark,jdbcType=VARCHAR},
         </if>
       </if>
       <if test="record.customerName != null">
@@ -580,12 +414,12 @@
           track_number= #{record.trackNumber,jdbcType=VARCHAR},
         </if>
       </if>
-      <if test="record.returnGoodsCode != null">
-        <if test="record.returnGoodsCode == 'erpsetnull'">
-          return_goods_code= null,
+      <if test="record.remark != null">
+        <if test="record.remark == 'erpsetnull'">
+          remark= null,
         </if>
-        <if test="record.returnGoodsCode != 'erpsetnull'">
-          return_goods_code= #{record.returnGoodsCode,jdbcType=VARCHAR},
+        <if test="record.remark != 'erpsetnull'">
+          remark= #{record.remark,jdbcType=VARCHAR},
         </if>
       </if>
       <if test="record.creator != null">
@@ -604,6 +438,110 @@
           modifier= #{record.modifier,jdbcType=VARCHAR},
         </if>
       </if>
+      <if test="record.auditDate != null">
+        <if test="record.auditDate.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
+          audit_date= null,
+        </if>
+        <if test="record.auditDate.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
+          audit_date= #{record.auditDate,jdbcType=TIMESTAMP},
+        </if>
+      </if>
+      <if test="record.stockoutTime != null">
+        <if test="record.stockoutTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
+          stockout_time= null,
+        </if>
+        <if test="record.stockoutTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
+          stockout_time= #{record.stockoutTime,jdbcType=TIMESTAMP},
+        </if>
+      </if>
+      <if test="record.createTime != null">
+        <if test="record.createTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
+          create_time= null,
+        </if>
+        <if test="record.createTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
+          create_time= #{record.createTime,jdbcType=TIMESTAMP},
+        </if>
+      </if>
+      <if test="record.modifyTime != null">
+        <if test="record.modifyTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
+          modify_time= null,
+        </if>
+        <if test="record.modifyTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
+          modify_time= #{record.modifyTime,jdbcType=TIMESTAMP},
+        </if>
+      </if>
+      <if test="record.warehouseId != null">
+        <if test="record.warehouseId == -99999">
+          warehouse_id= null,
+        </if>
+        <if test="record.warehouseId != -99999">
+          warehouse_id= #{record.warehouseId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.billType != null">
+        <if test="record.billType == -99999">
+          bill_type= null,
+        </if>
+        <if test="record.billType != -99999">
+          bill_type= #{record.billType,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.quantity != null">
+        <if test="record.quantity == -99999">
+          quantity= null,
+        </if>
+        <if test="record.quantity != -99999">
+          quantity= #{record.quantity,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.stockoutStatus != null">
+        <if test="record.stockoutStatus == -99999">
+          stockout_status= null,
+        </if>
+        <if test="record.stockoutStatus != -99999">
+          stockout_status= #{record.stockoutStatus,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.countryId != null">
+        <if test="record.countryId == -99999">
+          country_id= null,
+        </if>
+        <if test="record.countryId != -99999">
+          country_id= #{record.countryId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.delayDays != null">
+        <if test="record.delayDays == -99999">
+          delay_days= null,
+        </if>
+        <if test="record.delayDays != -99999">
+          delay_days= #{record.delayDays,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.logistStatus != null">
+        <if test="record.logistStatus == -99999">
+          logist_status= null,
+        </if>
+        <if test="record.logistStatus != -99999">
+          logist_status= #{record.logistStatus,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.logistMoney != null">
+        <if test="record.logistMoney == -99999">
+          logist_money= null,
+        </if>
+        <if test="record.logistMoney != -99999">
+          logist_money= #{record.logistMoney,jdbcType=DECIMAL},
+        </if>
+      </if>
+      <if test="record.totalAmount != null">
+        <if test="record.totalAmount == -99999">
+          total_amount= null,
+        </if>
+        <if test="record.totalAmount != -99999">
+          total_amount= #{record.totalAmount,jdbcType=DECIMAL},
+        </if>
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -613,17 +551,14 @@
     update stock_out_bill_main
     set id = #{record.id,jdbcType=INTEGER},
       stockout_bill_main_code = #{record.stockoutBillMainCode,jdbcType=VARCHAR},
+      return_product_return_code = #{record.returnProductReturnCode,jdbcType=VARCHAR},
       order_sale_code = #{record.orderSaleCode,jdbcType=VARCHAR},
-      shipment_id = #{record.shipmentId,jdbcType=INTEGER},
       warehouse_id = #{record.warehouseId,jdbcType=INTEGER},
       bill_type = #{record.billType,jdbcType=INTEGER},
-      stockout_date = #{record.stockoutDate,jdbcType=TIMESTAMP},
       audit_date = #{record.auditDate,jdbcType=TIMESTAMP},
-      audit_person_id = #{record.auditPersonId,jdbcType=INTEGER},
       auditor = #{record.auditor,jdbcType=VARCHAR},
       stockout_time = #{record.stockoutTime,jdbcType=TIMESTAMP},
       quantity = #{record.quantity,jdbcType=INTEGER},
-      remark = #{record.remark,jdbcType=VARCHAR},
       stockout_status = #{record.stockoutStatus,jdbcType=INTEGER},
       customer_name = #{record.customerName,jdbcType=VARCHAR},
       country_id = #{record.countryId,jdbcType=INTEGER},
@@ -635,9 +570,8 @@
       logist_company_name = #{record.logistCompanyName,jdbcType=VARCHAR},
       track_number = #{record.trackNumber,jdbcType=VARCHAR},
       logist_money = #{record.logistMoney,jdbcType=DECIMAL},
-      packing_cost = #{record.packingCost,jdbcType=DECIMAL},
-      return_goods_code = #{record.returnGoodsCode,jdbcType=VARCHAR},
-      bill_date = #{record.billDate,jdbcType=TIMESTAMP},
+      total_amount = #{record.totalAmount,jdbcType=DECIMAL},
+      remark = #{record.remark,jdbcType=VARCHAR},
       creator = #{record.creator,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       modifier = #{record.modifier,jdbcType=VARCHAR},
@@ -649,148 +583,20 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.binger.stock.domain.StockOutBillMain">
     update stock_out_bill_main
     <set>
-      <if test="shipmentId != null">
-        <if test="shipmentId == -99999">
-          shipment_id= null,
-        </if>
-        <if test="shipmentId != -99999">
-          shipment_id= #{shipmentId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="warehouseId != null">
-        <if test="warehouseId == -99999">
-          warehouse_id= null,
-        </if>
-        <if test="warehouseId != -99999">
-          warehouse_id= #{warehouseId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="billType != null">
-        <if test="billType == -99999">
-          bill_type= null,
-        </if>
-        <if test="billType != -99999">
-          bill_type= #{billType,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="auditPersonId != null">
-        <if test="auditPersonId == -99999">
-          audit_person_id= null,
-        </if>
-        <if test="auditPersonId != -99999">
-          audit_person_id= #{auditPersonId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="quantity != null">
-        <if test="quantity == -99999">
-          quantity= null,
-        </if>
-        <if test="quantity != -99999">
-          quantity= #{quantity,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="stockoutStatus != null">
-        <if test="stockoutStatus == -99999">
-          stockout_status= null,
-        </if>
-        <if test="stockoutStatus != -99999">
-          stockout_status= #{stockoutStatus,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="countryId != null">
-        <if test="countryId == -99999">
-          country_id= null,
-        </if>
-        <if test="countryId != -99999">
-          country_id= #{countryId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="delayDays != null">
-        <if test="delayDays == -99999">
-          delay_days= null,
-        </if>
-        <if test="delayDays != -99999">
-          delay_days= #{delayDays,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="logistStatus != null">
-        <if test="logistStatus == -99999">
-          logist_status= null,
-        </if>
-        <if test="logistStatus != -99999">
-          logist_status= #{logistStatus,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="logistMoney != null">
-        <if test="logistMoney == -99999">
-          logist_money= null,
-        </if>
-        <if test="logistMoney != -99999">
-          logist_money= #{logistMoney,jdbcType=DECIMAL},
-        </if>
-      </if>
-      <if test="packingCost != null">
-        <if test="packingCost == -99999">
-          packing_cost= null,
-        </if>
-        <if test="packingCost != -99999">
-          packing_cost= #{packingCost,jdbcType=DECIMAL},
-        </if>
-      </if>
-      <if test="stockoutDate != null">
-        <if test="stockoutDate.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
-          stockout_date= null,
-        </if>
-        <if test="stockoutDate.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
-          stockout_date= #{stockoutDate,jdbcType=TIMESTAMP},
-        </if>
-      </if>
-      <if test="auditDate != null">
-        <if test="auditDate.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
-          audit_date= null,
-        </if>
-        <if test="auditDate.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
-          audit_date= #{auditDate,jdbcType=TIMESTAMP},
-        </if>
-      </if>
-      <if test="stockoutTime != null">
-        <if test="stockoutTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
-          stockout_time= null,
-        </if>
-        <if test="stockoutTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
-          stockout_time= #{stockoutTime,jdbcType=TIMESTAMP},
-        </if>
-      </if>
-      <if test="billDate != null">
-        <if test="billDate.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
-          bill_date= null,
-        </if>
-        <if test="billDate.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
-          bill_date= #{billDate,jdbcType=TIMESTAMP},
-        </if>
-      </if>
-      <if test="createTime != null">
-        <if test="createTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
-          create_time= null,
-        </if>
-        <if test="createTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
-          create_time= #{createTime,jdbcType=TIMESTAMP},
-        </if>
-      </if>
-      <if test="modifyTime != null">
-        <if test="modifyTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
-          modify_time= null,
-        </if>
-        <if test="modifyTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
-          modify_time= #{modifyTime,jdbcType=TIMESTAMP},
-        </if>
-      </if>
       <if test="stockoutBillMainCode != null">
         <if test="stockoutBillMainCode == 'erpsetnull'">
           stockout_bill_main_code= null,
         </if>
         <if test="stockoutBillMainCode != 'erpsetnull'">
           stockout_bill_main_code= #{stockoutBillMainCode,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="returnProductReturnCode != null">
+        <if test="returnProductReturnCode == 'erpsetnull'">
+          return_product_return_code= null,
+        </if>
+        <if test="returnProductReturnCode != 'erpsetnull'">
+          return_product_return_code= #{returnProductReturnCode,jdbcType=VARCHAR},
         </if>
       </if>
       <if test="orderSaleCode != null">
@@ -807,14 +613,6 @@
         </if>
         <if test="auditor != 'erpsetnull'">
           auditor= #{auditor,jdbcType=VARCHAR},
-        </if>
-      </if>
-      <if test="remark != null">
-        <if test="remark == 'erpsetnull'">
-          remark= null,
-        </if>
-        <if test="remark != 'erpsetnull'">
-          remark= #{remark,jdbcType=VARCHAR},
         </if>
       </if>
       <if test="customerName != null">
@@ -865,12 +663,12 @@
           track_number= #{trackNumber,jdbcType=VARCHAR},
         </if>
       </if>
-      <if test="returnGoodsCode != null">
-        <if test="returnGoodsCode == 'erpsetnull'">
-          return_goods_code= null,
+      <if test="remark != null">
+        <if test="remark == 'erpsetnull'">
+          remark= null,
         </if>
-        <if test="returnGoodsCode != 'erpsetnull'">
-          return_goods_code= #{returnGoodsCode,jdbcType=VARCHAR},
+        <if test="remark != 'erpsetnull'">
+          remark= #{remark,jdbcType=VARCHAR},
         </if>
       </if>
       <if test="creator != null">
@@ -889,23 +687,124 @@
           modifier= #{modifier,jdbcType=VARCHAR},
         </if>
       </if>
+      <if test="auditDate != null">
+        <if test="auditDate.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
+          audit_date= null,
+        </if>
+        <if test="auditDate.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
+          audit_date= #{auditDate,jdbcType=TIMESTAMP},
+        </if>
+      </if>
+      <if test="stockoutTime != null">
+        <if test="stockoutTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
+          stockout_time= null,
+        </if>
+        <if test="stockoutTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
+          stockout_time= #{stockoutTime,jdbcType=TIMESTAMP},
+        </if>
+      </if>
+      <if test="createTime != null">
+        <if test="createTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
+          create_time= null,
+        </if>
+        <if test="createTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
+          create_time= #{createTime,jdbcType=TIMESTAMP},
+        </if>
+      </if>
+      <if test="modifyTime != null">
+        <if test="modifyTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
+          modify_time= null,
+        </if>
+        <if test="modifyTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
+          modify_time= #{modifyTime,jdbcType=TIMESTAMP},
+        </if>
+      </if>
+      <if test="warehouseId != null">
+        <if test="warehouseId == -99999">
+          warehouse_id= null,
+        </if>
+        <if test="warehouseId != -99999">
+          warehouse_id= #{warehouseId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="billType != null">
+        <if test="billType == -99999">
+          bill_type= null,
+        </if>
+        <if test="billType != -99999">
+          bill_type= #{billType,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="quantity != null">
+        <if test="quantity == -99999">
+          quantity= null,
+        </if>
+        <if test="quantity != -99999">
+          quantity= #{quantity,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="stockoutStatus != null">
+        <if test="stockoutStatus == -99999">
+          stockout_status= null,
+        </if>
+        <if test="stockoutStatus != -99999">
+          stockout_status= #{stockoutStatus,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="countryId != null">
+        <if test="countryId == -99999">
+          country_id= null,
+        </if>
+        <if test="countryId != -99999">
+          country_id= #{countryId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="delayDays != null">
+        <if test="delayDays == -99999">
+          delay_days= null,
+        </if>
+        <if test="delayDays != -99999">
+          delay_days= #{delayDays,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="logistStatus != null">
+        <if test="logistStatus == -99999">
+          logist_status= null,
+        </if>
+        <if test="logistStatus != -99999">
+          logist_status= #{logistStatus,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="logistMoney != null">
+        <if test="logistMoney == -99999">
+          logist_money= null,
+        </if>
+        <if test="logistMoney != -99999">
+          logist_money= #{logistMoney,jdbcType=DECIMAL},
+        </if>
+      </if>
+      <if test="totalAmount != null">
+        <if test="totalAmount == -99999">
+          total_amount= null,
+        </if>
+        <if test="totalAmount != -99999">
+          total_amount= #{totalAmount,jdbcType=DECIMAL},
+        </if>
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.binger.stock.domain.StockOutBillMain">
     update stock_out_bill_main
     set stockout_bill_main_code = #{stockoutBillMainCode,jdbcType=VARCHAR},
+      return_product_return_code = #{returnProductReturnCode,jdbcType=VARCHAR},
       order_sale_code = #{orderSaleCode,jdbcType=VARCHAR},
-      shipment_id = #{shipmentId,jdbcType=INTEGER},
       warehouse_id = #{warehouseId,jdbcType=INTEGER},
       bill_type = #{billType,jdbcType=INTEGER},
-      stockout_date = #{stockoutDate,jdbcType=TIMESTAMP},
       audit_date = #{auditDate,jdbcType=TIMESTAMP},
-      audit_person_id = #{auditPersonId,jdbcType=INTEGER},
       auditor = #{auditor,jdbcType=VARCHAR},
       stockout_time = #{stockoutTime,jdbcType=TIMESTAMP},
       quantity = #{quantity,jdbcType=INTEGER},
-      remark = #{remark,jdbcType=VARCHAR},
       stockout_status = #{stockoutStatus,jdbcType=INTEGER},
       customer_name = #{customerName,jdbcType=VARCHAR},
       country_id = #{countryId,jdbcType=INTEGER},
@@ -917,9 +816,8 @@
       logist_company_name = #{logistCompanyName,jdbcType=VARCHAR},
       track_number = #{trackNumber,jdbcType=VARCHAR},
       logist_money = #{logistMoney,jdbcType=DECIMAL},
-      packing_cost = #{packingCost,jdbcType=DECIMAL},
-      return_goods_code = #{returnGoodsCode,jdbcType=VARCHAR},
-      bill_date = #{billDate,jdbcType=TIMESTAMP},
+      total_amount = #{totalAmount,jdbcType=DECIMAL},
+      remark = #{remark,jdbcType=VARCHAR},
       creator = #{creator,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       modifier = #{modifier,jdbcType=VARCHAR},

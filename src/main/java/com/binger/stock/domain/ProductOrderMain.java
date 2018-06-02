@@ -19,6 +19,12 @@ public class ProductOrderMain implements Serializable {
     private Integer id;
 
     /**
+     * 生产计划单据号（如果从生产计划制定生产订单）
+     */
+    @ApiModelProperty(value="生产计划单据号（如果从生产计划制定生产订单）",required = false)
+    private String productPlanCode;
+
+    /**
      * 生产订单编号,从规则表里生成
      */
     @ApiModelProperty(value="生产订单编号,从规则表里生成",required = true)
@@ -31,40 +37,10 @@ public class ProductOrderMain implements Serializable {
     private Date auditTime;
 
     /**
-     * 审核人ID
-     */
-    @ApiModelProperty(value="审核人ID",required = false)
-    private Integer auditUserId;
-
-    /**
      * 审核人名字
      */
     @ApiModelProperty(value="审核人名字",required = false)
     private String auditUserName;
-
-    /**
-     * 生产单生成时间
-     */
-    @ApiModelProperty(value="生产单生成时间",required = false)
-    private Date productCreateDate;
-
-    /**
-     * 货号ID,生产单必填，其他单子类型必空
-     */
-    @ApiModelProperty(value="货号ID,生产单必填，其他单子类型必空",required = false)
-    private Integer goodsId;
-
-    /**
-     * 货号编码
-     */
-    @ApiModelProperty(value="货号编码",required = false)
-    private String goodsCode;
-
-    /**
-     * 货号
-     */
-    @ApiModelProperty(value="货号",required = false)
-    private String goodsName;
 
     /**
      * 预计付款日期,账期生产时标注预计付款时间，避免财务漏付款。到期要付款了给出提醒
@@ -77,12 +53,6 @@ public class ProductOrderMain implements Serializable {
      */
     @ApiModelProperty(value="付款时间",required = false)
     private Date payTime;
-
-    /**
-     * 付款人
-     */
-    @ApiModelProperty(value="付款人",required = false)
-    private Integer payUserId;
 
     /**
      * 付款人名字
@@ -107,12 +77,6 @@ public class ProductOrderMain implements Serializable {
      */
     @ApiModelProperty(value="未付款金额",required = false)
     private BigDecimal unPayMny;
-
-    /**
-     * 累计收票金额
-     */
-    @ApiModelProperty(value="累计收票金额",required = false)
-    private BigDecimal totalInvoiceMny;
 
     /**
      * 生产数量
@@ -151,12 +115,6 @@ public class ProductOrderMain implements Serializable {
     private Date expDeliveredTime;
 
     /**
-     * 未收票金额
-     */
-    @ApiModelProperty(value="未收票金额",required = false)
-    private BigDecimal nonInvoiceMny;
-
-    /**
      * 预计到货时间
      */
     @ApiModelProperty(value="预计到货时间",required = false)
@@ -166,7 +124,7 @@ public class ProductOrderMain implements Serializable {
      * 运单号,有多个的时候用逗号隔开
      */
     @ApiModelProperty(value="运单号,有多个的时候用逗号隔开",required = false)
-    private String logisNo;
+    private String logistNo;
 
     /**
      * 物流公司名称
@@ -185,12 +143,6 @@ public class ProductOrderMain implements Serializable {
      */
     @ApiModelProperty(value="仓库名称",required = true)
     private Integer warehouseId;
-
-    /**
-     * 下单总数量,将明细的SKU数累加，用户需要快速查看生产单大小
-     */
-    @ApiModelProperty(value="下单总数量,将明细的SKU数累加，用户需要快速查看生产单大小",required = false)
-    private Integer orderNumber;
 
     /**
      * 归档时间
@@ -233,12 +185,6 @@ public class ProductOrderMain implements Serializable {
      */
     @ApiModelProperty(value="归档原因",required = false)
     private String archiveReasonName;
-
-    /**
-     * 归档编码
-     */
-    @ApiModelProperty(value="归档编码",required = false)
-    private String archiveReasonCode;
 
     /**
      * 创建人
@@ -286,6 +232,22 @@ public class ProductOrderMain implements Serializable {
     }
 
     /**
+     * 生产计划单据号（如果从生产计划制定生产订单）
+     * @return product_plan_code 生产计划单据号（如果从生产计划制定生产订单）
+     */
+    public String getProductPlanCode() {
+        return productPlanCode;
+    }
+
+    /**
+     * 生产计划单据号（如果从生产计划制定生产订单）
+     * @param productPlanCode 生产计划单据号（如果从生产计划制定生产订单）
+     */
+    public void setProductPlanCode(String productPlanCode) {
+        this.productPlanCode = productPlanCode == null ? null : productPlanCode.trim();
+    }
+
+    /**
      * 生产订单编号,从规则表里生成
      * @return product_order_code 生产订单编号,从规则表里生成
      */
@@ -318,22 +280,6 @@ public class ProductOrderMain implements Serializable {
     }
 
     /**
-     * 审核人ID
-     * @return audit_user_id 审核人ID
-     */
-    public Integer getAuditUserId() {
-        return auditUserId;
-    }
-
-    /**
-     * 审核人ID
-     * @param auditUserId 审核人ID
-     */
-    public void setAuditUserId(Integer auditUserId) {
-        this.auditUserId = auditUserId;
-    }
-
-    /**
      * 审核人名字
      * @return audit_user_name 审核人名字
      */
@@ -347,70 +293,6 @@ public class ProductOrderMain implements Serializable {
      */
     public void setAuditUserName(String auditUserName) {
         this.auditUserName = auditUserName == null ? null : auditUserName.trim();
-    }
-
-    /**
-     * 生产单生成时间
-     * @return product_create_date 生产单生成时间
-     */
-    public Date getProductCreateDate() {
-        return productCreateDate;
-    }
-
-    /**
-     * 生产单生成时间
-     * @param productCreateDate 生产单生成时间
-     */
-    public void setProductCreateDate(Date productCreateDate) {
-        this.productCreateDate = productCreateDate;
-    }
-
-    /**
-     * 货号ID,生产单必填，其他单子类型必空
-     * @return goods_id 货号ID,生产单必填，其他单子类型必空
-     */
-    public Integer getGoodsId() {
-        return goodsId;
-    }
-
-    /**
-     * 货号ID,生产单必填，其他单子类型必空
-     * @param goodsId 货号ID,生产单必填，其他单子类型必空
-     */
-    public void setGoodsId(Integer goodsId) {
-        this.goodsId = goodsId;
-    }
-
-    /**
-     * 货号编码
-     * @return goods_code 货号编码
-     */
-    public String getGoodsCode() {
-        return goodsCode;
-    }
-
-    /**
-     * 货号编码
-     * @param goodsCode 货号编码
-     */
-    public void setGoodsCode(String goodsCode) {
-        this.goodsCode = goodsCode == null ? null : goodsCode.trim();
-    }
-
-    /**
-     * 货号
-     * @return goods_name 货号
-     */
-    public String getGoodsName() {
-        return goodsName;
-    }
-
-    /**
-     * 货号
-     * @param goodsName 货号
-     */
-    public void setGoodsName(String goodsName) {
-        this.goodsName = goodsName == null ? null : goodsName.trim();
     }
 
     /**
@@ -443,22 +325,6 @@ public class ProductOrderMain implements Serializable {
      */
     public void setPayTime(Date payTime) {
         this.payTime = payTime;
-    }
-
-    /**
-     * 付款人
-     * @return pay_user_id 付款人
-     */
-    public Integer getPayUserId() {
-        return payUserId;
-    }
-
-    /**
-     * 付款人
-     * @param payUserId 付款人
-     */
-    public void setPayUserId(Integer payUserId) {
-        this.payUserId = payUserId;
     }
 
     /**
@@ -523,22 +389,6 @@ public class ProductOrderMain implements Serializable {
      */
     public void setUnPayMny(BigDecimal unPayMny) {
         this.unPayMny = unPayMny;
-    }
-
-    /**
-     * 累计收票金额
-     * @return total_invoice_mny 累计收票金额
-     */
-    public BigDecimal getTotalInvoiceMny() {
-        return totalInvoiceMny;
-    }
-
-    /**
-     * 累计收票金额
-     * @param totalInvoiceMny 累计收票金额
-     */
-    public void setTotalInvoiceMny(BigDecimal totalInvoiceMny) {
-        this.totalInvoiceMny = totalInvoiceMny;
     }
 
     /**
@@ -638,22 +488,6 @@ public class ProductOrderMain implements Serializable {
     }
 
     /**
-     * 未收票金额
-     * @return non_invoice_mny 未收票金额
-     */
-    public BigDecimal getNonInvoiceMny() {
-        return nonInvoiceMny;
-    }
-
-    /**
-     * 未收票金额
-     * @param nonInvoiceMny 未收票金额
-     */
-    public void setNonInvoiceMny(BigDecimal nonInvoiceMny) {
-        this.nonInvoiceMny = nonInvoiceMny;
-    }
-
-    /**
      * 预计到货时间
      * @return delivered_time 预计到货时间
      */
@@ -671,18 +505,18 @@ public class ProductOrderMain implements Serializable {
 
     /**
      * 运单号,有多个的时候用逗号隔开
-     * @return logis_no 运单号,有多个的时候用逗号隔开
+     * @return logist_no 运单号,有多个的时候用逗号隔开
      */
-    public String getLogisNo() {
-        return logisNo;
+    public String getLogistNo() {
+        return logistNo;
     }
 
     /**
      * 运单号,有多个的时候用逗号隔开
-     * @param logisNo 运单号,有多个的时候用逗号隔开
+     * @param logistNo 运单号,有多个的时候用逗号隔开
      */
-    public void setLogisNo(String logisNo) {
-        this.logisNo = logisNo == null ? null : logisNo.trim();
+    public void setLogistNo(String logistNo) {
+        this.logistNo = logistNo == null ? null : logistNo.trim();
     }
 
     /**
@@ -731,22 +565,6 @@ public class ProductOrderMain implements Serializable {
      */
     public void setWarehouseId(Integer warehouseId) {
         this.warehouseId = warehouseId;
-    }
-
-    /**
-     * 下单总数量,将明细的SKU数累加，用户需要快速查看生产单大小
-     * @return order_number 下单总数量,将明细的SKU数累加，用户需要快速查看生产单大小
-     */
-    public Integer getOrderNumber() {
-        return orderNumber;
-    }
-
-    /**
-     * 下单总数量,将明细的SKU数累加，用户需要快速查看生产单大小
-     * @param orderNumber 下单总数量,将明细的SKU数累加，用户需要快速查看生产单大小
-     */
-    public void setOrderNumber(Integer orderNumber) {
-        this.orderNumber = orderNumber;
     }
 
     /**
@@ -862,22 +680,6 @@ public class ProductOrderMain implements Serializable {
     }
 
     /**
-     * 归档编码
-     * @return archive_reason_code 归档编码
-     */
-    public String getArchiveReasonCode() {
-        return archiveReasonCode;
-    }
-
-    /**
-     * 归档编码
-     * @param archiveReasonCode 归档编码
-     */
-    public void setArchiveReasonCode(String archiveReasonCode) {
-        this.archiveReasonCode = archiveReasonCode == null ? null : archiveReasonCode.trim();
-    }
-
-    /**
      * 创建人
      * @return creator 创建人
      */
@@ -954,35 +756,27 @@ public class ProductOrderMain implements Serializable {
         }
         ProductOrderMain other = (ProductOrderMain) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+            && (this.getProductPlanCode() == null ? other.getProductPlanCode() == null : this.getProductPlanCode().equals(other.getProductPlanCode()))
             && (this.getProductOrderCode() == null ? other.getProductOrderCode() == null : this.getProductOrderCode().equals(other.getProductOrderCode()))
             && (this.getAuditTime() == null ? other.getAuditTime() == null : this.getAuditTime().equals(other.getAuditTime()))
-            && (this.getAuditUserId() == null ? other.getAuditUserId() == null : this.getAuditUserId().equals(other.getAuditUserId()))
             && (this.getAuditUserName() == null ? other.getAuditUserName() == null : this.getAuditUserName().equals(other.getAuditUserName()))
-            && (this.getProductCreateDate() == null ? other.getProductCreateDate() == null : this.getProductCreateDate().equals(other.getProductCreateDate()))
-            && (this.getGoodsId() == null ? other.getGoodsId() == null : this.getGoodsId().equals(other.getGoodsId()))
-            && (this.getGoodsCode() == null ? other.getGoodsCode() == null : this.getGoodsCode().equals(other.getGoodsCode()))
-            && (this.getGoodsName() == null ? other.getGoodsName() == null : this.getGoodsName().equals(other.getGoodsName()))
             && (this.getPrePayTime() == null ? other.getPrePayTime() == null : this.getPrePayTime().equals(other.getPrePayTime()))
             && (this.getPayTime() == null ? other.getPayTime() == null : this.getPayTime().equals(other.getPayTime()))
-            && (this.getPayUserId() == null ? other.getPayUserId() == null : this.getPayUserId().equals(other.getPayUserId()))
             && (this.getPayUserName() == null ? other.getPayUserName() == null : this.getPayUserName().equals(other.getPayUserName()))
             && (this.getLocalTotalMny() == null ? other.getLocalTotalMny() == null : this.getLocalTotalMny().equals(other.getLocalTotalMny()))
             && (this.getPayTotalMny() == null ? other.getPayTotalMny() == null : this.getPayTotalMny().equals(other.getPayTotalMny()))
             && (this.getUnPayMny() == null ? other.getUnPayMny() == null : this.getUnPayMny().equals(other.getUnPayMny()))
-            && (this.getTotalInvoiceMny() == null ? other.getTotalInvoiceMny() == null : this.getTotalInvoiceMny().equals(other.getTotalInvoiceMny()))
             && (this.getQuantity() == null ? other.getQuantity() == null : this.getQuantity().equals(other.getQuantity()))
             && (this.getSettlement() == null ? other.getSettlement() == null : this.getSettlement().equals(other.getSettlement()))
             && (this.getSupplierId() == null ? other.getSupplierId() == null : this.getSupplierId().equals(other.getSupplierId()))
             && (this.getSupplierCode() == null ? other.getSupplierCode() == null : this.getSupplierCode().equals(other.getSupplierCode()))
             && (this.getSupplierName() == null ? other.getSupplierName() == null : this.getSupplierName().equals(other.getSupplierName()))
             && (this.getExpDeliveredTime() == null ? other.getExpDeliveredTime() == null : this.getExpDeliveredTime().equals(other.getExpDeliveredTime()))
-            && (this.getNonInvoiceMny() == null ? other.getNonInvoiceMny() == null : this.getNonInvoiceMny().equals(other.getNonInvoiceMny()))
             && (this.getDeliveredTime() == null ? other.getDeliveredTime() == null : this.getDeliveredTime().equals(other.getDeliveredTime()))
-            && (this.getLogisNo() == null ? other.getLogisNo() == null : this.getLogisNo().equals(other.getLogisNo()))
+            && (this.getLogistNo() == null ? other.getLogistNo() == null : this.getLogistNo().equals(other.getLogistNo()))
             && (this.getLogistCompanyName() == null ? other.getLogistCompanyName() == null : this.getLogistCompanyName().equals(other.getLogistCompanyName()))
             && (this.getLogisFee() == null ? other.getLogisFee() == null : this.getLogisFee().equals(other.getLogisFee()))
             && (this.getWarehouseId() == null ? other.getWarehouseId() == null : this.getWarehouseId().equals(other.getWarehouseId()))
-            && (this.getOrderNumber() == null ? other.getOrderNumber() == null : this.getOrderNumber().equals(other.getOrderNumber()))
             && (this.getArchiveDate() == null ? other.getArchiveDate() == null : this.getArchiveDate().equals(other.getArchiveDate()))
             && (this.getBillDate() == null ? other.getBillDate() == null : this.getBillDate().equals(other.getBillDate()))
             && (this.getProductStatus() == null ? other.getProductStatus() == null : this.getProductStatus().equals(other.getProductStatus()))
@@ -990,7 +784,6 @@ public class ProductOrderMain implements Serializable {
             && (this.getCancelTime() == null ? other.getCancelTime() == null : this.getCancelTime().equals(other.getCancelTime()))
             && (this.getCancelReason() == null ? other.getCancelReason() == null : this.getCancelReason().equals(other.getCancelReason()))
             && (this.getArchiveReasonName() == null ? other.getArchiveReasonName() == null : this.getArchiveReasonName().equals(other.getArchiveReasonName()))
-            && (this.getArchiveReasonCode() == null ? other.getArchiveReasonCode() == null : this.getArchiveReasonCode().equals(other.getArchiveReasonCode()))
             && (this.getCreator() == null ? other.getCreator() == null : this.getCreator().equals(other.getCreator()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getModifier() == null ? other.getModifier() == null : this.getModifier().equals(other.getModifier()))
@@ -1002,35 +795,27 @@ public class ProductOrderMain implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+        result = prime * result + ((getProductPlanCode() == null) ? 0 : getProductPlanCode().hashCode());
         result = prime * result + ((getProductOrderCode() == null) ? 0 : getProductOrderCode().hashCode());
         result = prime * result + ((getAuditTime() == null) ? 0 : getAuditTime().hashCode());
-        result = prime * result + ((getAuditUserId() == null) ? 0 : getAuditUserId().hashCode());
         result = prime * result + ((getAuditUserName() == null) ? 0 : getAuditUserName().hashCode());
-        result = prime * result + ((getProductCreateDate() == null) ? 0 : getProductCreateDate().hashCode());
-        result = prime * result + ((getGoodsId() == null) ? 0 : getGoodsId().hashCode());
-        result = prime * result + ((getGoodsCode() == null) ? 0 : getGoodsCode().hashCode());
-        result = prime * result + ((getGoodsName() == null) ? 0 : getGoodsName().hashCode());
         result = prime * result + ((getPrePayTime() == null) ? 0 : getPrePayTime().hashCode());
         result = prime * result + ((getPayTime() == null) ? 0 : getPayTime().hashCode());
-        result = prime * result + ((getPayUserId() == null) ? 0 : getPayUserId().hashCode());
         result = prime * result + ((getPayUserName() == null) ? 0 : getPayUserName().hashCode());
         result = prime * result + ((getLocalTotalMny() == null) ? 0 : getLocalTotalMny().hashCode());
         result = prime * result + ((getPayTotalMny() == null) ? 0 : getPayTotalMny().hashCode());
         result = prime * result + ((getUnPayMny() == null) ? 0 : getUnPayMny().hashCode());
-        result = prime * result + ((getTotalInvoiceMny() == null) ? 0 : getTotalInvoiceMny().hashCode());
         result = prime * result + ((getQuantity() == null) ? 0 : getQuantity().hashCode());
         result = prime * result + ((getSettlement() == null) ? 0 : getSettlement().hashCode());
         result = prime * result + ((getSupplierId() == null) ? 0 : getSupplierId().hashCode());
         result = prime * result + ((getSupplierCode() == null) ? 0 : getSupplierCode().hashCode());
         result = prime * result + ((getSupplierName() == null) ? 0 : getSupplierName().hashCode());
         result = prime * result + ((getExpDeliveredTime() == null) ? 0 : getExpDeliveredTime().hashCode());
-        result = prime * result + ((getNonInvoiceMny() == null) ? 0 : getNonInvoiceMny().hashCode());
         result = prime * result + ((getDeliveredTime() == null) ? 0 : getDeliveredTime().hashCode());
-        result = prime * result + ((getLogisNo() == null) ? 0 : getLogisNo().hashCode());
+        result = prime * result + ((getLogistNo() == null) ? 0 : getLogistNo().hashCode());
         result = prime * result + ((getLogistCompanyName() == null) ? 0 : getLogistCompanyName().hashCode());
         result = prime * result + ((getLogisFee() == null) ? 0 : getLogisFee().hashCode());
         result = prime * result + ((getWarehouseId() == null) ? 0 : getWarehouseId().hashCode());
-        result = prime * result + ((getOrderNumber() == null) ? 0 : getOrderNumber().hashCode());
         result = prime * result + ((getArchiveDate() == null) ? 0 : getArchiveDate().hashCode());
         result = prime * result + ((getBillDate() == null) ? 0 : getBillDate().hashCode());
         result = prime * result + ((getProductStatus() == null) ? 0 : getProductStatus().hashCode());
@@ -1038,7 +823,6 @@ public class ProductOrderMain implements Serializable {
         result = prime * result + ((getCancelTime() == null) ? 0 : getCancelTime().hashCode());
         result = prime * result + ((getCancelReason() == null) ? 0 : getCancelReason().hashCode());
         result = prime * result + ((getArchiveReasonName() == null) ? 0 : getArchiveReasonName().hashCode());
-        result = prime * result + ((getArchiveReasonCode() == null) ? 0 : getArchiveReasonCode().hashCode());
         result = prime * result + ((getCreator() == null) ? 0 : getCreator().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getModifier() == null) ? 0 : getModifier().hashCode());
@@ -1053,35 +837,27 @@ public class ProductOrderMain implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
+        sb.append(", productPlanCode=").append(productPlanCode);
         sb.append(", productOrderCode=").append(productOrderCode);
         sb.append(", auditTime=").append(auditTime);
-        sb.append(", auditUserId=").append(auditUserId);
         sb.append(", auditUserName=").append(auditUserName);
-        sb.append(", productCreateDate=").append(productCreateDate);
-        sb.append(", goodsId=").append(goodsId);
-        sb.append(", goodsCode=").append(goodsCode);
-        sb.append(", goodsName=").append(goodsName);
         sb.append(", prePayTime=").append(prePayTime);
         sb.append(", payTime=").append(payTime);
-        sb.append(", payUserId=").append(payUserId);
         sb.append(", payUserName=").append(payUserName);
         sb.append(", localTotalMny=").append(localTotalMny);
         sb.append(", payTotalMny=").append(payTotalMny);
         sb.append(", unPayMny=").append(unPayMny);
-        sb.append(", totalInvoiceMny=").append(totalInvoiceMny);
         sb.append(", quantity=").append(quantity);
         sb.append(", settlement=").append(settlement);
         sb.append(", supplierId=").append(supplierId);
         sb.append(", supplierCode=").append(supplierCode);
         sb.append(", supplierName=").append(supplierName);
         sb.append(", expDeliveredTime=").append(expDeliveredTime);
-        sb.append(", nonInvoiceMny=").append(nonInvoiceMny);
         sb.append(", deliveredTime=").append(deliveredTime);
-        sb.append(", logisNo=").append(logisNo);
+        sb.append(", logistNo=").append(logistNo);
         sb.append(", logistCompanyName=").append(logistCompanyName);
         sb.append(", logisFee=").append(logisFee);
         sb.append(", warehouseId=").append(warehouseId);
-        sb.append(", orderNumber=").append(orderNumber);
         sb.append(", archiveDate=").append(archiveDate);
         sb.append(", billDate=").append(billDate);
         sb.append(", productStatus=").append(productStatus);
@@ -1089,7 +865,6 @@ public class ProductOrderMain implements Serializable {
         sb.append(", cancelTime=").append(cancelTime);
         sb.append(", cancelReason=").append(cancelReason);
         sb.append(", archiveReasonName=").append(archiveReasonName);
-        sb.append(", archiveReasonCode=").append(archiveReasonCode);
         sb.append(", creator=").append(creator);
         sb.append(", createTime=").append(createTime);
         sb.append(", modifier=").append(modifier);

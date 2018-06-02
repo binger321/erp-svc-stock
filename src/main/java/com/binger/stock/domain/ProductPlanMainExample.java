@@ -108,7 +108,7 @@ public class ProductPlanMainExample {
     }
 
     /**
-     * product_plan_main 2018-05-17
+     * product_plan_main 2018-05-24
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -411,66 +411,6 @@ public class ProductPlanMainExample {
             return (Criteria) this;
         }
 
-        public Criteria andIsAssignIsNull() {
-            addCriterion("is_assign is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsAssignIsNotNull() {
-            addCriterion("is_assign is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsAssignEqualTo(Boolean value) {
-            addCriterion("is_assign =", value, "isAssign");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsAssignNotEqualTo(Boolean value) {
-            addCriterion("is_assign <>", value, "isAssign");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsAssignGreaterThan(Boolean value) {
-            addCriterion("is_assign >", value, "isAssign");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsAssignGreaterThanOrEqualTo(Boolean value) {
-            addCriterion("is_assign >=", value, "isAssign");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsAssignLessThan(Boolean value) {
-            addCriterion("is_assign <", value, "isAssign");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsAssignLessThanOrEqualTo(Boolean value) {
-            addCriterion("is_assign <=", value, "isAssign");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsAssignIn(List<Boolean> values) {
-            addCriterion("is_assign in", values, "isAssign");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsAssignNotIn(List<Boolean> values) {
-            addCriterion("is_assign not in", values, "isAssign");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsAssignBetween(Boolean value1, Boolean value2) {
-            addCriterion("is_assign between", value1, value2, "isAssign");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsAssignNotBetween(Boolean value1, Boolean value2) {
-            addCriterion("is_assign not between", value1, value2, "isAssign");
-            return (Criteria) this;
-        }
-
         public Criteria andAuditTimeIsNull() {
             addCriterion("audit_time is null");
             return (Criteria) this;
@@ -528,66 +468,6 @@ public class ProductPlanMainExample {
 
         public Criteria andAuditTimeNotBetween(Date value1, Date value2) {
             addCriterion("audit_time not between", value1, value2, "auditTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuditUserIdIsNull() {
-            addCriterion("audit_user_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuditUserIdIsNotNull() {
-            addCriterion("audit_user_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuditUserIdEqualTo(Integer value) {
-            addCriterion("audit_user_id =", value, "auditUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuditUserIdNotEqualTo(Integer value) {
-            addCriterion("audit_user_id <>", value, "auditUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuditUserIdGreaterThan(Integer value) {
-            addCriterion("audit_user_id >", value, "auditUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuditUserIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("audit_user_id >=", value, "auditUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuditUserIdLessThan(Integer value) {
-            addCriterion("audit_user_id <", value, "auditUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuditUserIdLessThanOrEqualTo(Integer value) {
-            addCriterion("audit_user_id <=", value, "auditUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuditUserIdIn(List<Integer> values) {
-            addCriterion("audit_user_id in", values, "auditUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuditUserIdNotIn(List<Integer> values) {
-            addCriterion("audit_user_id not in", values, "auditUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuditUserIdBetween(Integer value1, Integer value2) {
-            addCriterion("audit_user_id between", value1, value2, "auditUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuditUserIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("audit_user_id not between", value1, value2, "auditUserId");
             return (Criteria) this;
         }
 
@@ -1193,7 +1073,7 @@ public class ProductPlanMainExample {
     }
 
     /**
-     * product_plan_main 2018-05-17
+     * product_plan_main 2018-05-24
      */
     public static class Criterion {
         private String condition;
@@ -1284,7 +1164,7 @@ public class ProductPlanMainExample {
     public static class SelectiveField {
         private Set<String> fields;
 
-        private static String allFields = "id,product_plan_code,product_comments,plan_status,is_assign,audit_time,audit_user_id,audit_user_name,bill_date,supplier_id,supplier_code,supplier_name,creator,create_time,modifier,modify_time";
+        private static String allFields = "id,product_plan_code,product_comments,plan_status,audit_time,audit_user_name,bill_date,supplier_id,supplier_code,supplier_name,creator,create_time,modifier,modify_time";
 
         private SelectiveField() {
             fields = new HashSet<>();
@@ -1314,18 +1194,8 @@ public class ProductPlanMainExample {
             return this;
         }
 
-        public SelectiveField isAssign() {
-            fields.add("is_assign");
-            return this;
-        }
-
         public SelectiveField auditTime() {
             fields.add("audit_time");
-            return this;
-        }
-
-        public SelectiveField auditUserId() {
-            fields.add("audit_user_id");
             return this;
         }
 

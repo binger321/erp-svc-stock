@@ -1,10 +1,10 @@
 package com.binger.stock.domain;
 
-import java.io.Serializable;
-import java.util.Date;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 主采购计划表
@@ -24,9 +24,9 @@ public class ProductPlanMain implements Serializable {
     private String productPlanCode;
 
     /**
-     * 采购备注
+     * 计划备注
      */
-    @ApiModelProperty(value="采购备注",required = false)
+    @ApiModelProperty(value="计划备注",required = false)
     private String productComments;
 
     /**
@@ -36,22 +36,10 @@ public class ProductPlanMain implements Serializable {
     private Integer planStatus;
 
     /**
-     * 是否已分配完
-     */
-    @ApiModelProperty(value="是否已分配完",required = false)
-    private Boolean isAssign;
-
-    /**
      * 审核时间
      */
     @ApiModelProperty(value="审核时间",required = false)
     private Date auditTime;
-
-    /**
-     * 审核人ID
-     */
-    @ApiModelProperty(value="审核人ID",required = false)
-    private Integer auditUserId;
 
     /**
      * 审核人名字
@@ -145,16 +133,16 @@ public class ProductPlanMain implements Serializable {
     }
 
     /**
-     * 采购备注
-     * @return product_comments 采购备注
+     * 计划备注
+     * @return product_comments 计划备注
      */
     public String getProductComments() {
         return productComments;
     }
 
     /**
-     * 采购备注
-     * @param productComments 采购备注
+     * 计划备注
+     * @param productComments 计划备注
      */
     public void setProductComments(String productComments) {
         this.productComments = productComments == null ? null : productComments.trim();
@@ -177,22 +165,6 @@ public class ProductPlanMain implements Serializable {
     }
 
     /**
-     * 是否已分配完
-     * @return is_assign 是否已分配完
-     */
-    public Boolean getIsAssign() {
-        return isAssign;
-    }
-
-    /**
-     * 是否已分配完
-     * @param isAssign 是否已分配完
-     */
-    public void setIsAssign(Boolean isAssign) {
-        this.isAssign = isAssign;
-    }
-
-    /**
      * 审核时间
      * @return audit_time 审核时间
      */
@@ -206,22 +178,6 @@ public class ProductPlanMain implements Serializable {
      */
     public void setAuditTime(Date auditTime) {
         this.auditTime = auditTime;
-    }
-
-    /**
-     * 审核人ID
-     * @return audit_user_id 审核人ID
-     */
-    public Integer getAuditUserId() {
-        return auditUserId;
-    }
-
-    /**
-     * 审核人ID
-     * @param auditUserId 审核人ID
-     */
-    public void setAuditUserId(Integer auditUserId) {
-        this.auditUserId = auditUserId;
     }
 
     /**
@@ -384,9 +340,7 @@ public class ProductPlanMain implements Serializable {
             && (this.getProductPlanCode() == null ? other.getProductPlanCode() == null : this.getProductPlanCode().equals(other.getProductPlanCode()))
             && (this.getProductComments() == null ? other.getProductComments() == null : this.getProductComments().equals(other.getProductComments()))
             && (this.getPlanStatus() == null ? other.getPlanStatus() == null : this.getPlanStatus().equals(other.getPlanStatus()))
-            && (this.getIsAssign() == null ? other.getIsAssign() == null : this.getIsAssign().equals(other.getIsAssign()))
             && (this.getAuditTime() == null ? other.getAuditTime() == null : this.getAuditTime().equals(other.getAuditTime()))
-            && (this.getAuditUserId() == null ? other.getAuditUserId() == null : this.getAuditUserId().equals(other.getAuditUserId()))
             && (this.getAuditUserName() == null ? other.getAuditUserName() == null : this.getAuditUserName().equals(other.getAuditUserName()))
             && (this.getBillDate() == null ? other.getBillDate() == null : this.getBillDate().equals(other.getBillDate()))
             && (this.getSupplierId() == null ? other.getSupplierId() == null : this.getSupplierId().equals(other.getSupplierId()))
@@ -406,9 +360,7 @@ public class ProductPlanMain implements Serializable {
         result = prime * result + ((getProductPlanCode() == null) ? 0 : getProductPlanCode().hashCode());
         result = prime * result + ((getProductComments() == null) ? 0 : getProductComments().hashCode());
         result = prime * result + ((getPlanStatus() == null) ? 0 : getPlanStatus().hashCode());
-        result = prime * result + ((getIsAssign() == null) ? 0 : getIsAssign().hashCode());
         result = prime * result + ((getAuditTime() == null) ? 0 : getAuditTime().hashCode());
-        result = prime * result + ((getAuditUserId() == null) ? 0 : getAuditUserId().hashCode());
         result = prime * result + ((getAuditUserName() == null) ? 0 : getAuditUserName().hashCode());
         result = prime * result + ((getBillDate() == null) ? 0 : getBillDate().hashCode());
         result = prime * result + ((getSupplierId() == null) ? 0 : getSupplierId().hashCode());
@@ -431,9 +383,7 @@ public class ProductPlanMain implements Serializable {
         sb.append(", productPlanCode=").append(productPlanCode);
         sb.append(", productComments=").append(productComments);
         sb.append(", planStatus=").append(planStatus);
-        sb.append(", isAssign=").append(isAssign);
         sb.append(", auditTime=").append(auditTime);
-        sb.append(", auditUserId=").append(auditUserId);
         sb.append(", auditUserName=").append(auditUserName);
         sb.append(", billDate=").append(billDate);
         sb.append(", supplierId=").append(supplierId);

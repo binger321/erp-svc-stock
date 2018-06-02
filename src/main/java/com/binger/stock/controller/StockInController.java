@@ -26,7 +26,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  * Description:
  */
-@Api(value = "goods", description = "商品接口", produces = MediaType.APPLICATION_JSON_VALUE)
+@Api(value = "stockIn", description = "库存入库接口", produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController(value = "入库API")
 @RequestMapping(value = "/erp-svc-stock/stockIn")
 public class StockInController {
@@ -65,5 +65,12 @@ public class StockInController {
     public ServerResponse<StockInBillMainVo> insert(@RequestBody StockInBillForm stockInBillMainForm) {
         StockInBillMainVo stockInBillMainVo = stockInService.insert(stockInBillMainForm);
         return ServerResponse.createBySuccess(Const.SUCCESS_MSG, stockInBillMainVo);
+    }
+
+    @ApiOperation(value = "更新入库单")
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public ServerResponse<StockInBillVo> update(@RequestBody StockInBillForm stockInBillForm) {
+        StockInBillVo stockInBillVo = stockInService.update(stockInBillForm);
+        return ServerResponse.createBySuccess(Const.SUCCESS_MSG, stockInBillVo);
     }
 }

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.binger.stock.dao.ProductOrderMainMapper">
+    <resultMap id="ProductOrderMainDto" type="com.binger.stock.dto.ret.ProductOrderMainRetDto">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="product_plan_code" jdbcType="VARCHAR" property="productPlanCode" />
+        <result column="product_order_code" jdbcType="VARCHAR" property="productOrderCode" />
+        <result column="audit_time" jdbcType="TIMESTAMP" property="auditTime" />
+        <result column="audit_user_name" jdbcType="VARCHAR" property="auditUserName" />
+        <result column="pre_pay_time" jdbcType="TIMESTAMP" property="prePayTime" />
+        <result column="pay_time" jdbcType="TIMESTAMP" property="payTime" />
+        <result column="pay_user_name" jdbcType="VARCHAR" property="payUserName" />
+        <result column="local_total_mny" jdbcType="DECIMAL" property="localTotalMny" />
+        <result column="pay_total_mny" jdbcType="DECIMAL" property="payTotalMny" />
+        <result column="un_pay_mny" jdbcType="DECIMAL" property="unPayMny" />
+        <result column="quantity" jdbcType="INTEGER" property="quantity" />
+        <result column="settlement" jdbcType="VARCHAR" property="settlement" />
+        <result column="supplier_id" jdbcType="INTEGER" property="supplierId" />
+        <result column="supplier_code" jdbcType="VARCHAR" property="supplierCode" />
+        <result column="supplier_name" jdbcType="VARCHAR" property="supplierName" />
+        <result column="exp_delivered_time" jdbcType="TIMESTAMP" property="expDeliveredTime" />
+        <result column="delivered_time" jdbcType="TIMESTAMP" property="deliveredTime" />
+        <result column="logist_no" jdbcType="VARCHAR" property="logistNo" />
+        <result column="logist_company_name" jdbcType="VARCHAR" property="logistCompanyName" />
+        <result column="logis_fee" jdbcType="DECIMAL" property="logisFee" />
+        <result column="warehouse_id" jdbcType="INTEGER" property="warehouseId" />
+        <result column="warehouse_code" jdbcType="VARCHAR" property="warehouseCode"/>
+        <result column="warehouse_name" jdbcType="VARCHAR" property="warehouseName"/>
+        <result column="archive_date" jdbcType="TIMESTAMP" property="archiveDate" />
+        <result column="bill_date" jdbcType="TIMESTAMP" property="billDate" />
+        <result column="product_status" jdbcType="INTEGER" property="productStatus" />
+        <result column="order_status" jdbcType="INTEGER" property="orderStatus" />
+        <result column="cancel_time" jdbcType="TIMESTAMP" property="cancelTime" />
+        <result column="cancel_reason" jdbcType="VARCHAR" property="cancelReason" />
+        <result column="archive_reason_name" jdbcType="VARCHAR" property="archiveReasonName" />
+        <result column="creator" jdbcType="VARCHAR" property="creator" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="modifier" jdbcType="VARCHAR" property="modifier" />
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    </resultMap>
+
+    <select id="countByQuery" resultMap="ProductOrderMainDto" resultType="long">
+        SELECT
+        COUNT(1)
+        FROM
+        product_order_main m
+        <include refid="Product_Order_Main_Where_Clause"/>
+    </select>
+
+    <sql id="Product_Order_Main_Where_Clause">
+        <where>
+            1 = 1
+            <if test="queryDto.productPlanCode != null">
+                AND m.product_plan_code like '%${queryDto.productPlanCode}%'
+            </if>
+            <if test="queryDto.productOrderCode != null">
+                AND m.product_order_code like '%${queryDto.productOrderCode}%'
+            </if>
+            <if test="queryDto.auditUserName != null">
+                AND m.audit_user_name like '%${queryDto.auditUserName}%'
+            </if>
+            <if test="queryDto.payUserName != null">
+                AND m.pay_user_name like '%${queryDto.payUserName}%'
+            </if>
+            <if test="queryDto.settlement != null">
+                AND m.settlement = 'queryDto.settlement'
+            </if>
+            <if test="queryDto.supplierId != null">
+                AND m.supplier_id = 'queryDto.supplierId'
+            </if>
+            <if test="queryDto.logistNo != null">
+                AND m.logist_no like '%${queryDto.logistNo}%'
+            </if>
+            <if test="queryDto.logistCompanyName != null">
+                AND m.logist_company_name like '%${queryDto.logitCompanyName}%'
+            </if>
+            <if test="queryDto.warehouseId != null">
+                AND m.warehouseId = 'queryDto.warehouseId'
+            </if>
+            <if test="queryDto.productStatus != null">
+                AND m.product_status = 'queryDto.productStatus'
+            </if>
+            <if test="queryDto.orderStatus != null">
+                AND m.order_status = 'queryDto.orderStatus'
+            </if>
+        </where>
+    </sql>
+
+    <select id="listByQuery" resultMap="ProductOrderMainDto">
+        SELECT
+        m.id,
+        m.product_plan_code,
+        m.product_order_code,
+        m.audit_time,
+        m.audit_user_name,
+        m.pre_pay_time,
+        m.local_total_mny,
+        m.pay_total_mny,
+        m.un_pay_mny,
+        m.quantity,
+        m.settlement,
+        m.supplier_id,
+        m.supplier_code,
+        m.supplier_name,
+        m.exp_delivered_time,
+        m.delivered_time,
+        m.logist_no,
+        m.logist_company_name,
+        m.logis_fee,
+        m.warehouse_id,
+        w.warehouse_code,
+        w.warehouse_name,
+        m.archive_date,
+        m.bill_date,
+        m.product_status,
+        m.order_status,
+        m.cancel_time,
+        m.cancel_reason,
+        m.archive_reason_name,
+        m.creator,
+        m.create_time,
+        m.modifier,
+        m.modify_time
+        FROM product_order_main m
+        LEFT warehouse w on m.warehouse_id = w.id
+        <include refid="Product_Order_Main_Where_Clause"/>
+        <if test="queryDto.limit != null">
+            <if test="queryDto.offset != null">
+                limit #{queryDto.offset},#{queryDto.limit}
+            </if>
+            <if test="queryDto.limit != null">
+                limit #{queryDto.limit}
+            </if>
+        </if>
+    </select>
+</mapper>

@@ -109,7 +109,7 @@ public class ProductPlanDetailExample {
     }
 
     /**
-     * product_plan_detail 2018-05-17
+     * product_plan_detail 2018-05-24
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -342,76 +342,6 @@ public class ProductPlanDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andProductPlanDetailCodeIsNull() {
-            addCriterion("product_plan_detail_code is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andProductPlanDetailCodeIsNotNull() {
-            addCriterion("product_plan_detail_code is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andProductPlanDetailCodeEqualTo(String value) {
-            addCriterion("product_plan_detail_code =", value, "productPlanDetailCode");
-            return (Criteria) this;
-        }
-
-        public Criteria andProductPlanDetailCodeNotEqualTo(String value) {
-            addCriterion("product_plan_detail_code <>", value, "productPlanDetailCode");
-            return (Criteria) this;
-        }
-
-        public Criteria andProductPlanDetailCodeGreaterThan(String value) {
-            addCriterion("product_plan_detail_code >", value, "productPlanDetailCode");
-            return (Criteria) this;
-        }
-
-        public Criteria andProductPlanDetailCodeGreaterThanOrEqualTo(String value) {
-            addCriterion("product_plan_detail_code >=", value, "productPlanDetailCode");
-            return (Criteria) this;
-        }
-
-        public Criteria andProductPlanDetailCodeLessThan(String value) {
-            addCriterion("product_plan_detail_code <", value, "productPlanDetailCode");
-            return (Criteria) this;
-        }
-
-        public Criteria andProductPlanDetailCodeLessThanOrEqualTo(String value) {
-            addCriterion("product_plan_detail_code <=", value, "productPlanDetailCode");
-            return (Criteria) this;
-        }
-
-        public Criteria andProductPlanDetailCodeLike(String value) {
-            addCriterion("product_plan_detail_code like", value, "productPlanDetailCode");
-            return (Criteria) this;
-        }
-
-        public Criteria andProductPlanDetailCodeNotLike(String value) {
-            addCriterion("product_plan_detail_code not like", value, "productPlanDetailCode");
-            return (Criteria) this;
-        }
-
-        public Criteria andProductPlanDetailCodeIn(List<String> values) {
-            addCriterion("product_plan_detail_code in", values, "productPlanDetailCode");
-            return (Criteria) this;
-        }
-
-        public Criteria andProductPlanDetailCodeNotIn(List<String> values) {
-            addCriterion("product_plan_detail_code not in", values, "productPlanDetailCode");
-            return (Criteria) this;
-        }
-
-        public Criteria andProductPlanDetailCodeBetween(String value1, String value2) {
-            addCriterion("product_plan_detail_code between", value1, value2, "productPlanDetailCode");
-            return (Criteria) this;
-        }
-
-        public Criteria andProductPlanDetailCodeNotBetween(String value1, String value2) {
-            addCriterion("product_plan_detail_code not between", value1, value2, "productPlanDetailCode");
-            return (Criteria) this;
-        }
-
         public Criteria andProductOrderCodeIsNull() {
             addCriterion("product_order_code is null");
             return (Criteria) this;
@@ -479,66 +409,6 @@ public class ProductPlanDetailExample {
 
         public Criteria andProductOrderCodeNotBetween(String value1, String value2) {
             addCriterion("product_order_code not between", value1, value2, "productOrderCode");
-            return (Criteria) this;
-        }
-
-        public Criteria andProductStatusIsNull() {
-            addCriterion("product_status is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andProductStatusIsNotNull() {
-            addCriterion("product_status is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andProductStatusEqualTo(Boolean value) {
-            addCriterion("product_status =", value, "productStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andProductStatusNotEqualTo(Boolean value) {
-            addCriterion("product_status <>", value, "productStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andProductStatusGreaterThan(Boolean value) {
-            addCriterion("product_status >", value, "productStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andProductStatusGreaterThanOrEqualTo(Boolean value) {
-            addCriterion("product_status >=", value, "productStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andProductStatusLessThan(Boolean value) {
-            addCriterion("product_status <", value, "productStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andProductStatusLessThanOrEqualTo(Boolean value) {
-            addCriterion("product_status <=", value, "productStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andProductStatusIn(List<Boolean> values) {
-            addCriterion("product_status in", values, "productStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andProductStatusNotIn(List<Boolean> values) {
-            addCriterion("product_status not in", values, "productStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andProductStatusBetween(Boolean value1, Boolean value2) {
-            addCriterion("product_status between", value1, value2, "productStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andProductStatusNotBetween(Boolean value1, Boolean value2) {
-            addCriterion("product_status not between", value1, value2, "productStatus");
             return (Criteria) this;
         }
 
@@ -1412,66 +1282,6 @@ public class ProductPlanDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andGoodsImgIdIsNull() {
-            addCriterion("goods_img_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andGoodsImgIdIsNotNull() {
-            addCriterion("goods_img_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andGoodsImgIdEqualTo(Integer value) {
-            addCriterion("goods_img_id =", value, "goodsImgId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGoodsImgIdNotEqualTo(Integer value) {
-            addCriterion("goods_img_id <>", value, "goodsImgId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGoodsImgIdGreaterThan(Integer value) {
-            addCriterion("goods_img_id >", value, "goodsImgId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGoodsImgIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("goods_img_id >=", value, "goodsImgId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGoodsImgIdLessThan(Integer value) {
-            addCriterion("goods_img_id <", value, "goodsImgId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGoodsImgIdLessThanOrEqualTo(Integer value) {
-            addCriterion("goods_img_id <=", value, "goodsImgId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGoodsImgIdIn(List<Integer> values) {
-            addCriterion("goods_img_id in", values, "goodsImgId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGoodsImgIdNotIn(List<Integer> values) {
-            addCriterion("goods_img_id not in", values, "goodsImgId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGoodsImgIdBetween(Integer value1, Integer value2) {
-            addCriterion("goods_img_id between", value1, value2, "goodsImgId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGoodsImgIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("goods_img_id not between", value1, value2, "goodsImgId");
-            return (Criteria) this;
-        }
-
         public Criteria andGoodsImgUrlIsNull() {
             addCriterion("goods_img_url is null");
             return (Criteria) this;
@@ -2134,7 +1944,7 @@ public class ProductPlanDetailExample {
     }
 
     /**
-     * product_plan_detail 2018-05-17
+     * product_plan_detail 2018-05-24
      */
     public static class Criterion {
         private String condition;
@@ -2225,7 +2035,7 @@ public class ProductPlanDetailExample {
     public static class SelectiveField {
         private Set<String> fields;
 
-        private static String allFields = "id,product_plan_main_id,product_plan_code,product_plan_detail_code,product_order_code,product_status,goods_id,goods_code,goods_name,sku_id,sku_code,sku_name,color_id,color_code,color_name,size_id,size_code,size_name,main_img_url,goods_img_id,goods_img_url,stock_quantity,outofstock_quantity,product_link,cost_price,product_comments,creator,create_time,modifier,modify_time";
+        private static String allFields = "id,product_plan_main_id,product_plan_code,product_order_code,goods_id,goods_code,goods_name,sku_id,sku_code,sku_name,color_id,color_code,color_name,size_id,size_code,size_name,main_img_url,goods_img_url,stock_quantity,outofstock_quantity,product_link,cost_price,product_comments,creator,create_time,modifier,modify_time";
 
         private SelectiveField() {
             fields = new HashSet<>();
@@ -2250,18 +2060,8 @@ public class ProductPlanDetailExample {
             return this;
         }
 
-        public SelectiveField productPlanDetailCode() {
-            fields.add("product_plan_detail_code");
-            return this;
-        }
-
         public SelectiveField productOrderCode() {
             fields.add("product_order_code");
-            return this;
-        }
-
-        public SelectiveField productStatus() {
-            fields.add("product_status");
             return this;
         }
 
@@ -2327,11 +2127,6 @@ public class ProductPlanDetailExample {
 
         public SelectiveField mainImgUrl() {
             fields.add("main_img_url");
-            return this;
-        }
-
-        public SelectiveField goodsImgId() {
-            fields.add("goods_img_id");
             return this;
         }
 

@@ -42,8 +42,15 @@ public interface StockInService {
 
     /**
      * 新增form
-     * @param stockInBillMainForm
+     * @param stockInBillForm
      * @return
      */
     StockInBillMainVo insert(StockInBillForm stockInBillForm);
+
+    /**
+     * 修改form
+     * @param stockInBillForm
+     * @return
+     */
+    StockInBillVo update(StockInBillForm stockInBillForm);
 }

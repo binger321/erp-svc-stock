@@ -5,9 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="product_plan_main_id" jdbcType="INTEGER" property="productPlanMainId" />
     <result column="product_plan_code" jdbcType="VARCHAR" property="productPlanCode" />
-    <result column="product_plan_detail_code" jdbcType="VARCHAR" property="productPlanDetailCode" />
     <result column="product_order_code" jdbcType="VARCHAR" property="productOrderCode" />
-    <result column="product_status" jdbcType="BIT" property="productStatus" />
     <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
     <result column="goods_code" jdbcType="VARCHAR" property="goodsCode" />
     <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
@@ -21,7 +19,6 @@
     <result column="size_code" jdbcType="VARCHAR" property="sizeCode" />
     <result column="size_name" jdbcType="VARCHAR" property="sizeName" />
     <result column="main_img_url" jdbcType="VARCHAR" property="mainImgUrl" />
-    <result column="goods_img_id" jdbcType="INTEGER" property="goodsImgId" />
     <result column="goods_img_url" jdbcType="VARCHAR" property="goodsImgUrl" />
     <result column="stock_quantity" jdbcType="INTEGER" property="stockQuantity" />
     <result column="outofstock_quantity" jdbcType="INTEGER" property="outofstockQuantity" />
@@ -92,11 +89,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, product_plan_main_id, product_plan_code, product_plan_detail_code, product_order_code, 
-    product_status, goods_id, goods_code, goods_name, sku_id, sku_code, sku_name, color_id, 
-    color_code, color_name, size_id, size_code, size_name, main_img_url, goods_img_id, 
-    goods_img_url, stock_quantity, outofstock_quantity, product_link, cost_price, product_comments, 
-    creator, create_time, modifier, modify_time
+    id, product_plan_main_id, product_plan_code, product_order_code, goods_id, goods_code, 
+    goods_name, sku_id, sku_code, sku_name, color_id, color_code, color_name, size_id, 
+    size_code, size_name, main_img_url, goods_img_url, stock_quantity, outofstock_quantity, 
+    product_link, cost_price, product_comments, creator, create_time, modifier, modify_time
   </sql>
   <select id="selectByExample" parameterType="com.binger.stock.domain.ProductPlanDetailExample" resultMap="BaseResultMap">
     select
@@ -142,27 +138,25 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into product_plan_detail (product_plan_main_id, product_plan_code, 
-      product_plan_detail_code, product_order_code, 
-      product_status, goods_id, goods_code, 
+      product_order_code, goods_id, goods_code, 
       goods_name, sku_id, sku_code, 
       sku_name, color_id, color_code, 
       color_name, size_id, size_code, 
-      size_name, main_img_url, goods_img_id, 
-      goods_img_url, stock_quantity, outofstock_quantity, 
-      product_link, cost_price, product_comments, 
-      creator, create_time, modifier, 
-      modify_time)
+      size_name, main_img_url, goods_img_url, 
+      stock_quantity, outofstock_quantity, product_link, 
+      cost_price, product_comments, creator, 
+      create_time, modifier, modify_time
+      )
     values (#{productPlanMainId,jdbcType=INTEGER}, #{productPlanCode,jdbcType=VARCHAR}, 
-      #{productPlanDetailCode,jdbcType=VARCHAR}, #{productOrderCode,jdbcType=VARCHAR}, 
-      #{productStatus,jdbcType=BIT}, #{goodsId,jdbcType=INTEGER}, #{goodsCode,jdbcType=VARCHAR}, 
+      #{productOrderCode,jdbcType=VARCHAR}, #{goodsId,jdbcType=INTEGER}, #{goodsCode,jdbcType=VARCHAR}, 
       #{goodsName,jdbcType=VARCHAR}, #{skuId,jdbcType=INTEGER}, #{skuCode,jdbcType=VARCHAR}, 
       #{skuName,jdbcType=VARCHAR}, #{colorId,jdbcType=INTEGER}, #{colorCode,jdbcType=VARCHAR}, 
       #{colorName,jdbcType=VARCHAR}, #{sizeId,jdbcType=INTEGER}, #{sizeCode,jdbcType=VARCHAR}, 
-      #{sizeName,jdbcType=VARCHAR}, #{mainImgUrl,jdbcType=VARCHAR}, #{goodsImgId,jdbcType=INTEGER}, 
-      #{goodsImgUrl,jdbcType=VARCHAR}, #{stockQuantity,jdbcType=INTEGER}, #{outofstockQuantity,jdbcType=INTEGER}, 
-      #{productLink,jdbcType=VARCHAR}, #{costPrice,jdbcType=DECIMAL}, #{productComments,jdbcType=VARCHAR}, 
-      #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, 
-      #{modifyTime,jdbcType=TIMESTAMP})
+      #{sizeName,jdbcType=VARCHAR}, #{mainImgUrl,jdbcType=VARCHAR}, #{goodsImgUrl,jdbcType=VARCHAR}, 
+      #{stockQuantity,jdbcType=INTEGER}, #{outofstockQuantity,jdbcType=INTEGER}, #{productLink,jdbcType=VARCHAR}, 
+      #{costPrice,jdbcType=DECIMAL}, #{productComments,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.binger.stock.domain.ProductPlanDetail">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -176,14 +170,8 @@
       <if test="productPlanCode != null">
         product_plan_code,
       </if>
-      <if test="productPlanDetailCode != null">
-        product_plan_detail_code,
-      </if>
       <if test="productOrderCode != null">
         product_order_code,
-      </if>
-      <if test="productStatus != null">
-        product_status,
       </if>
       <if test="goodsId != null">
         goods_id,
@@ -224,9 +212,6 @@
       <if test="mainImgUrl != null">
         main_img_url,
       </if>
-      <if test="goodsImgId != null">
-        goods_img_id,
-      </if>
       <if test="goodsImgUrl != null">
         goods_img_url,
       </if>
@@ -265,14 +250,8 @@
       <if test="productPlanCode != null">
         #{productPlanCode,jdbcType=VARCHAR},
       </if>
-      <if test="productPlanDetailCode != null">
-        #{productPlanDetailCode,jdbcType=VARCHAR},
-      </if>
       <if test="productOrderCode != null">
         #{productOrderCode,jdbcType=VARCHAR},
-      </if>
-      <if test="productStatus != null">
-        #{productStatus,jdbcType=BIT},
       </if>
       <if test="goodsId != null">
         #{goodsId,jdbcType=INTEGER},
@@ -312,9 +291,6 @@
       </if>
       <if test="mainImgUrl != null">
         #{mainImgUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="goodsImgId != null">
-        #{goodsImgId,jdbcType=INTEGER},
       </if>
       <if test="goodsImgUrl != null">
         #{goodsImgUrl,jdbcType=VARCHAR},
@@ -357,20 +333,92 @@
   <update id="updateByExampleSelective" parameterType="map">
     update product_plan_detail
     <set>
+      <if test="record.productPlanMainId != null">
+        <if test="record.productPlanMainId == -99999">
+          product_plan_main_id= null,
+        </if>
+        <if test="record.productPlanMainId != -99999">
+          product_plan_main_id= #{record.productPlanMainId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.goodsId != null">
+        <if test="record.goodsId == -99999">
+          goods_id= null,
+        </if>
+        <if test="record.goodsId != -99999">
+          goods_id= #{record.goodsId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.skuId != null">
+        <if test="record.skuId == -99999">
+          sku_id= null,
+        </if>
+        <if test="record.skuId != -99999">
+          sku_id= #{record.skuId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.colorId != null">
+        <if test="record.colorId == -99999">
+          color_id= null,
+        </if>
+        <if test="record.colorId != -99999">
+          color_id= #{record.colorId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.sizeId != null">
+        <if test="record.sizeId == -99999">
+          size_id= null,
+        </if>
+        <if test="record.sizeId != -99999">
+          size_id= #{record.sizeId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.stockQuantity != null">
+        <if test="record.stockQuantity == -99999">
+          stock_quantity= null,
+        </if>
+        <if test="record.stockQuantity != -99999">
+          stock_quantity= #{record.stockQuantity,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.outofstockQuantity != null">
+        <if test="record.outofstockQuantity == -99999">
+          outofstock_quantity= null,
+        </if>
+        <if test="record.outofstockQuantity != -99999">
+          outofstock_quantity= #{record.outofstockQuantity,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.costPrice != null">
+        <if test="record.costPrice == -99999">
+          cost_price= null,
+        </if>
+        <if test="record.costPrice != -99999">
+          cost_price= #{record.costPrice,jdbcType=DECIMAL},
+        </if>
+      </if>
+      <if test="record.createTime != null">
+        <if test="record.createTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
+          create_time= null,
+        </if>
+        <if test="record.createTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
+          create_time= #{record.createTime,jdbcType=TIMESTAMP},
+        </if>
+      </if>
+      <if test="record.modifyTime != null">
+        <if test="record.modifyTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
+          modify_time= null,
+        </if>
+        <if test="record.modifyTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
+          modify_time= #{record.modifyTime,jdbcType=TIMESTAMP},
+        </if>
+      </if>
       <if test="record.productPlanCode != null">
         <if test="record.productPlanCode == 'erpsetnull'">
           product_plan_code= null,
         </if>
         <if test="record.productPlanCode != 'erpsetnull'">
           product_plan_code= #{record.productPlanCode,jdbcType=VARCHAR},
-        </if>
-      </if>
-      <if test="record.productPlanDetailCode != null">
-        <if test="record.productPlanDetailCode == 'erpsetnull'">
-          product_plan_detail_code= null,
-        </if>
-        <if test="record.productPlanDetailCode != 'erpsetnull'">
-          product_plan_detail_code= #{record.productPlanDetailCode,jdbcType=VARCHAR},
         </if>
       </if>
       <if test="record.productOrderCode != null">
@@ -493,97 +541,6 @@
           modifier= #{record.modifier,jdbcType=VARCHAR},
         </if>
       </if>
-      <if test="record.createTime != null">
-        <if test="record.createTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
-          create_time= null,
-        </if>
-        <if test="record.createTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
-          create_time= #{record.createTime,jdbcType=TIMESTAMP},
-        </if>
-      </if>
-      <if test="record.modifyTime != null">
-        <if test="record.modifyTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
-          modify_time= null,
-        </if>
-        <if test="record.modifyTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
-          modify_time= #{record.modifyTime,jdbcType=TIMESTAMP},
-        </if>
-      </if>
-      <if test="record.productPlanMainId != null">
-        <if test="record.productPlanMainId == -99999">
-          product_plan_main_id= null,
-        </if>
-        <if test="record.productPlanMainId != -99999">
-          product_plan_main_id= #{record.productPlanMainId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="record.goodsId != null">
-        <if test="record.goodsId == -99999">
-          goods_id= null,
-        </if>
-        <if test="record.goodsId != -99999">
-          goods_id= #{record.goodsId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="record.skuId != null">
-        <if test="record.skuId == -99999">
-          sku_id= null,
-        </if>
-        <if test="record.skuId != -99999">
-          sku_id= #{record.skuId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="record.colorId != null">
-        <if test="record.colorId == -99999">
-          color_id= null,
-        </if>
-        <if test="record.colorId != -99999">
-          color_id= #{record.colorId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="record.sizeId != null">
-        <if test="record.sizeId == -99999">
-          size_id= null,
-        </if>
-        <if test="record.sizeId != -99999">
-          size_id= #{record.sizeId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="record.goodsImgId != null">
-        <if test="record.goodsImgId == -99999">
-          goods_img_id= null,
-        </if>
-        <if test="record.goodsImgId != -99999">
-          goods_img_id= #{record.goodsImgId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="record.stockQuantity != null">
-        <if test="record.stockQuantity == -99999">
-          stock_quantity= null,
-        </if>
-        <if test="record.stockQuantity != -99999">
-          stock_quantity= #{record.stockQuantity,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="record.outofstockQuantity != null">
-        <if test="record.outofstockQuantity == -99999">
-          outofstock_quantity= null,
-        </if>
-        <if test="record.outofstockQuantity != -99999">
-          outofstock_quantity= #{record.outofstockQuantity,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="record.costPrice != null">
-        <if test="record.costPrice == -99999">
-          cost_price= null,
-        </if>
-        <if test="record.costPrice != -99999">
-          cost_price= #{record.costPrice,jdbcType=DECIMAL},
-        </if>
-      </if>
-      <if test="record.productStatus != null">
-        product_status= #{record.productStatus,jdbcType=BIT},
-      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -594,9 +551,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       product_plan_main_id = #{record.productPlanMainId,jdbcType=INTEGER},
       product_plan_code = #{record.productPlanCode,jdbcType=VARCHAR},
-      product_plan_detail_code = #{record.productPlanDetailCode,jdbcType=VARCHAR},
       product_order_code = #{record.productOrderCode,jdbcType=VARCHAR},
-      product_status = #{record.productStatus,jdbcType=BIT},
       goods_id = #{record.goodsId,jdbcType=INTEGER},
       goods_code = #{record.goodsCode,jdbcType=VARCHAR},
       goods_name = #{record.goodsName,jdbcType=VARCHAR},
@@ -610,7 +565,6 @@
       size_code = #{record.sizeCode,jdbcType=VARCHAR},
       size_name = #{record.sizeName,jdbcType=VARCHAR},
       main_img_url = #{record.mainImgUrl,jdbcType=VARCHAR},
-      goods_img_id = #{record.goodsImgId,jdbcType=INTEGER},
       goods_img_url = #{record.goodsImgUrl,jdbcType=VARCHAR},
       stock_quantity = #{record.stockQuantity,jdbcType=INTEGER},
       outofstock_quantity = #{record.outofstockQuantity,jdbcType=INTEGER},
@@ -628,20 +582,92 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.binger.stock.domain.ProductPlanDetail">
     update product_plan_detail
     <set>
+      <if test="productPlanMainId != null">
+        <if test="productPlanMainId == -99999">
+          product_plan_main_id= null,
+        </if>
+        <if test="productPlanMainId != -99999">
+          product_plan_main_id= #{productPlanMainId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="goodsId != null">
+        <if test="goodsId == -99999">
+          goods_id= null,
+        </if>
+        <if test="goodsId != -99999">
+          goods_id= #{goodsId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="skuId != null">
+        <if test="skuId == -99999">
+          sku_id= null,
+        </if>
+        <if test="skuId != -99999">
+          sku_id= #{skuId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="colorId != null">
+        <if test="colorId == -99999">
+          color_id= null,
+        </if>
+        <if test="colorId != -99999">
+          color_id= #{colorId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="sizeId != null">
+        <if test="sizeId == -99999">
+          size_id= null,
+        </if>
+        <if test="sizeId != -99999">
+          size_id= #{sizeId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="stockQuantity != null">
+        <if test="stockQuantity == -99999">
+          stock_quantity= null,
+        </if>
+        <if test="stockQuantity != -99999">
+          stock_quantity= #{stockQuantity,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="outofstockQuantity != null">
+        <if test="outofstockQuantity == -99999">
+          outofstock_quantity= null,
+        </if>
+        <if test="outofstockQuantity != -99999">
+          outofstock_quantity= #{outofstockQuantity,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="costPrice != null">
+        <if test="costPrice == -99999">
+          cost_price= null,
+        </if>
+        <if test="costPrice != -99999">
+          cost_price= #{costPrice,jdbcType=DECIMAL},
+        </if>
+      </if>
+      <if test="createTime != null">
+        <if test="createTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
+          create_time= null,
+        </if>
+        <if test="createTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
+          create_time= #{createTime,jdbcType=TIMESTAMP},
+        </if>
+      </if>
+      <if test="modifyTime != null">
+        <if test="modifyTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
+          modify_time= null,
+        </if>
+        <if test="modifyTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
+          modify_time= #{modifyTime,jdbcType=TIMESTAMP},
+        </if>
+      </if>
       <if test="productPlanCode != null">
         <if test="productPlanCode == 'erpsetnull'">
           product_plan_code= null,
         </if>
         <if test="productPlanCode != 'erpsetnull'">
           product_plan_code= #{productPlanCode,jdbcType=VARCHAR},
-        </if>
-      </if>
-      <if test="productPlanDetailCode != null">
-        <if test="productPlanDetailCode == 'erpsetnull'">
-          product_plan_detail_code= null,
-        </if>
-        <if test="productPlanDetailCode != 'erpsetnull'">
-          product_plan_detail_code= #{productPlanDetailCode,jdbcType=VARCHAR},
         </if>
       </if>
       <if test="productOrderCode != null">
@@ -764,97 +790,6 @@
           modifier= #{modifier,jdbcType=VARCHAR},
         </if>
       </if>
-      <if test="createTime != null">
-        <if test="createTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
-          create_time= null,
-        </if>
-        <if test="createTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
-          create_time= #{createTime,jdbcType=TIMESTAMP},
-        </if>
-      </if>
-      <if test="modifyTime != null">
-        <if test="modifyTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
-          modify_time= null,
-        </if>
-        <if test="modifyTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
-          modify_time= #{modifyTime,jdbcType=TIMESTAMP},
-        </if>
-      </if>
-      <if test="productPlanMainId != null">
-        <if test="productPlanMainId == -99999">
-          product_plan_main_id= null,
-        </if>
-        <if test="productPlanMainId != -99999">
-          product_plan_main_id= #{productPlanMainId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="goodsId != null">
-        <if test="goodsId == -99999">
-          goods_id= null,
-        </if>
-        <if test="goodsId != -99999">
-          goods_id= #{goodsId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="skuId != null">
-        <if test="skuId == -99999">
-          sku_id= null,
-        </if>
-        <if test="skuId != -99999">
-          sku_id= #{skuId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="colorId != null">
-        <if test="colorId == -99999">
-          color_id= null,
-        </if>
-        <if test="colorId != -99999">
-          color_id= #{colorId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="sizeId != null">
-        <if test="sizeId == -99999">
-          size_id= null,
-        </if>
-        <if test="sizeId != -99999">
-          size_id= #{sizeId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="goodsImgId != null">
-        <if test="goodsImgId == -99999">
-          goods_img_id= null,
-        </if>
-        <if test="goodsImgId != -99999">
-          goods_img_id= #{goodsImgId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="stockQuantity != null">
-        <if test="stockQuantity == -99999">
-          stock_quantity= null,
-        </if>
-        <if test="stockQuantity != -99999">
-          stock_quantity= #{stockQuantity,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="outofstockQuantity != null">
-        <if test="outofstockQuantity == -99999">
-          outofstock_quantity= null,
-        </if>
-        <if test="outofstockQuantity != -99999">
-          outofstock_quantity= #{outofstockQuantity,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="costPrice != null">
-        <if test="costPrice == -99999">
-          cost_price= null,
-        </if>
-        <if test="costPrice != -99999">
-          cost_price= #{costPrice,jdbcType=DECIMAL},
-        </if>
-      </if>
-      <if test="productStatus != null">
-        product_status= #{productStatus,jdbcType=BIT},
-      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -862,9 +797,7 @@
     update product_plan_detail
     set product_plan_main_id = #{productPlanMainId,jdbcType=INTEGER},
       product_plan_code = #{productPlanCode,jdbcType=VARCHAR},
-      product_plan_detail_code = #{productPlanDetailCode,jdbcType=VARCHAR},
       product_order_code = #{productOrderCode,jdbcType=VARCHAR},
-      product_status = #{productStatus,jdbcType=BIT},
       goods_id = #{goodsId,jdbcType=INTEGER},
       goods_code = #{goodsCode,jdbcType=VARCHAR},
       goods_name = #{goodsName,jdbcType=VARCHAR},
@@ -878,7 +811,6 @@
       size_code = #{sizeCode,jdbcType=VARCHAR},
       size_name = #{sizeName,jdbcType=VARCHAR},
       main_img_url = #{mainImgUrl,jdbcType=VARCHAR},
-      goods_img_id = #{goodsImgId,jdbcType=INTEGER},
       goods_img_url = #{goodsImgUrl,jdbcType=VARCHAR},
       stock_quantity = #{stockQuantity,jdbcType=INTEGER},
       outofstock_quantity = #{outofstockQuantity,jdbcType=INTEGER},

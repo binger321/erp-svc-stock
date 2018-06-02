@@ -1,4 +1,4 @@
-package com.binger.stock.service;
+package com.binger.stock.service.impl;
 
 import com.binger.common.ResponseCode;
 import com.binger.common.ServerResponse;
@@ -7,6 +7,7 @@ import com.binger.common.exception.BusinessException;
 import com.binger.common.util.DozerUtils;
 import com.binger.stock.controller.form.StockInBillDetailForm;
 import com.binger.stock.controller.form.StockInBillForm;
+import com.binger.stock.controller.form.StockInBillMainForm;
 import com.binger.stock.dao.StockInBillDetailMapper;
 import com.binger.stock.dao.StockInBillMainMapper;
 import com.binger.stock.domain.StockInBillDetail;
@@ -18,6 +19,7 @@ import com.binger.stock.dto.ret.StockInMainRetDto;
 import com.binger.stock.enums.StockInBillTypeEnum;
 import com.binger.stock.enums.StockInStatusEnum;
 import com.binger.stock.remote.RemoteBillCodeCtl;
+import com.binger.stock.service.StockInService;
 import com.binger.stock.vo.StockInBillDetailVo;
 import com.binger.stock.vo.StockInBillMainVo;
 import com.binger.stock.vo.StockInBillVo;
@@ -116,6 +118,23 @@ public class StockInServiceImpl implements StockInService {
             return DozerUtils.convert(stockInBillMain1, StockInBillMainVo.class);
         }
         return null;
+    }
+
+    @Override
+    @Transactional
+    public StockInBillVo update(StockInBillForm stockInBillForm) {
+        StockInBillMainForm stockInBillMainForm = stockInBillForm.getStockInBillMainForm();
+        StockInBillMain stockInBillMain = DozerUtils.convert(stockInBillMainForm, StockInBillMain.class);
+        stockInBillMainMapper.updateByPrimaryKey(stockInBillMain);
+        List<StockInBillDetailForm> stockInBillDetailFormList = stockInBillForm.getStockInBillDetailFormList();
+        if (CollectionUtils.isNotEmpty(stockInBillDetailFormList)) {
+            stockInBillDetailFormList.forEach(stockInBillDetailForm -> {
+                StockInBillDetail stockInBillDetail = DozerUtils.convert(stockInBillDetailForm, StockInBillDetail.class);
+                stockInBillDetailMapper.updateByPrimaryKey(stockInBillDetail);
+            });
+        }
+        return findById(stockInBillMainForm.getId());
+
     }
 
     /**

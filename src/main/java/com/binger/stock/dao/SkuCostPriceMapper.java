@@ -1,7 +1,5 @@
 package com.binger.stock.dao;
 
-import com.binger.stock.domain.SkuCostPrice;
-import com.binger.stock.domain.SkuCostPriceExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

@@ -3,8 +3,8 @@
 <mapper namespace="com.binger.stock.dao.ProductOrderDetailMapper">
   <resultMap id="BaseResultMap" type="com.binger.stock.domain.ProductOrderDetail">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="product_order_main_id" jdbcType="VARCHAR" property="productOrderMainId" />
-    <result column="product_order_sub_code" jdbcType="VARCHAR" property="productOrderSubCode" />
+    <result column="product_order_main_id" jdbcType="INTEGER" property="productOrderMainId" />
+    <result column="product_order_main_code" jdbcType="VARCHAR" property="productOrderMainCode" />
     <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
     <result column="goods_code" jdbcType="VARCHAR" property="goodsCode" />
     <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
@@ -21,20 +21,17 @@
     <result column="size_id" jdbcType="INTEGER" property="sizeId" />
     <result column="size_code" jdbcType="VARCHAR" property="sizeCode" />
     <result column="size_name" jdbcType="VARCHAR" property="sizeName" />
-    <result column="quantity" jdbcType="INTEGER" property="quantity" />
-    <result column="stock_quantity" jdbcType="INTEGER" property="stockQuantity" />
-    <result column="out_of_stock_quantity" jdbcType="INTEGER" property="outOfStockQuantity" />
     <result column="weight" jdbcType="DECIMAL" property="weight" />
     <result column="last_price" jdbcType="DECIMAL" property="lastPrice" />
     <result column="local_price" jdbcType="DECIMAL" property="localPrice" />
     <result column="local_amount" jdbcType="DECIMAL" property="localAmount" />
+    <result column="is_storage" jdbcType="BIT" property="isStorage" />
     <result column="ware_quantity" jdbcType="INTEGER" property="wareQuantity" />
     <result column="unware_quantity" jdbcType="INTEGER" property="unwareQuantity" />
-    <result column="is_storage" jdbcType="BIT" property="isStorage" />
-    <result column="comments" jdbcType="VARCHAR" property="comments" />
     <result column="return_quantity" jdbcType="INTEGER" property="returnQuantity" />
     <result column="defective_quantity" jdbcType="INTEGER" property="defectiveQuantity" />
-    <result column="total_ware_quantity" jdbcType="INTEGER" property="totalWareQuantity" />
+    <result column="total_quantity" jdbcType="INTEGER" property="totalQuantity" />
+    <result column="comments" jdbcType="VARCHAR" property="comments" />
     <result column="creator" jdbcType="VARCHAR" property="creator" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="modifier" jdbcType="VARCHAR" property="modifier" />
@@ -99,12 +96,11 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, product_order_main_id, product_order_sub_code, goods_id, goods_code, goods_name, 
+    id, product_order_main_id, product_order_main_code, goods_id, goods_code, goods_name, 
     unit, main_img_url, goods_img_id, goods_img_url, sku_id, sku_code, sku_name, color_id, 
-    color_code, color_name, size_id, size_code, size_name, quantity, stock_quantity, 
-    out_of_stock_quantity, weight, last_price, local_price, local_amount, ware_quantity, 
-    unware_quantity, is_storage, comments, return_quantity, defective_quantity, total_ware_quantity, 
-    creator, create_time, modifier, modify_time
+    color_code, color_name, size_id, size_code, size_name, weight, last_price, local_price, 
+    local_amount, is_storage, ware_quantity, unware_quantity, return_quantity, defective_quantity, 
+    total_quantity, comments, creator, create_time, modifier, modify_time
   </sql>
   <select id="selectByExample" parameterType="com.binger.stock.domain.ProductOrderDetailExample" resultMap="BaseResultMap">
     select
@@ -149,30 +145,28 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into product_order_detail (product_order_main_id, product_order_sub_code, 
+    insert into product_order_detail (product_order_main_id, product_order_main_code, 
       goods_id, goods_code, goods_name, 
       unit, main_img_url, goods_img_id, 
       goods_img_url, sku_id, sku_code, 
       sku_name, color_id, color_code, 
       color_name, size_id, size_code, 
-      size_name, quantity, stock_quantity, 
-      out_of_stock_quantity, weight, last_price, 
-      local_price, local_amount, ware_quantity, 
-      unware_quantity, is_storage, comments, 
-      return_quantity, defective_quantity, total_ware_quantity, 
+      size_name, weight, last_price, 
+      local_price, local_amount, is_storage, 
+      ware_quantity, unware_quantity, return_quantity, 
+      defective_quantity, total_quantity, comments, 
       creator, create_time, modifier, 
       modify_time)
-    values (#{productOrderMainId,jdbcType=VARCHAR}, #{productOrderSubCode,jdbcType=VARCHAR}, 
+    values (#{productOrderMainId,jdbcType=INTEGER}, #{productOrderMainCode,jdbcType=VARCHAR}, 
       #{goodsId,jdbcType=INTEGER}, #{goodsCode,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, 
       #{unit,jdbcType=VARCHAR}, #{mainImgUrl,jdbcType=VARCHAR}, #{goodsImgId,jdbcType=INTEGER}, 
       #{goodsImgUrl,jdbcType=VARCHAR}, #{skuId,jdbcType=INTEGER}, #{skuCode,jdbcType=VARCHAR}, 
       #{skuName,jdbcType=VARCHAR}, #{colorId,jdbcType=INTEGER}, #{colorCode,jdbcType=VARCHAR}, 
       #{colorName,jdbcType=VARCHAR}, #{sizeId,jdbcType=INTEGER}, #{sizeCode,jdbcType=VARCHAR}, 
-      #{sizeName,jdbcType=VARCHAR}, #{quantity,jdbcType=INTEGER}, #{stockQuantity,jdbcType=INTEGER}, 
-      #{outOfStockQuantity,jdbcType=INTEGER}, #{weight,jdbcType=DECIMAL}, #{lastPrice,jdbcType=DECIMAL}, 
-      #{localPrice,jdbcType=DECIMAL}, #{localAmount,jdbcType=DECIMAL}, #{wareQuantity,jdbcType=INTEGER}, 
-      #{unwareQuantity,jdbcType=INTEGER}, #{isStorage,jdbcType=BIT}, #{comments,jdbcType=VARCHAR}, 
-      #{returnQuantity,jdbcType=INTEGER}, #{defectiveQuantity,jdbcType=INTEGER}, #{totalWareQuantity,jdbcType=INTEGER}, 
+      #{sizeName,jdbcType=VARCHAR}, #{weight,jdbcType=DECIMAL}, #{lastPrice,jdbcType=DECIMAL}, 
+      #{localPrice,jdbcType=DECIMAL}, #{localAmount,jdbcType=DECIMAL}, #{isStorage,jdbcType=BIT}, 
+      #{wareQuantity,jdbcType=INTEGER}, #{unwareQuantity,jdbcType=INTEGER}, #{returnQuantity,jdbcType=INTEGER}, 
+      #{defectiveQuantity,jdbcType=INTEGER}, #{totalQuantity,jdbcType=INTEGER}, #{comments,jdbcType=VARCHAR}, 
       #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, 
       #{modifyTime,jdbcType=TIMESTAMP})
   </insert>
@@ -185,8 +179,8 @@
       <if test="productOrderMainId != null">
         product_order_main_id,
       </if>
-      <if test="productOrderSubCode != null">
-        product_order_sub_code,
+      <if test="productOrderMainCode != null">
+        product_order_main_code,
       </if>
       <if test="goodsId != null">
         goods_id,
@@ -236,15 +230,6 @@
       <if test="sizeName != null">
         size_name,
       </if>
-      <if test="quantity != null">
-        quantity,
-      </if>
-      <if test="stockQuantity != null">
-        stock_quantity,
-      </if>
-      <if test="outOfStockQuantity != null">
-        out_of_stock_quantity,
-      </if>
       <if test="weight != null">
         weight,
       </if>
@@ -257,17 +242,14 @@
       <if test="localAmount != null">
         local_amount,
       </if>
+      <if test="isStorage != null">
+        is_storage,
+      </if>
       <if test="wareQuantity != null">
         ware_quantity,
       </if>
       <if test="unwareQuantity != null">
         unware_quantity,
-      </if>
-      <if test="isStorage != null">
-        is_storage,
-      </if>
-      <if test="comments != null">
-        comments,
       </if>
       <if test="returnQuantity != null">
         return_quantity,
@@ -275,8 +257,11 @@
       <if test="defectiveQuantity != null">
         defective_quantity,
       </if>
-      <if test="totalWareQuantity != null">
-        total_ware_quantity,
+      <if test="totalQuantity != null">
+        total_quantity,
+      </if>
+      <if test="comments != null">
+        comments,
       </if>
       <if test="creator != null">
         creator,
@@ -293,10 +278,10 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="productOrderMainId != null">
-        #{productOrderMainId,jdbcType=VARCHAR},
+        #{productOrderMainId,jdbcType=INTEGER},
       </if>
-      <if test="productOrderSubCode != null">
-        #{productOrderSubCode,jdbcType=VARCHAR},
+      <if test="productOrderMainCode != null">
+        #{productOrderMainCode,jdbcType=VARCHAR},
       </if>
       <if test="goodsId != null">
         #{goodsId,jdbcType=INTEGER},
@@ -346,15 +331,6 @@
       <if test="sizeName != null">
         #{sizeName,jdbcType=VARCHAR},
       </if>
-      <if test="quantity != null">
-        #{quantity,jdbcType=INTEGER},
-      </if>
-      <if test="stockQuantity != null">
-        #{stockQuantity,jdbcType=INTEGER},
-      </if>
-      <if test="outOfStockQuantity != null">
-        #{outOfStockQuantity,jdbcType=INTEGER},
-      </if>
       <if test="weight != null">
         #{weight,jdbcType=DECIMAL},
       </if>
@@ -367,17 +343,14 @@
       <if test="localAmount != null">
         #{localAmount,jdbcType=DECIMAL},
       </if>
+      <if test="isStorage != null">
+        #{isStorage,jdbcType=BIT},
+      </if>
       <if test="wareQuantity != null">
         #{wareQuantity,jdbcType=INTEGER},
       </if>
       <if test="unwareQuantity != null">
         #{unwareQuantity,jdbcType=INTEGER},
-      </if>
-      <if test="isStorage != null">
-        #{isStorage,jdbcType=BIT},
-      </if>
-      <if test="comments != null">
-        #{comments,jdbcType=VARCHAR},
       </if>
       <if test="returnQuantity != null">
         #{returnQuantity,jdbcType=INTEGER},
@@ -385,8 +358,11 @@
       <if test="defectiveQuantity != null">
         #{defectiveQuantity,jdbcType=INTEGER},
       </if>
-      <if test="totalWareQuantity != null">
-        #{totalWareQuantity,jdbcType=INTEGER},
+      <if test="totalQuantity != null">
+        #{totalQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="comments != null">
+        #{comments,jdbcType=VARCHAR},
       </if>
       <if test="creator != null">
         #{creator,jdbcType=VARCHAR},
@@ -411,6 +387,14 @@
   <update id="updateByExampleSelective" parameterType="map">
     update product_order_detail
     <set>
+      <if test="record.productOrderMainId != null">
+        <if test="record.productOrderMainId == -99999">
+          product_order_main_id= null,
+        </if>
+        <if test="record.productOrderMainId != -99999">
+          product_order_main_id= #{record.productOrderMainId,jdbcType=INTEGER},
+        </if>
+      </if>
       <if test="record.goodsId != null">
         <if test="record.goodsId == -99999">
           goods_id= null,
@@ -449,30 +433,6 @@
         </if>
         <if test="record.sizeId != -99999">
           size_id= #{record.sizeId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="record.quantity != null">
-        <if test="record.quantity == -99999">
-          quantity= null,
-        </if>
-        <if test="record.quantity != -99999">
-          quantity= #{record.quantity,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="record.stockQuantity != null">
-        <if test="record.stockQuantity == -99999">
-          stock_quantity= null,
-        </if>
-        <if test="record.stockQuantity != -99999">
-          stock_quantity= #{record.stockQuantity,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="record.outOfStockQuantity != null">
-        <if test="record.outOfStockQuantity == -99999">
-          out_of_stock_quantity= null,
-        </if>
-        <if test="record.outOfStockQuantity != -99999">
-          out_of_stock_quantity= #{record.outOfStockQuantity,jdbcType=INTEGER},
         </if>
       </if>
       <if test="record.weight != null">
@@ -539,12 +499,12 @@
           defective_quantity= #{record.defectiveQuantity,jdbcType=INTEGER},
         </if>
       </if>
-      <if test="record.totalWareQuantity != null">
-        <if test="record.totalWareQuantity == -99999">
-          total_ware_quantity= null,
+      <if test="record.totalQuantity != null">
+        <if test="record.totalQuantity == -99999">
+          total_quantity= null,
         </if>
-        <if test="record.totalWareQuantity != -99999">
-          total_ware_quantity= #{record.totalWareQuantity,jdbcType=INTEGER},
+        <if test="record.totalQuantity != -99999">
+          total_quantity= #{record.totalQuantity,jdbcType=INTEGER},
         </if>
       </if>
       <if test="record.createTime != null">
@@ -563,20 +523,12 @@
           modify_time= #{record.modifyTime,jdbcType=TIMESTAMP},
         </if>
       </if>
-      <if test="record.productOrderMainId != null">
-        <if test="record.productOrderMainId == 'erpsetnull'">
-          product_order_main_id= null,
+      <if test="record.productOrderMainCode != null">
+        <if test="record.productOrderMainCode == 'erpsetnull'">
+          product_order_main_code= null,
         </if>
-        <if test="record.productOrderMainId != 'erpsetnull'">
-          product_order_main_id= #{record.productOrderMainId,jdbcType=VARCHAR},
-        </if>
-      </if>
-      <if test="record.productOrderSubCode != null">
-        <if test="record.productOrderSubCode == 'erpsetnull'">
-          product_order_sub_code= null,
-        </if>
-        <if test="record.productOrderSubCode != 'erpsetnull'">
-          product_order_sub_code= #{record.productOrderSubCode,jdbcType=VARCHAR},
+        <if test="record.productOrderMainCode != 'erpsetnull'">
+          product_order_main_code= #{record.productOrderMainCode,jdbcType=VARCHAR},
         </if>
       </if>
       <if test="record.goodsCode != null">
@@ -702,8 +654,8 @@
   <update id="updateByExample" parameterType="map">
     update product_order_detail
     set id = #{record.id,jdbcType=INTEGER},
-      product_order_main_id = #{record.productOrderMainId,jdbcType=VARCHAR},
-      product_order_sub_code = #{record.productOrderSubCode,jdbcType=VARCHAR},
+      product_order_main_id = #{record.productOrderMainId,jdbcType=INTEGER},
+      product_order_main_code = #{record.productOrderMainCode,jdbcType=VARCHAR},
       goods_id = #{record.goodsId,jdbcType=INTEGER},
       goods_code = #{record.goodsCode,jdbcType=VARCHAR},
       goods_name = #{record.goodsName,jdbcType=VARCHAR},
@@ -720,20 +672,17 @@
       size_id = #{record.sizeId,jdbcType=INTEGER},
       size_code = #{record.sizeCode,jdbcType=VARCHAR},
       size_name = #{record.sizeName,jdbcType=VARCHAR},
-      quantity = #{record.quantity,jdbcType=INTEGER},
-      stock_quantity = #{record.stockQuantity,jdbcType=INTEGER},
-      out_of_stock_quantity = #{record.outOfStockQuantity,jdbcType=INTEGER},
       weight = #{record.weight,jdbcType=DECIMAL},
       last_price = #{record.lastPrice,jdbcType=DECIMAL},
       local_price = #{record.localPrice,jdbcType=DECIMAL},
       local_amount = #{record.localAmount,jdbcType=DECIMAL},
+      is_storage = #{record.isStorage,jdbcType=BIT},
       ware_quantity = #{record.wareQuantity,jdbcType=INTEGER},
       unware_quantity = #{record.unwareQuantity,jdbcType=INTEGER},
-      is_storage = #{record.isStorage,jdbcType=BIT},
-      comments = #{record.comments,jdbcType=VARCHAR},
       return_quantity = #{record.returnQuantity,jdbcType=INTEGER},
       defective_quantity = #{record.defectiveQuantity,jdbcType=INTEGER},
-      total_ware_quantity = #{record.totalWareQuantity,jdbcType=INTEGER},
+      total_quantity = #{record.totalQuantity,jdbcType=INTEGER},
+      comments = #{record.comments,jdbcType=VARCHAR},
       creator = #{record.creator,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       modifier = #{record.modifier,jdbcType=VARCHAR},
@@ -745,6 +694,14 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.binger.stock.domain.ProductOrderDetail">
     update product_order_detail
     <set>
+      <if test="productOrderMainId != null">
+        <if test="productOrderMainId == -99999">
+          product_order_main_id= null,
+        </if>
+        <if test="productOrderMainId != -99999">
+          product_order_main_id= #{productOrderMainId,jdbcType=INTEGER},
+        </if>
+      </if>
       <if test="goodsId != null">
         <if test="goodsId == -99999">
           goods_id= null,
@@ -783,30 +740,6 @@
         </if>
         <if test="sizeId != -99999">
           size_id= #{sizeId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="quantity != null">
-        <if test="quantity == -99999">
-          quantity= null,
-        </if>
-        <if test="quantity != -99999">
-          quantity= #{quantity,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="stockQuantity != null">
-        <if test="stockQuantity == -99999">
-          stock_quantity= null,
-        </if>
-        <if test="stockQuantity != -99999">
-          stock_quantity= #{stockQuantity,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="outOfStockQuantity != null">
-        <if test="outOfStockQuantity == -99999">
-          out_of_stock_quantity= null,
-        </if>
-        <if test="outOfStockQuantity != -99999">
-          out_of_stock_quantity= #{outOfStockQuantity,jdbcType=INTEGER},
         </if>
       </if>
       <if test="weight != null">
@@ -873,12 +806,12 @@
           defective_quantity= #{defectiveQuantity,jdbcType=INTEGER},
         </if>
       </if>
-      <if test="totalWareQuantity != null">
-        <if test="totalWareQuantity == -99999">
-          total_ware_quantity= null,
+      <if test="totalQuantity != null">
+        <if test="totalQuantity == -99999">
+          total_quantity= null,
         </if>
-        <if test="totalWareQuantity != -99999">
-          total_ware_quantity= #{totalWareQuantity,jdbcType=INTEGER},
+        <if test="totalQuantity != -99999">
+          total_quantity= #{totalQuantity,jdbcType=INTEGER},
         </if>
       </if>
       <if test="createTime != null">
@@ -897,20 +830,12 @@
           modify_time= #{modifyTime,jdbcType=TIMESTAMP},
         </if>
       </if>
-      <if test="productOrderMainId != null">
-        <if test="productOrderMainId == 'erpsetnull'">
-          product_order_main_id= null,
+      <if test="productOrderMainCode != null">
+        <if test="productOrderMainCode == 'erpsetnull'">
+          product_order_main_code= null,
         </if>
-        <if test="productOrderMainId != 'erpsetnull'">
-          product_order_main_id= #{productOrderMainId,jdbcType=VARCHAR},
-        </if>
-      </if>
-      <if test="productOrderSubCode != null">
-        <if test="productOrderSubCode == 'erpsetnull'">
-          product_order_sub_code= null,
-        </if>
-        <if test="productOrderSubCode != 'erpsetnull'">
-          product_order_sub_code= #{productOrderSubCode,jdbcType=VARCHAR},
+        <if test="productOrderMainCode != 'erpsetnull'">
+          product_order_main_code= #{productOrderMainCode,jdbcType=VARCHAR},
         </if>
       </if>
       <if test="goodsCode != null">
@@ -1033,8 +958,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.binger.stock.domain.ProductOrderDetail">
     update product_order_detail
-    set product_order_main_id = #{productOrderMainId,jdbcType=VARCHAR},
-      product_order_sub_code = #{productOrderSubCode,jdbcType=VARCHAR},
+    set product_order_main_id = #{productOrderMainId,jdbcType=INTEGER},
+      product_order_main_code = #{productOrderMainCode,jdbcType=VARCHAR},
       goods_id = #{goodsId,jdbcType=INTEGER},
       goods_code = #{goodsCode,jdbcType=VARCHAR},
       goods_name = #{goodsName,jdbcType=VARCHAR},
@@ -1051,20 +976,17 @@
       size_id = #{sizeId,jdbcType=INTEGER},
       size_code = #{sizeCode,jdbcType=VARCHAR},
       size_name = #{sizeName,jdbcType=VARCHAR},
-      quantity = #{quantity,jdbcType=INTEGER},
-      stock_quantity = #{stockQuantity,jdbcType=INTEGER},
-      out_of_stock_quantity = #{outOfStockQuantity,jdbcType=INTEGER},
       weight = #{weight,jdbcType=DECIMAL},
       last_price = #{lastPrice,jdbcType=DECIMAL},
       local_price = #{localPrice,jdbcType=DECIMAL},
       local_amount = #{localAmount,jdbcType=DECIMAL},
+      is_storage = #{isStorage,jdbcType=BIT},
       ware_quantity = #{wareQuantity,jdbcType=INTEGER},
       unware_quantity = #{unwareQuantity,jdbcType=INTEGER},
-      is_storage = #{isStorage,jdbcType=BIT},
-      comments = #{comments,jdbcType=VARCHAR},
       return_quantity = #{returnQuantity,jdbcType=INTEGER},
       defective_quantity = #{defectiveQuantity,jdbcType=INTEGER},
-      total_ware_quantity = #{totalWareQuantity,jdbcType=INTEGER},
+      total_quantity = #{totalQuantity,jdbcType=INTEGER},
+      comments = #{comments,jdbcType=VARCHAR},
       creator = #{creator,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       modifier = #{modifier,jdbcType=VARCHAR},

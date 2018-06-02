@@ -3,35 +3,27 @@
 <mapper namespace="com.binger.stock.dao.ProductOrderMainMapper">
   <resultMap id="BaseResultMap" type="com.binger.stock.domain.ProductOrderMain">
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="product_plan_code" jdbcType="VARCHAR" property="productPlanCode" />
     <result column="product_order_code" jdbcType="VARCHAR" property="productOrderCode" />
     <result column="audit_time" jdbcType="TIMESTAMP" property="auditTime" />
-    <result column="audit_user_id" jdbcType="INTEGER" property="auditUserId" />
     <result column="audit_user_name" jdbcType="VARCHAR" property="auditUserName" />
-    <result column="product_create_date" jdbcType="TIMESTAMP" property="productCreateDate" />
-    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
-    <result column="goods_code" jdbcType="VARCHAR" property="goodsCode" />
-    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
     <result column="pre_pay_time" jdbcType="TIMESTAMP" property="prePayTime" />
     <result column="pay_time" jdbcType="TIMESTAMP" property="payTime" />
-    <result column="pay_user_id" jdbcType="INTEGER" property="payUserId" />
     <result column="pay_user_name" jdbcType="VARCHAR" property="payUserName" />
     <result column="local_total_mny" jdbcType="DECIMAL" property="localTotalMny" />
     <result column="pay_total_mny" jdbcType="DECIMAL" property="payTotalMny" />
     <result column="un_pay_mny" jdbcType="DECIMAL" property="unPayMny" />
-    <result column="total_invoice_mny" jdbcType="DECIMAL" property="totalInvoiceMny" />
     <result column="quantity" jdbcType="INTEGER" property="quantity" />
     <result column="settlement" jdbcType="VARCHAR" property="settlement" />
     <result column="supplier_id" jdbcType="INTEGER" property="supplierId" />
     <result column="supplier_code" jdbcType="VARCHAR" property="supplierCode" />
     <result column="supplier_name" jdbcType="VARCHAR" property="supplierName" />
     <result column="exp_delivered_time" jdbcType="TIMESTAMP" property="expDeliveredTime" />
-    <result column="non_invoice_mny" jdbcType="DECIMAL" property="nonInvoiceMny" />
     <result column="delivered_time" jdbcType="TIMESTAMP" property="deliveredTime" />
-    <result column="logis_no" jdbcType="VARCHAR" property="logisNo" />
+    <result column="logist_no" jdbcType="VARCHAR" property="logistNo" />
     <result column="logist_company_name" jdbcType="VARCHAR" property="logistCompanyName" />
     <result column="logis_fee" jdbcType="DECIMAL" property="logisFee" />
     <result column="warehouse_id" jdbcType="INTEGER" property="warehouseId" />
-    <result column="order_number" jdbcType="INTEGER" property="orderNumber" />
     <result column="archive_date" jdbcType="TIMESTAMP" property="archiveDate" />
     <result column="bill_date" jdbcType="TIMESTAMP" property="billDate" />
     <result column="product_status" jdbcType="INTEGER" property="productStatus" />
@@ -39,7 +31,6 @@
     <result column="cancel_time" jdbcType="TIMESTAMP" property="cancelTime" />
     <result column="cancel_reason" jdbcType="VARCHAR" property="cancelReason" />
     <result column="archive_reason_name" jdbcType="VARCHAR" property="archiveReasonName" />
-    <result column="archive_reason_code" jdbcType="VARCHAR" property="archiveReasonCode" />
     <result column="creator" jdbcType="VARCHAR" property="creator" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="modifier" jdbcType="VARCHAR" property="modifier" />
@@ -104,13 +95,12 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, product_order_code, audit_time, audit_user_id, audit_user_name, product_create_date, 
-    goods_id, goods_code, goods_name, pre_pay_time, pay_time, pay_user_id, pay_user_name, 
-    local_total_mny, pay_total_mny, un_pay_mny, total_invoice_mny, quantity, settlement, 
-    supplier_id, supplier_code, supplier_name, exp_delivered_time, non_invoice_mny, delivered_time, 
-    logis_no, logist_company_name, logis_fee, warehouse_id, order_number, archive_date, 
-    bill_date, product_status, order_status, cancel_time, cancel_reason, archive_reason_name, 
-    archive_reason_code, creator, create_time, modifier, modify_time
+    id, product_plan_code, product_order_code, audit_time, audit_user_name, pre_pay_time, 
+    pay_time, pay_user_name, local_total_mny, pay_total_mny, un_pay_mny, quantity, settlement, 
+    supplier_id, supplier_code, supplier_name, exp_delivered_time, delivered_time, logist_no, 
+    logist_company_name, logis_fee, warehouse_id, archive_date, bill_date, product_status, 
+    order_status, cancel_time, cancel_reason, archive_reason_name, creator, create_time, 
+    modifier, modify_time
   </sql>
   <select id="selectByExample" parameterType="com.binger.stock.domain.ProductOrderMainExample" resultMap="BaseResultMap">
     select
@@ -155,34 +145,30 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into product_order_main (product_order_code, audit_time, audit_user_id, 
-      audit_user_name, product_create_date, goods_id, 
-      goods_code, goods_name, pre_pay_time, 
-      pay_time, pay_user_id, pay_user_name, 
-      local_total_mny, pay_total_mny, un_pay_mny, 
-      total_invoice_mny, quantity, settlement, 
-      supplier_id, supplier_code, supplier_name, 
-      exp_delivered_time, non_invoice_mny, delivered_time, 
-      logis_no, logist_company_name, logis_fee, 
-      warehouse_id, order_number, archive_date, 
-      bill_date, product_status, order_status, 
-      cancel_time, cancel_reason, archive_reason_name, 
-      archive_reason_code, creator, create_time, 
-      modifier, modify_time)
-    values (#{productOrderCode,jdbcType=VARCHAR}, #{auditTime,jdbcType=TIMESTAMP}, #{auditUserId,jdbcType=INTEGER}, 
-      #{auditUserName,jdbcType=VARCHAR}, #{productCreateDate,jdbcType=TIMESTAMP}, #{goodsId,jdbcType=INTEGER}, 
-      #{goodsCode,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, #{prePayTime,jdbcType=TIMESTAMP}, 
-      #{payTime,jdbcType=TIMESTAMP}, #{payUserId,jdbcType=INTEGER}, #{payUserName,jdbcType=VARCHAR}, 
-      #{localTotalMny,jdbcType=DECIMAL}, #{payTotalMny,jdbcType=DECIMAL}, #{unPayMny,jdbcType=DECIMAL}, 
-      #{totalInvoiceMny,jdbcType=DECIMAL}, #{quantity,jdbcType=INTEGER}, #{settlement,jdbcType=VARCHAR}, 
-      #{supplierId,jdbcType=INTEGER}, #{supplierCode,jdbcType=VARCHAR}, #{supplierName,jdbcType=VARCHAR}, 
-      #{expDeliveredTime,jdbcType=TIMESTAMP}, #{nonInvoiceMny,jdbcType=DECIMAL}, #{deliveredTime,jdbcType=TIMESTAMP}, 
-      #{logisNo,jdbcType=VARCHAR}, #{logistCompanyName,jdbcType=VARCHAR}, #{logisFee,jdbcType=DECIMAL}, 
-      #{warehouseId,jdbcType=INTEGER}, #{orderNumber,jdbcType=INTEGER}, #{archiveDate,jdbcType=TIMESTAMP}, 
-      #{billDate,jdbcType=TIMESTAMP}, #{productStatus,jdbcType=INTEGER}, #{orderStatus,jdbcType=INTEGER}, 
-      #{cancelTime,jdbcType=TIMESTAMP}, #{cancelReason,jdbcType=VARCHAR}, #{archiveReasonName,jdbcType=VARCHAR}, 
-      #{archiveReasonCode,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{modifier,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP})
+    insert into product_order_main (product_plan_code, product_order_code, 
+      audit_time, audit_user_name, pre_pay_time, 
+      pay_time, pay_user_name, local_total_mny, 
+      pay_total_mny, un_pay_mny, quantity, 
+      settlement, supplier_id, supplier_code, 
+      supplier_name, exp_delivered_time, delivered_time, 
+      logist_no, logist_company_name, logis_fee, 
+      warehouse_id, archive_date, bill_date, 
+      product_status, order_status, cancel_time, 
+      cancel_reason, archive_reason_name, creator, 
+      create_time, modifier, modify_time
+      )
+    values (#{productPlanCode,jdbcType=VARCHAR}, #{productOrderCode,jdbcType=VARCHAR}, 
+      #{auditTime,jdbcType=TIMESTAMP}, #{auditUserName,jdbcType=VARCHAR}, #{prePayTime,jdbcType=TIMESTAMP}, 
+      #{payTime,jdbcType=TIMESTAMP}, #{payUserName,jdbcType=VARCHAR}, #{localTotalMny,jdbcType=DECIMAL}, 
+      #{payTotalMny,jdbcType=DECIMAL}, #{unPayMny,jdbcType=DECIMAL}, #{quantity,jdbcType=INTEGER}, 
+      #{settlement,jdbcType=VARCHAR}, #{supplierId,jdbcType=INTEGER}, #{supplierCode,jdbcType=VARCHAR}, 
+      #{supplierName,jdbcType=VARCHAR}, #{expDeliveredTime,jdbcType=TIMESTAMP}, #{deliveredTime,jdbcType=TIMESTAMP}, 
+      #{logistNo,jdbcType=VARCHAR}, #{logistCompanyName,jdbcType=VARCHAR}, #{logisFee,jdbcType=DECIMAL}, 
+      #{warehouseId,jdbcType=INTEGER}, #{archiveDate,jdbcType=TIMESTAMP}, #{billDate,jdbcType=TIMESTAMP}, 
+      #{productStatus,jdbcType=INTEGER}, #{orderStatus,jdbcType=INTEGER}, #{cancelTime,jdbcType=TIMESTAMP}, 
+      #{cancelReason,jdbcType=VARCHAR}, #{archiveReasonName,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.binger.stock.domain.ProductOrderMain">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -190,38 +176,23 @@
     </selectKey>
     insert into product_order_main
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="productPlanCode != null">
+        product_plan_code,
+      </if>
       <if test="productOrderCode != null">
         product_order_code,
       </if>
       <if test="auditTime != null">
         audit_time,
       </if>
-      <if test="auditUserId != null">
-        audit_user_id,
-      </if>
       <if test="auditUserName != null">
         audit_user_name,
-      </if>
-      <if test="productCreateDate != null">
-        product_create_date,
-      </if>
-      <if test="goodsId != null">
-        goods_id,
-      </if>
-      <if test="goodsCode != null">
-        goods_code,
-      </if>
-      <if test="goodsName != null">
-        goods_name,
       </if>
       <if test="prePayTime != null">
         pre_pay_time,
       </if>
       <if test="payTime != null">
         pay_time,
-      </if>
-      <if test="payUserId != null">
-        pay_user_id,
       </if>
       <if test="payUserName != null">
         pay_user_name,
@@ -234,9 +205,6 @@
       </if>
       <if test="unPayMny != null">
         un_pay_mny,
-      </if>
-      <if test="totalInvoiceMny != null">
-        total_invoice_mny,
       </if>
       <if test="quantity != null">
         quantity,
@@ -256,14 +224,11 @@
       <if test="expDeliveredTime != null">
         exp_delivered_time,
       </if>
-      <if test="nonInvoiceMny != null">
-        non_invoice_mny,
-      </if>
       <if test="deliveredTime != null">
         delivered_time,
       </if>
-      <if test="logisNo != null">
-        logis_no,
+      <if test="logistNo != null">
+        logist_no,
       </if>
       <if test="logistCompanyName != null">
         logist_company_name,
@@ -273,9 +238,6 @@
       </if>
       <if test="warehouseId != null">
         warehouse_id,
-      </if>
-      <if test="orderNumber != null">
-        order_number,
       </if>
       <if test="archiveDate != null">
         archive_date,
@@ -298,9 +260,6 @@
       <if test="archiveReasonName != null">
         archive_reason_name,
       </if>
-      <if test="archiveReasonCode != null">
-        archive_reason_code,
-      </if>
       <if test="creator != null">
         creator,
       </if>
@@ -315,38 +274,23 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="productPlanCode != null">
+        #{productPlanCode,jdbcType=VARCHAR},
+      </if>
       <if test="productOrderCode != null">
         #{productOrderCode,jdbcType=VARCHAR},
       </if>
       <if test="auditTime != null">
         #{auditTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="auditUserId != null">
-        #{auditUserId,jdbcType=INTEGER},
-      </if>
       <if test="auditUserName != null">
         #{auditUserName,jdbcType=VARCHAR},
-      </if>
-      <if test="productCreateDate != null">
-        #{productCreateDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="goodsId != null">
-        #{goodsId,jdbcType=INTEGER},
-      </if>
-      <if test="goodsCode != null">
-        #{goodsCode,jdbcType=VARCHAR},
-      </if>
-      <if test="goodsName != null">
-        #{goodsName,jdbcType=VARCHAR},
       </if>
       <if test="prePayTime != null">
         #{prePayTime,jdbcType=TIMESTAMP},
       </if>
       <if test="payTime != null">
         #{payTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="payUserId != null">
-        #{payUserId,jdbcType=INTEGER},
       </if>
       <if test="payUserName != null">
         #{payUserName,jdbcType=VARCHAR},
@@ -359,9 +303,6 @@
       </if>
       <if test="unPayMny != null">
         #{unPayMny,jdbcType=DECIMAL},
-      </if>
-      <if test="totalInvoiceMny != null">
-        #{totalInvoiceMny,jdbcType=DECIMAL},
       </if>
       <if test="quantity != null">
         #{quantity,jdbcType=INTEGER},
@@ -381,14 +322,11 @@
       <if test="expDeliveredTime != null">
         #{expDeliveredTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="nonInvoiceMny != null">
-        #{nonInvoiceMny,jdbcType=DECIMAL},
-      </if>
       <if test="deliveredTime != null">
         #{deliveredTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="logisNo != null">
-        #{logisNo,jdbcType=VARCHAR},
+      <if test="logistNo != null">
+        #{logistNo,jdbcType=VARCHAR},
       </if>
       <if test="logistCompanyName != null">
         #{logistCompanyName,jdbcType=VARCHAR},
@@ -398,9 +336,6 @@
       </if>
       <if test="warehouseId != null">
         #{warehouseId,jdbcType=INTEGER},
-      </if>
-      <if test="orderNumber != null">
-        #{orderNumber,jdbcType=INTEGER},
       </if>
       <if test="archiveDate != null">
         #{archiveDate,jdbcType=TIMESTAMP},
@@ -422,9 +357,6 @@
       </if>
       <if test="archiveReasonName != null">
         #{archiveReasonName,jdbcType=VARCHAR},
-      </if>
-      <if test="archiveReasonCode != null">
-        #{archiveReasonCode,jdbcType=VARCHAR},
       </if>
       <if test="creator != null">
         #{creator,jdbcType=VARCHAR},
@@ -449,6 +381,14 @@
   <update id="updateByExampleSelective" parameterType="map">
     update product_order_main
     <set>
+      <if test="record.productPlanCode != null">
+        <if test="record.productPlanCode == 'erpsetnull'">
+          product_plan_code= null,
+        </if>
+        <if test="record.productPlanCode != 'erpsetnull'">
+          product_plan_code= #{record.productPlanCode,jdbcType=VARCHAR},
+        </if>
+      </if>
       <if test="record.productOrderCode != null">
         <if test="record.productOrderCode == 'erpsetnull'">
           product_order_code= null,
@@ -463,22 +403,6 @@
         </if>
         <if test="record.auditUserName != 'erpsetnull'">
           audit_user_name= #{record.auditUserName,jdbcType=VARCHAR},
-        </if>
-      </if>
-      <if test="record.goodsCode != null">
-        <if test="record.goodsCode == 'erpsetnull'">
-          goods_code= null,
-        </if>
-        <if test="record.goodsCode != 'erpsetnull'">
-          goods_code= #{record.goodsCode,jdbcType=VARCHAR},
-        </if>
-      </if>
-      <if test="record.goodsName != null">
-        <if test="record.goodsName == 'erpsetnull'">
-          goods_name= null,
-        </if>
-        <if test="record.goodsName != 'erpsetnull'">
-          goods_name= #{record.goodsName,jdbcType=VARCHAR},
         </if>
       </if>
       <if test="record.payUserName != null">
@@ -513,12 +437,12 @@
           supplier_name= #{record.supplierName,jdbcType=VARCHAR},
         </if>
       </if>
-      <if test="record.logisNo != null">
-        <if test="record.logisNo == 'erpsetnull'">
-          logis_no= null,
+      <if test="record.logistNo != null">
+        <if test="record.logistNo == 'erpsetnull'">
+          logist_no= null,
         </if>
-        <if test="record.logisNo != 'erpsetnull'">
-          logis_no= #{record.logisNo,jdbcType=VARCHAR},
+        <if test="record.logistNo != 'erpsetnull'">
+          logist_no= #{record.logistNo,jdbcType=VARCHAR},
         </if>
       </if>
       <if test="record.logistCompanyName != null">
@@ -545,14 +469,6 @@
           archive_reason_name= #{record.archiveReasonName,jdbcType=VARCHAR},
         </if>
       </if>
-      <if test="record.archiveReasonCode != null">
-        <if test="record.archiveReasonCode == 'erpsetnull'">
-          archive_reason_code= null,
-        </if>
-        <if test="record.archiveReasonCode != 'erpsetnull'">
-          archive_reason_code= #{record.archiveReasonCode,jdbcType=VARCHAR},
-        </if>
-      </if>
       <if test="record.creator != null">
         <if test="record.creator == 'erpsetnull'">
           creator= null,
@@ -569,20 +485,84 @@
           modifier= #{record.modifier,jdbcType=VARCHAR},
         </if>
       </if>
+      <if test="record.localTotalMny != null">
+        <if test="record.localTotalMny == -99999">
+          local_total_mny= null,
+        </if>
+        <if test="record.localTotalMny != -99999">
+          local_total_mny= #{record.localTotalMny,jdbcType=DECIMAL},
+        </if>
+      </if>
+      <if test="record.payTotalMny != null">
+        <if test="record.payTotalMny == -99999">
+          pay_total_mny= null,
+        </if>
+        <if test="record.payTotalMny != -99999">
+          pay_total_mny= #{record.payTotalMny,jdbcType=DECIMAL},
+        </if>
+      </if>
+      <if test="record.unPayMny != null">
+        <if test="record.unPayMny == -99999">
+          un_pay_mny= null,
+        </if>
+        <if test="record.unPayMny != -99999">
+          un_pay_mny= #{record.unPayMny,jdbcType=DECIMAL},
+        </if>
+      </if>
+      <if test="record.quantity != null">
+        <if test="record.quantity == -99999">
+          quantity= null,
+        </if>
+        <if test="record.quantity != -99999">
+          quantity= #{record.quantity,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.supplierId != null">
+        <if test="record.supplierId == -99999">
+          supplier_id= null,
+        </if>
+        <if test="record.supplierId != -99999">
+          supplier_id= #{record.supplierId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.logisFee != null">
+        <if test="record.logisFee == -99999">
+          logis_fee= null,
+        </if>
+        <if test="record.logisFee != -99999">
+          logis_fee= #{record.logisFee,jdbcType=DECIMAL},
+        </if>
+      </if>
+      <if test="record.warehouseId != null">
+        <if test="record.warehouseId == -99999">
+          warehouse_id= null,
+        </if>
+        <if test="record.warehouseId != -99999">
+          warehouse_id= #{record.warehouseId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.productStatus != null">
+        <if test="record.productStatus == -99999">
+          product_status= null,
+        </if>
+        <if test="record.productStatus != -99999">
+          product_status= #{record.productStatus,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.orderStatus != null">
+        <if test="record.orderStatus == -99999">
+          order_status= null,
+        </if>
+        <if test="record.orderStatus != -99999">
+          order_status= #{record.orderStatus,jdbcType=INTEGER},
+        </if>
+      </if>
       <if test="record.auditTime != null">
         <if test="record.auditTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
           audit_time= null,
         </if>
         <if test="record.auditTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
           audit_time= #{record.auditTime,jdbcType=TIMESTAMP},
-        </if>
-      </if>
-      <if test="record.productCreateDate != null">
-        <if test="record.productCreateDate.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
-          product_create_date= null,
-        </if>
-        <if test="record.productCreateDate.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
-          product_create_date= #{record.productCreateDate,jdbcType=TIMESTAMP},
         </if>
       </if>
       <if test="record.prePayTime != null">
@@ -657,126 +637,6 @@
           modify_time= #{record.modifyTime,jdbcType=TIMESTAMP},
         </if>
       </if>
-      <if test="record.auditUserId != null">
-        <if test="record.auditUserId == -99999">
-          audit_user_id= null,
-        </if>
-        <if test="record.auditUserId != -99999">
-          audit_user_id= #{record.auditUserId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="record.goodsId != null">
-        <if test="record.goodsId == -99999">
-          goods_id= null,
-        </if>
-        <if test="record.goodsId != -99999">
-          goods_id= #{record.goodsId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="record.payUserId != null">
-        <if test="record.payUserId == -99999">
-          pay_user_id= null,
-        </if>
-        <if test="record.payUserId != -99999">
-          pay_user_id= #{record.payUserId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="record.localTotalMny != null">
-        <if test="record.localTotalMny == -99999">
-          local_total_mny= null,
-        </if>
-        <if test="record.localTotalMny != -99999">
-          local_total_mny= #{record.localTotalMny,jdbcType=DECIMAL},
-        </if>
-      </if>
-      <if test="record.payTotalMny != null">
-        <if test="record.payTotalMny == -99999">
-          pay_total_mny= null,
-        </if>
-        <if test="record.payTotalMny != -99999">
-          pay_total_mny= #{record.payTotalMny,jdbcType=DECIMAL},
-        </if>
-      </if>
-      <if test="record.unPayMny != null">
-        <if test="record.unPayMny == -99999">
-          un_pay_mny= null,
-        </if>
-        <if test="record.unPayMny != -99999">
-          un_pay_mny= #{record.unPayMny,jdbcType=DECIMAL},
-        </if>
-      </if>
-      <if test="record.totalInvoiceMny != null">
-        <if test="record.totalInvoiceMny == -99999">
-          total_invoice_mny= null,
-        </if>
-        <if test="record.totalInvoiceMny != -99999">
-          total_invoice_mny= #{record.totalInvoiceMny,jdbcType=DECIMAL},
-        </if>
-      </if>
-      <if test="record.quantity != null">
-        <if test="record.quantity == -99999">
-          quantity= null,
-        </if>
-        <if test="record.quantity != -99999">
-          quantity= #{record.quantity,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="record.supplierId != null">
-        <if test="record.supplierId == -99999">
-          supplier_id= null,
-        </if>
-        <if test="record.supplierId != -99999">
-          supplier_id= #{record.supplierId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="record.nonInvoiceMny != null">
-        <if test="record.nonInvoiceMny == -99999">
-          non_invoice_mny= null,
-        </if>
-        <if test="record.nonInvoiceMny != -99999">
-          non_invoice_mny= #{record.nonInvoiceMny,jdbcType=DECIMAL},
-        </if>
-      </if>
-      <if test="record.logisFee != null">
-        <if test="record.logisFee == -99999">
-          logis_fee= null,
-        </if>
-        <if test="record.logisFee != -99999">
-          logis_fee= #{record.logisFee,jdbcType=DECIMAL},
-        </if>
-      </if>
-      <if test="record.warehouseId != null">
-        <if test="record.warehouseId == -99999">
-          warehouse_id= null,
-        </if>
-        <if test="record.warehouseId != -99999">
-          warehouse_id= #{record.warehouseId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="record.orderNumber != null">
-        <if test="record.orderNumber == -99999">
-          order_number= null,
-        </if>
-        <if test="record.orderNumber != -99999">
-          order_number= #{record.orderNumber,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="record.productStatus != null">
-        <if test="record.productStatus == -99999">
-          product_status= null,
-        </if>
-        <if test="record.productStatus != -99999">
-          product_status= #{record.productStatus,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="record.orderStatus != null">
-        <if test="record.orderStatus == -99999">
-          order_status= null,
-        </if>
-        <if test="record.orderStatus != -99999">
-          order_status= #{record.orderStatus,jdbcType=INTEGER},
-        </if>
-      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -785,35 +645,27 @@
   <update id="updateByExample" parameterType="map">
     update product_order_main
     set id = #{record.id,jdbcType=INTEGER},
+      product_plan_code = #{record.productPlanCode,jdbcType=VARCHAR},
       product_order_code = #{record.productOrderCode,jdbcType=VARCHAR},
       audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
-      audit_user_id = #{record.auditUserId,jdbcType=INTEGER},
       audit_user_name = #{record.auditUserName,jdbcType=VARCHAR},
-      product_create_date = #{record.productCreateDate,jdbcType=TIMESTAMP},
-      goods_id = #{record.goodsId,jdbcType=INTEGER},
-      goods_code = #{record.goodsCode,jdbcType=VARCHAR},
-      goods_name = #{record.goodsName,jdbcType=VARCHAR},
       pre_pay_time = #{record.prePayTime,jdbcType=TIMESTAMP},
       pay_time = #{record.payTime,jdbcType=TIMESTAMP},
-      pay_user_id = #{record.payUserId,jdbcType=INTEGER},
       pay_user_name = #{record.payUserName,jdbcType=VARCHAR},
       local_total_mny = #{record.localTotalMny,jdbcType=DECIMAL},
       pay_total_mny = #{record.payTotalMny,jdbcType=DECIMAL},
       un_pay_mny = #{record.unPayMny,jdbcType=DECIMAL},
-      total_invoice_mny = #{record.totalInvoiceMny,jdbcType=DECIMAL},
       quantity = #{record.quantity,jdbcType=INTEGER},
       settlement = #{record.settlement,jdbcType=VARCHAR},
       supplier_id = #{record.supplierId,jdbcType=INTEGER},
       supplier_code = #{record.supplierCode,jdbcType=VARCHAR},
       supplier_name = #{record.supplierName,jdbcType=VARCHAR},
       exp_delivered_time = #{record.expDeliveredTime,jdbcType=TIMESTAMP},
-      non_invoice_mny = #{record.nonInvoiceMny,jdbcType=DECIMAL},
       delivered_time = #{record.deliveredTime,jdbcType=TIMESTAMP},
-      logis_no = #{record.logisNo,jdbcType=VARCHAR},
+      logist_no = #{record.logistNo,jdbcType=VARCHAR},
       logist_company_name = #{record.logistCompanyName,jdbcType=VARCHAR},
       logis_fee = #{record.logisFee,jdbcType=DECIMAL},
       warehouse_id = #{record.warehouseId,jdbcType=INTEGER},
-      order_number = #{record.orderNumber,jdbcType=INTEGER},
       archive_date = #{record.archiveDate,jdbcType=TIMESTAMP},
       bill_date = #{record.billDate,jdbcType=TIMESTAMP},
       product_status = #{record.productStatus,jdbcType=INTEGER},
@@ -821,7 +673,6 @@
       cancel_time = #{record.cancelTime,jdbcType=TIMESTAMP},
       cancel_reason = #{record.cancelReason,jdbcType=VARCHAR},
       archive_reason_name = #{record.archiveReasonName,jdbcType=VARCHAR},
-      archive_reason_code = #{record.archiveReasonCode,jdbcType=VARCHAR},
       creator = #{record.creator,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       modifier = #{record.modifier,jdbcType=VARCHAR},
@@ -833,6 +684,14 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.binger.stock.domain.ProductOrderMain">
     update product_order_main
     <set>
+      <if test="productPlanCode != null">
+        <if test="productPlanCode == 'erpsetnull'">
+          product_plan_code= null,
+        </if>
+        <if test="productPlanCode != 'erpsetnull'">
+          product_plan_code= #{productPlanCode,jdbcType=VARCHAR},
+        </if>
+      </if>
       <if test="productOrderCode != null">
         <if test="productOrderCode == 'erpsetnull'">
           product_order_code= null,
@@ -847,22 +706,6 @@
         </if>
         <if test="auditUserName != 'erpsetnull'">
           audit_user_name= #{auditUserName,jdbcType=VARCHAR},
-        </if>
-      </if>
-      <if test="goodsCode != null">
-        <if test="goodsCode == 'erpsetnull'">
-          goods_code= null,
-        </if>
-        <if test="goodsCode != 'erpsetnull'">
-          goods_code= #{goodsCode,jdbcType=VARCHAR},
-        </if>
-      </if>
-      <if test="goodsName != null">
-        <if test="goodsName == 'erpsetnull'">
-          goods_name= null,
-        </if>
-        <if test="goodsName != 'erpsetnull'">
-          goods_name= #{goodsName,jdbcType=VARCHAR},
         </if>
       </if>
       <if test="payUserName != null">
@@ -897,12 +740,12 @@
           supplier_name= #{supplierName,jdbcType=VARCHAR},
         </if>
       </if>
-      <if test="logisNo != null">
-        <if test="logisNo == 'erpsetnull'">
-          logis_no= null,
+      <if test="logistNo != null">
+        <if test="logistNo == 'erpsetnull'">
+          logist_no= null,
         </if>
-        <if test="logisNo != 'erpsetnull'">
-          logis_no= #{logisNo,jdbcType=VARCHAR},
+        <if test="logistNo != 'erpsetnull'">
+          logist_no= #{logistNo,jdbcType=VARCHAR},
         </if>
       </if>
       <if test="logistCompanyName != null">
@@ -929,14 +772,6 @@
           archive_reason_name= #{archiveReasonName,jdbcType=VARCHAR},
         </if>
       </if>
-      <if test="archiveReasonCode != null">
-        <if test="archiveReasonCode == 'erpsetnull'">
-          archive_reason_code= null,
-        </if>
-        <if test="archiveReasonCode != 'erpsetnull'">
-          archive_reason_code= #{archiveReasonCode,jdbcType=VARCHAR},
-        </if>
-      </if>
       <if test="creator != null">
         <if test="creator == 'erpsetnull'">
           creator= null,
@@ -953,20 +788,84 @@
           modifier= #{modifier,jdbcType=VARCHAR},
         </if>
       </if>
+      <if test="localTotalMny != null">
+        <if test="localTotalMny == -99999">
+          local_total_mny= null,
+        </if>
+        <if test="localTotalMny != -99999">
+          local_total_mny= #{localTotalMny,jdbcType=DECIMAL},
+        </if>
+      </if>
+      <if test="payTotalMny != null">
+        <if test="payTotalMny == -99999">
+          pay_total_mny= null,
+        </if>
+        <if test="payTotalMny != -99999">
+          pay_total_mny= #{payTotalMny,jdbcType=DECIMAL},
+        </if>
+      </if>
+      <if test="unPayMny != null">
+        <if test="unPayMny == -99999">
+          un_pay_mny= null,
+        </if>
+        <if test="unPayMny != -99999">
+          un_pay_mny= #{unPayMny,jdbcType=DECIMAL},
+        </if>
+      </if>
+      <if test="quantity != null">
+        <if test="quantity == -99999">
+          quantity= null,
+        </if>
+        <if test="quantity != -99999">
+          quantity= #{quantity,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="supplierId != null">
+        <if test="supplierId == -99999">
+          supplier_id= null,
+        </if>
+        <if test="supplierId != -99999">
+          supplier_id= #{supplierId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="logisFee != null">
+        <if test="logisFee == -99999">
+          logis_fee= null,
+        </if>
+        <if test="logisFee != -99999">
+          logis_fee= #{logisFee,jdbcType=DECIMAL},
+        </if>
+      </if>
+      <if test="warehouseId != null">
+        <if test="warehouseId == -99999">
+          warehouse_id= null,
+        </if>
+        <if test="warehouseId != -99999">
+          warehouse_id= #{warehouseId,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="productStatus != null">
+        <if test="productStatus == -99999">
+          product_status= null,
+        </if>
+        <if test="productStatus != -99999">
+          product_status= #{productStatus,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="orderStatus != null">
+        <if test="orderStatus == -99999">
+          order_status= null,
+        </if>
+        <if test="orderStatus != -99999">
+          order_status= #{orderStatus,jdbcType=INTEGER},
+        </if>
+      </if>
       <if test="auditTime != null">
         <if test="auditTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
           audit_time= null,
         </if>
         <if test="auditTime.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
           audit_time= #{auditTime,jdbcType=TIMESTAMP},
-        </if>
-      </if>
-      <if test="productCreateDate != null">
-        <if test="productCreateDate.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
-          product_create_date= null,
-        </if>
-        <if test="productCreateDate.toString() != 'Thu Jan 01 08:00:00 CST 1970'">
-          product_create_date= #{productCreateDate,jdbcType=TIMESTAMP},
         </if>
       </if>
       <if test="prePayTime != null">
@@ -1041,160 +940,32 @@
           modify_time= #{modifyTime,jdbcType=TIMESTAMP},
         </if>
       </if>
-      <if test="auditUserId != null">
-        <if test="auditUserId == -99999">
-          audit_user_id= null,
-        </if>
-        <if test="auditUserId != -99999">
-          audit_user_id= #{auditUserId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="goodsId != null">
-        <if test="goodsId == -99999">
-          goods_id= null,
-        </if>
-        <if test="goodsId != -99999">
-          goods_id= #{goodsId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="payUserId != null">
-        <if test="payUserId == -99999">
-          pay_user_id= null,
-        </if>
-        <if test="payUserId != -99999">
-          pay_user_id= #{payUserId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="localTotalMny != null">
-        <if test="localTotalMny == -99999">
-          local_total_mny= null,
-        </if>
-        <if test="localTotalMny != -99999">
-          local_total_mny= #{localTotalMny,jdbcType=DECIMAL},
-        </if>
-      </if>
-      <if test="payTotalMny != null">
-        <if test="payTotalMny == -99999">
-          pay_total_mny= null,
-        </if>
-        <if test="payTotalMny != -99999">
-          pay_total_mny= #{payTotalMny,jdbcType=DECIMAL},
-        </if>
-      </if>
-      <if test="unPayMny != null">
-        <if test="unPayMny == -99999">
-          un_pay_mny= null,
-        </if>
-        <if test="unPayMny != -99999">
-          un_pay_mny= #{unPayMny,jdbcType=DECIMAL},
-        </if>
-      </if>
-      <if test="totalInvoiceMny != null">
-        <if test="totalInvoiceMny == -99999">
-          total_invoice_mny= null,
-        </if>
-        <if test="totalInvoiceMny != -99999">
-          total_invoice_mny= #{totalInvoiceMny,jdbcType=DECIMAL},
-        </if>
-      </if>
-      <if test="quantity != null">
-        <if test="quantity == -99999">
-          quantity= null,
-        </if>
-        <if test="quantity != -99999">
-          quantity= #{quantity,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="supplierId != null">
-        <if test="supplierId == -99999">
-          supplier_id= null,
-        </if>
-        <if test="supplierId != -99999">
-          supplier_id= #{supplierId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="nonInvoiceMny != null">
-        <if test="nonInvoiceMny == -99999">
-          non_invoice_mny= null,
-        </if>
-        <if test="nonInvoiceMny != -99999">
-          non_invoice_mny= #{nonInvoiceMny,jdbcType=DECIMAL},
-        </if>
-      </if>
-      <if test="logisFee != null">
-        <if test="logisFee == -99999">
-          logis_fee= null,
-        </if>
-        <if test="logisFee != -99999">
-          logis_fee= #{logisFee,jdbcType=DECIMAL},
-        </if>
-      </if>
-      <if test="warehouseId != null">
-        <if test="warehouseId == -99999">
-          warehouse_id= null,
-        </if>
-        <if test="warehouseId != -99999">
-          warehouse_id= #{warehouseId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="orderNumber != null">
-        <if test="orderNumber == -99999">
-          order_number= null,
-        </if>
-        <if test="orderNumber != -99999">
-          order_number= #{orderNumber,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="productStatus != null">
-        <if test="productStatus == -99999">
-          product_status= null,
-        </if>
-        <if test="productStatus != -99999">
-          product_status= #{productStatus,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="orderStatus != null">
-        <if test="orderStatus == -99999">
-          order_status= null,
-        </if>
-        <if test="orderStatus != -99999">
-          order_status= #{orderStatus,jdbcType=INTEGER},
-        </if>
-      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.binger.stock.domain.ProductOrderMain">
     update product_order_main
-    set product_order_code = #{productOrderCode,jdbcType=VARCHAR},
+    set product_plan_code = #{productPlanCode,jdbcType=VARCHAR},
+      product_order_code = #{productOrderCode,jdbcType=VARCHAR},
       audit_time = #{auditTime,jdbcType=TIMESTAMP},
-      audit_user_id = #{auditUserId,jdbcType=INTEGER},
       audit_user_name = #{auditUserName,jdbcType=VARCHAR},
-      product_create_date = #{productCreateDate,jdbcType=TIMESTAMP},
-      goods_id = #{goodsId,jdbcType=INTEGER},
-      goods_code = #{goodsCode,jdbcType=VARCHAR},
-      goods_name = #{goodsName,jdbcType=VARCHAR},
       pre_pay_time = #{prePayTime,jdbcType=TIMESTAMP},
       pay_time = #{payTime,jdbcType=TIMESTAMP},
-      pay_user_id = #{payUserId,jdbcType=INTEGER},
       pay_user_name = #{payUserName,jdbcType=VARCHAR},
       local_total_mny = #{localTotalMny,jdbcType=DECIMAL},
       pay_total_mny = #{payTotalMny,jdbcType=DECIMAL},
       un_pay_mny = #{unPayMny,jdbcType=DECIMAL},
-      total_invoice_mny = #{totalInvoiceMny,jdbcType=DECIMAL},
       quantity = #{quantity,jdbcType=INTEGER},
       settlement = #{settlement,jdbcType=VARCHAR},
       supplier_id = #{supplierId,jdbcType=INTEGER},
       supplier_code = #{supplierCode,jdbcType=VARCHAR},
       supplier_name = #{supplierName,jdbcType=VARCHAR},
       exp_delivered_time = #{expDeliveredTime,jdbcType=TIMESTAMP},
-      non_invoice_mny = #{nonInvoiceMny,jdbcType=DECIMAL},
       delivered_time = #{deliveredTime,jdbcType=TIMESTAMP},
-      logis_no = #{logisNo,jdbcType=VARCHAR},
+      logist_no = #{logistNo,jdbcType=VARCHAR},
       logist_company_name = #{logistCompanyName,jdbcType=VARCHAR},
       logis_fee = #{logisFee,jdbcType=DECIMAL},
       warehouse_id = #{warehouseId,jdbcType=INTEGER},
-      order_number = #{orderNumber,jdbcType=INTEGER},
       archive_date = #{archiveDate,jdbcType=TIMESTAMP},
       bill_date = #{billDate,jdbcType=TIMESTAMP},
       product_status = #{productStatus,jdbcType=INTEGER},
@@ -1202,7 +973,6 @@
       cancel_time = #{cancelTime,jdbcType=TIMESTAMP},
       cancel_reason = #{cancelReason,jdbcType=VARCHAR},
       archive_reason_name = #{archiveReasonName,jdbcType=VARCHAR},
-      archive_reason_code = #{archiveReasonCode,jdbcType=VARCHAR},
       creator = #{creator,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       modifier = #{modifier,jdbcType=VARCHAR},

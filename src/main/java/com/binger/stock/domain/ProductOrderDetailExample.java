@@ -109,7 +109,7 @@ public class ProductOrderDetailExample {
     }
 
     /**
-     * product_order_detail 2018-05-17
+     * product_order_detail 2018-05-24
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -222,133 +222,123 @@ public class ProductOrderDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andProductOrderMainIdEqualTo(String value) {
+        public Criteria andProductOrderMainIdEqualTo(Integer value) {
             addCriterion("product_order_main_id =", value, "productOrderMainId");
             return (Criteria) this;
         }
 
-        public Criteria andProductOrderMainIdNotEqualTo(String value) {
+        public Criteria andProductOrderMainIdNotEqualTo(Integer value) {
             addCriterion("product_order_main_id <>", value, "productOrderMainId");
             return (Criteria) this;
         }
 
-        public Criteria andProductOrderMainIdGreaterThan(String value) {
+        public Criteria andProductOrderMainIdGreaterThan(Integer value) {
             addCriterion("product_order_main_id >", value, "productOrderMainId");
             return (Criteria) this;
         }
 
-        public Criteria andProductOrderMainIdGreaterThanOrEqualTo(String value) {
+        public Criteria andProductOrderMainIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("product_order_main_id >=", value, "productOrderMainId");
             return (Criteria) this;
         }
 
-        public Criteria andProductOrderMainIdLessThan(String value) {
+        public Criteria andProductOrderMainIdLessThan(Integer value) {
             addCriterion("product_order_main_id <", value, "productOrderMainId");
             return (Criteria) this;
         }
 
-        public Criteria andProductOrderMainIdLessThanOrEqualTo(String value) {
+        public Criteria andProductOrderMainIdLessThanOrEqualTo(Integer value) {
             addCriterion("product_order_main_id <=", value, "productOrderMainId");
             return (Criteria) this;
         }
 
-        public Criteria andProductOrderMainIdLike(String value) {
-            addCriterion("product_order_main_id like", value, "productOrderMainId");
-            return (Criteria) this;
-        }
-
-        public Criteria andProductOrderMainIdNotLike(String value) {
-            addCriterion("product_order_main_id not like", value, "productOrderMainId");
-            return (Criteria) this;
-        }
-
-        public Criteria andProductOrderMainIdIn(List<String> values) {
+        public Criteria andProductOrderMainIdIn(List<Integer> values) {
             addCriterion("product_order_main_id in", values, "productOrderMainId");
             return (Criteria) this;
         }
 
-        public Criteria andProductOrderMainIdNotIn(List<String> values) {
+        public Criteria andProductOrderMainIdNotIn(List<Integer> values) {
             addCriterion("product_order_main_id not in", values, "productOrderMainId");
             return (Criteria) this;
         }
 
-        public Criteria andProductOrderMainIdBetween(String value1, String value2) {
+        public Criteria andProductOrderMainIdBetween(Integer value1, Integer value2) {
             addCriterion("product_order_main_id between", value1, value2, "productOrderMainId");
             return (Criteria) this;
         }
 
-        public Criteria andProductOrderMainIdNotBetween(String value1, String value2) {
+        public Criteria andProductOrderMainIdNotBetween(Integer value1, Integer value2) {
             addCriterion("product_order_main_id not between", value1, value2, "productOrderMainId");
             return (Criteria) this;
         }
 
-        public Criteria andProductOrderSubCodeIsNull() {
-            addCriterion("product_order_sub_code is null");
+        public Criteria andProductOrderMainCodeIsNull() {
+            addCriterion("product_order_main_code is null");
             return (Criteria) this;
         }
 
-        public Criteria andProductOrderSubCodeIsNotNull() {
-            addCriterion("product_order_sub_code is not null");
+        public Criteria andProductOrderMainCodeIsNotNull() {
+            addCriterion("product_order_main_code is not null");
             return (Criteria) this;
         }
 
-        public Criteria andProductOrderSubCodeEqualTo(String value) {
-            addCriterion("product_order_sub_code =", value, "productOrderSubCode");
+        public Criteria andProductOrderMainCodeEqualTo(String value) {
+            addCriterion("product_order_main_code =", value, "productOrderMainCode");
             return (Criteria) this;
         }
 
-        public Criteria andProductOrderSubCodeNotEqualTo(String value) {
-            addCriterion("product_order_sub_code <>", value, "productOrderSubCode");
+        public Criteria andProductOrderMainCodeNotEqualTo(String value) {
+            addCriterion("product_order_main_code <>", value, "productOrderMainCode");
             return (Criteria) this;
         }
 
-        public Criteria andProductOrderSubCodeGreaterThan(String value) {
-            addCriterion("product_order_sub_code >", value, "productOrderSubCode");
+        public Criteria andProductOrderMainCodeGreaterThan(String value) {
+            addCriterion("product_order_main_code >", value, "productOrderMainCode");
             return (Criteria) this;
         }
 
-        public Criteria andProductOrderSubCodeGreaterThanOrEqualTo(String value) {
-            addCriterion("product_order_sub_code >=", value, "productOrderSubCode");
+        public Criteria andProductOrderMainCodeGreaterThanOrEqualTo(String value) {
+            addCriterion("product_order_main_code >=", value, "productOrderMainCode");
             return (Criteria) this;
         }
 
-        public Criteria andProductOrderSubCodeLessThan(String value) {
-            addCriterion("product_order_sub_code <", value, "productOrderSubCode");
+        public Criteria andProductOrderMainCodeLessThan(String value) {
+            addCriterion("product_order_main_code <", value, "productOrderMainCode");
             return (Criteria) this;
         }
 
-        public Criteria andProductOrderSubCodeLessThanOrEqualTo(String value) {
-            addCriterion("product_order_sub_code <=", value, "productOrderSubCode");
+        public Criteria andProductOrderMainCodeLessThanOrEqualTo(String value) {
+            addCriterion("product_order_main_code <=", value, "productOrderMainCode");
             return (Criteria) this;
         }
 
-        public Criteria andProductOrderSubCodeLike(String value) {
-            addCriterion("product_order_sub_code like", value, "productOrderSubCode");
+        public Criteria andProductOrderMainCodeLike(String value) {
+            addCriterion("product_order_main_code like", value, "productOrderMainCode");
             return (Criteria) this;
         }
 
-        public Criteria andProductOrderSubCodeNotLike(String value) {
-            addCriterion("product_order_sub_code not like", value, "productOrderSubCode");
+        public Criteria andProductOrderMainCodeNotLike(String value) {
+            addCriterion("product_order_main_code not like", value, "productOrderMainCode");
             return (Criteria) this;
         }
 
-        public Criteria andProductOrderSubCodeIn(List<String> values) {
-            addCriterion("product_order_sub_code in", values, "productOrderSubCode");
+        public Criteria andProductOrderMainCodeIn(List<String> values) {
+            addCriterion("product_order_main_code in", values, "productOrderMainCode");
             return (Criteria) this;
         }
 
-        public Criteria andProductOrderSubCodeNotIn(List<String> values) {
-            addCriterion("product_order_sub_code not in", values, "productOrderSubCode");
+        public Criteria andProductOrderMainCodeNotIn(List<String> values) {
+            addCriterion("product_order_main_code not in", values, "productOrderMainCode");
             return (Criteria) this;
         }
 
-        public Criteria andProductOrderSubCodeBetween(String value1, String value2) {
-            addCriterion("product_order_sub_code between", value1, value2, "productOrderSubCode");
+        public Criteria andProductOrderMainCodeBetween(String value1, String value2) {
+            addCriterion("product_order_main_code between", value1, value2, "productOrderMainCode");
             return (Criteria) this;
         }
 
-        public Criteria andProductOrderSubCodeNotBetween(String value1, String value2) {
-            addCriterion("product_order_sub_code not between", value1, value2, "productOrderSubCode");
+        public Criteria andProductOrderMainCodeNotBetween(String value1, String value2) {
+            addCriterion("product_order_main_code not between", value1, value2, "productOrderMainCode");
             return (Criteria) this;
         }
 
@@ -1422,186 +1412,6 @@ public class ProductOrderDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andQuantityIsNull() {
-            addCriterion("quantity is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andQuantityIsNotNull() {
-            addCriterion("quantity is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andQuantityEqualTo(Integer value) {
-            addCriterion("quantity =", value, "quantity");
-            return (Criteria) this;
-        }
-
-        public Criteria andQuantityNotEqualTo(Integer value) {
-            addCriterion("quantity <>", value, "quantity");
-            return (Criteria) this;
-        }
-
-        public Criteria andQuantityGreaterThan(Integer value) {
-            addCriterion("quantity >", value, "quantity");
-            return (Criteria) this;
-        }
-
-        public Criteria andQuantityGreaterThanOrEqualTo(Integer value) {
-            addCriterion("quantity >=", value, "quantity");
-            return (Criteria) this;
-        }
-
-        public Criteria andQuantityLessThan(Integer value) {
-            addCriterion("quantity <", value, "quantity");
-            return (Criteria) this;
-        }
-
-        public Criteria andQuantityLessThanOrEqualTo(Integer value) {
-            addCriterion("quantity <=", value, "quantity");
-            return (Criteria) this;
-        }
-
-        public Criteria andQuantityIn(List<Integer> values) {
-            addCriterion("quantity in", values, "quantity");
-            return (Criteria) this;
-        }
-
-        public Criteria andQuantityNotIn(List<Integer> values) {
-            addCriterion("quantity not in", values, "quantity");
-            return (Criteria) this;
-        }
-
-        public Criteria andQuantityBetween(Integer value1, Integer value2) {
-            addCriterion("quantity between", value1, value2, "quantity");
-            return (Criteria) this;
-        }
-
-        public Criteria andQuantityNotBetween(Integer value1, Integer value2) {
-            addCriterion("quantity not between", value1, value2, "quantity");
-            return (Criteria) this;
-        }
-
-        public Criteria andStockQuantityIsNull() {
-            addCriterion("stock_quantity is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStockQuantityIsNotNull() {
-            addCriterion("stock_quantity is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStockQuantityEqualTo(Integer value) {
-            addCriterion("stock_quantity =", value, "stockQuantity");
-            return (Criteria) this;
-        }
-
-        public Criteria andStockQuantityNotEqualTo(Integer value) {
-            addCriterion("stock_quantity <>", value, "stockQuantity");
-            return (Criteria) this;
-        }
-
-        public Criteria andStockQuantityGreaterThan(Integer value) {
-            addCriterion("stock_quantity >", value, "stockQuantity");
-            return (Criteria) this;
-        }
-
-        public Criteria andStockQuantityGreaterThanOrEqualTo(Integer value) {
-            addCriterion("stock_quantity >=", value, "stockQuantity");
-            return (Criteria) this;
-        }
-
-        public Criteria andStockQuantityLessThan(Integer value) {
-            addCriterion("stock_quantity <", value, "stockQuantity");
-            return (Criteria) this;
-        }
-
-        public Criteria andStockQuantityLessThanOrEqualTo(Integer value) {
-            addCriterion("stock_quantity <=", value, "stockQuantity");
-            return (Criteria) this;
-        }
-
-        public Criteria andStockQuantityIn(List<Integer> values) {
-            addCriterion("stock_quantity in", values, "stockQuantity");
-            return (Criteria) this;
-        }
-
-        public Criteria andStockQuantityNotIn(List<Integer> values) {
-            addCriterion("stock_quantity not in", values, "stockQuantity");
-            return (Criteria) this;
-        }
-
-        public Criteria andStockQuantityBetween(Integer value1, Integer value2) {
-            addCriterion("stock_quantity between", value1, value2, "stockQuantity");
-            return (Criteria) this;
-        }
-
-        public Criteria andStockQuantityNotBetween(Integer value1, Integer value2) {
-            addCriterion("stock_quantity not between", value1, value2, "stockQuantity");
-            return (Criteria) this;
-        }
-
-        public Criteria andOutOfStockQuantityIsNull() {
-            addCriterion("out_of_stock_quantity is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andOutOfStockQuantityIsNotNull() {
-            addCriterion("out_of_stock_quantity is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andOutOfStockQuantityEqualTo(Integer value) {
-            addCriterion("out_of_stock_quantity =", value, "outOfStockQuantity");
-            return (Criteria) this;
-        }
-
-        public Criteria andOutOfStockQuantityNotEqualTo(Integer value) {
-            addCriterion("out_of_stock_quantity <>", value, "outOfStockQuantity");
-            return (Criteria) this;
-        }
-
-        public Criteria andOutOfStockQuantityGreaterThan(Integer value) {
-            addCriterion("out_of_stock_quantity >", value, "outOfStockQuantity");
-            return (Criteria) this;
-        }
-
-        public Criteria andOutOfStockQuantityGreaterThanOrEqualTo(Integer value) {
-            addCriterion("out_of_stock_quantity >=", value, "outOfStockQuantity");
-            return (Criteria) this;
-        }
-
-        public Criteria andOutOfStockQuantityLessThan(Integer value) {
-            addCriterion("out_of_stock_quantity <", value, "outOfStockQuantity");
-            return (Criteria) this;
-        }
-
-        public Criteria andOutOfStockQuantityLessThanOrEqualTo(Integer value) {
-            addCriterion("out_of_stock_quantity <=", value, "outOfStockQuantity");
-            return (Criteria) this;
-        }
-
-        public Criteria andOutOfStockQuantityIn(List<Integer> values) {
-            addCriterion("out_of_stock_quantity in", values, "outOfStockQuantity");
-            return (Criteria) this;
-        }
-
-        public Criteria andOutOfStockQuantityNotIn(List<Integer> values) {
-            addCriterion("out_of_stock_quantity not in", values, "outOfStockQuantity");
-            return (Criteria) this;
-        }
-
-        public Criteria andOutOfStockQuantityBetween(Integer value1, Integer value2) {
-            addCriterion("out_of_stock_quantity between", value1, value2, "outOfStockQuantity");
-            return (Criteria) this;
-        }
-
-        public Criteria andOutOfStockQuantityNotBetween(Integer value1, Integer value2) {
-            addCriterion("out_of_stock_quantity not between", value1, value2, "outOfStockQuantity");
-            return (Criteria) this;
-        }
-
         public Criteria andWeightIsNull() {
             addCriterion("weight is null");
             return (Criteria) this;
@@ -1842,6 +1652,66 @@ public class ProductOrderDetailExample {
             return (Criteria) this;
         }
 
+        public Criteria andIsStorageIsNull() {
+            addCriterion("is_storage is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsStorageIsNotNull() {
+            addCriterion("is_storage is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsStorageEqualTo(Boolean value) {
+            addCriterion("is_storage =", value, "isStorage");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsStorageNotEqualTo(Boolean value) {
+            addCriterion("is_storage <>", value, "isStorage");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsStorageGreaterThan(Boolean value) {
+            addCriterion("is_storage >", value, "isStorage");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsStorageGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("is_storage >=", value, "isStorage");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsStorageLessThan(Boolean value) {
+            addCriterion("is_storage <", value, "isStorage");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsStorageLessThanOrEqualTo(Boolean value) {
+            addCriterion("is_storage <=", value, "isStorage");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsStorageIn(List<Boolean> values) {
+            addCriterion("is_storage in", values, "isStorage");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsStorageNotIn(List<Boolean> values) {
+            addCriterion("is_storage not in", values, "isStorage");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsStorageBetween(Boolean value1, Boolean value2) {
+            addCriterion("is_storage between", value1, value2, "isStorage");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsStorageNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("is_storage not between", value1, value2, "isStorage");
+            return (Criteria) this;
+        }
+
         public Criteria andWareQuantityIsNull() {
             addCriterion("ware_quantity is null");
             return (Criteria) this;
@@ -1959,136 +1829,6 @@ public class ProductOrderDetailExample {
 
         public Criteria andUnwareQuantityNotBetween(Integer value1, Integer value2) {
             addCriterion("unware_quantity not between", value1, value2, "unwareQuantity");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsStorageIsNull() {
-            addCriterion("is_storage is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsStorageIsNotNull() {
-            addCriterion("is_storage is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsStorageEqualTo(Boolean value) {
-            addCriterion("is_storage =", value, "isStorage");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsStorageNotEqualTo(Boolean value) {
-            addCriterion("is_storage <>", value, "isStorage");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsStorageGreaterThan(Boolean value) {
-            addCriterion("is_storage >", value, "isStorage");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsStorageGreaterThanOrEqualTo(Boolean value) {
-            addCriterion("is_storage >=", value, "isStorage");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsStorageLessThan(Boolean value) {
-            addCriterion("is_storage <", value, "isStorage");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsStorageLessThanOrEqualTo(Boolean value) {
-            addCriterion("is_storage <=", value, "isStorage");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsStorageIn(List<Boolean> values) {
-            addCriterion("is_storage in", values, "isStorage");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsStorageNotIn(List<Boolean> values) {
-            addCriterion("is_storage not in", values, "isStorage");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsStorageBetween(Boolean value1, Boolean value2) {
-            addCriterion("is_storage between", value1, value2, "isStorage");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsStorageNotBetween(Boolean value1, Boolean value2) {
-            addCriterion("is_storage not between", value1, value2, "isStorage");
-            return (Criteria) this;
-        }
-
-        public Criteria andCommentsIsNull() {
-            addCriterion("comments is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCommentsIsNotNull() {
-            addCriterion("comments is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCommentsEqualTo(String value) {
-            addCriterion("comments =", value, "comments");
-            return (Criteria) this;
-        }
-
-        public Criteria andCommentsNotEqualTo(String value) {
-            addCriterion("comments <>", value, "comments");
-            return (Criteria) this;
-        }
-
-        public Criteria andCommentsGreaterThan(String value) {
-            addCriterion("comments >", value, "comments");
-            return (Criteria) this;
-        }
-
-        public Criteria andCommentsGreaterThanOrEqualTo(String value) {
-            addCriterion("comments >=", value, "comments");
-            return (Criteria) this;
-        }
-
-        public Criteria andCommentsLessThan(String value) {
-            addCriterion("comments <", value, "comments");
-            return (Criteria) this;
-        }
-
-        public Criteria andCommentsLessThanOrEqualTo(String value) {
-            addCriterion("comments <=", value, "comments");
-            return (Criteria) this;
-        }
-
-        public Criteria andCommentsLike(String value) {
-            addCriterion("comments like", value, "comments");
-            return (Criteria) this;
-        }
-
-        public Criteria andCommentsNotLike(String value) {
-            addCriterion("comments not like", value, "comments");
-            return (Criteria) this;
-        }
-
-        public Criteria andCommentsIn(List<String> values) {
-            addCriterion("comments in", values, "comments");
-            return (Criteria) this;
-        }
-
-        public Criteria andCommentsNotIn(List<String> values) {
-            addCriterion("comments not in", values, "comments");
-            return (Criteria) this;
-        }
-
-        public Criteria andCommentsBetween(String value1, String value2) {
-            addCriterion("comments between", value1, value2, "comments");
-            return (Criteria) this;
-        }
-
-        public Criteria andCommentsNotBetween(String value1, String value2) {
-            addCriterion("comments not between", value1, value2, "comments");
             return (Criteria) this;
         }
 
@@ -2212,63 +1952,133 @@ public class ProductOrderDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andTotalWareQuantityIsNull() {
-            addCriterion("total_ware_quantity is null");
+        public Criteria andTotalQuantityIsNull() {
+            addCriterion("total_quantity is null");
             return (Criteria) this;
         }
 
-        public Criteria andTotalWareQuantityIsNotNull() {
-            addCriterion("total_ware_quantity is not null");
+        public Criteria andTotalQuantityIsNotNull() {
+            addCriterion("total_quantity is not null");
             return (Criteria) this;
         }
 
-        public Criteria andTotalWareQuantityEqualTo(Integer value) {
-            addCriterion("total_ware_quantity =", value, "totalWareQuantity");
+        public Criteria andTotalQuantityEqualTo(Integer value) {
+            addCriterion("total_quantity =", value, "totalQuantity");
             return (Criteria) this;
         }
 
-        public Criteria andTotalWareQuantityNotEqualTo(Integer value) {
-            addCriterion("total_ware_quantity <>", value, "totalWareQuantity");
+        public Criteria andTotalQuantityNotEqualTo(Integer value) {
+            addCriterion("total_quantity <>", value, "totalQuantity");
             return (Criteria) this;
         }
 
-        public Criteria andTotalWareQuantityGreaterThan(Integer value) {
-            addCriterion("total_ware_quantity >", value, "totalWareQuantity");
+        public Criteria andTotalQuantityGreaterThan(Integer value) {
+            addCriterion("total_quantity >", value, "totalQuantity");
             return (Criteria) this;
         }
 
-        public Criteria andTotalWareQuantityGreaterThanOrEqualTo(Integer value) {
-            addCriterion("total_ware_quantity >=", value, "totalWareQuantity");
+        public Criteria andTotalQuantityGreaterThanOrEqualTo(Integer value) {
+            addCriterion("total_quantity >=", value, "totalQuantity");
             return (Criteria) this;
         }
 
-        public Criteria andTotalWareQuantityLessThan(Integer value) {
-            addCriterion("total_ware_quantity <", value, "totalWareQuantity");
+        public Criteria andTotalQuantityLessThan(Integer value) {
+            addCriterion("total_quantity <", value, "totalQuantity");
             return (Criteria) this;
         }
 
-        public Criteria andTotalWareQuantityLessThanOrEqualTo(Integer value) {
-            addCriterion("total_ware_quantity <=", value, "totalWareQuantity");
+        public Criteria andTotalQuantityLessThanOrEqualTo(Integer value) {
+            addCriterion("total_quantity <=", value, "totalQuantity");
             return (Criteria) this;
         }
 
-        public Criteria andTotalWareQuantityIn(List<Integer> values) {
-            addCriterion("total_ware_quantity in", values, "totalWareQuantity");
+        public Criteria andTotalQuantityIn(List<Integer> values) {
+            addCriterion("total_quantity in", values, "totalQuantity");
             return (Criteria) this;
         }
 
-        public Criteria andTotalWareQuantityNotIn(List<Integer> values) {
-            addCriterion("total_ware_quantity not in", values, "totalWareQuantity");
+        public Criteria andTotalQuantityNotIn(List<Integer> values) {
+            addCriterion("total_quantity not in", values, "totalQuantity");
             return (Criteria) this;
         }
 
-        public Criteria andTotalWareQuantityBetween(Integer value1, Integer value2) {
-            addCriterion("total_ware_quantity between", value1, value2, "totalWareQuantity");
+        public Criteria andTotalQuantityBetween(Integer value1, Integer value2) {
+            addCriterion("total_quantity between", value1, value2, "totalQuantity");
             return (Criteria) this;
         }
 
-        public Criteria andTotalWareQuantityNotBetween(Integer value1, Integer value2) {
-            addCriterion("total_ware_quantity not between", value1, value2, "totalWareQuantity");
+        public Criteria andTotalQuantityNotBetween(Integer value1, Integer value2) {
+            addCriterion("total_quantity not between", value1, value2, "totalQuantity");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentsIsNull() {
+            addCriterion("comments is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentsIsNotNull() {
+            addCriterion("comments is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentsEqualTo(String value) {
+            addCriterion("comments =", value, "comments");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentsNotEqualTo(String value) {
+            addCriterion("comments <>", value, "comments");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentsGreaterThan(String value) {
+            addCriterion("comments >", value, "comments");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentsGreaterThanOrEqualTo(String value) {
+            addCriterion("comments >=", value, "comments");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentsLessThan(String value) {
+            addCriterion("comments <", value, "comments");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentsLessThanOrEqualTo(String value) {
+            addCriterion("comments <=", value, "comments");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentsLike(String value) {
+            addCriterion("comments like", value, "comments");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentsNotLike(String value) {
+            addCriterion("comments not like", value, "comments");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentsIn(List<String> values) {
+            addCriterion("comments in", values, "comments");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentsNotIn(List<String> values) {
+            addCriterion("comments not in", values, "comments");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentsBetween(String value1, String value2) {
+            addCriterion("comments between", value1, value2, "comments");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentsNotBetween(String value1, String value2) {
+            addCriterion("comments not between", value1, value2, "comments");
             return (Criteria) this;
         }
 
@@ -2544,7 +2354,7 @@ public class ProductOrderDetailExample {
     }
 
     /**
-     * product_order_detail 2018-05-17
+     * product_order_detail 2018-05-24
      */
     public static class Criterion {
         private String condition;
@@ -2635,7 +2445,7 @@ public class ProductOrderDetailExample {
     public static class SelectiveField {
         private Set<String> fields;
 
-        private static String allFields = "id,product_order_main_id,product_order_sub_code,goods_id,goods_code,goods_name,unit,main_img_url,goods_img_id,goods_img_url,sku_id,sku_code,sku_name,color_id,color_code,color_name,size_id,size_code,size_name,quantity,stock_quantity,out_of_stock_quantity,weight,last_price,local_price,local_amount,ware_quantity,unware_quantity,is_storage,comments,return_quantity,defective_quantity,total_ware_quantity,creator,create_time,modifier,modify_time";
+        private static String allFields = "id,product_order_main_id,product_order_main_code,goods_id,goods_code,goods_name,unit,main_img_url,goods_img_id,goods_img_url,sku_id,sku_code,sku_name,color_id,color_code,color_name,size_id,size_code,size_name,weight,last_price,local_price,local_amount,is_storage,ware_quantity,unware_quantity,return_quantity,defective_quantity,total_quantity,comments,creator,create_time,modifier,modify_time";
 
         private SelectiveField() {
             fields = new HashSet<>();
@@ -2655,8 +2465,8 @@ public class ProductOrderDetailExample {
             return this;
         }
 
-        public SelectiveField productOrderSubCode() {
-            fields.add("product_order_sub_code");
+        public SelectiveField productOrderMainCode() {
+            fields.add("product_order_main_code");
             return this;
         }
 
@@ -2740,21 +2550,6 @@ public class ProductOrderDetailExample {
             return this;
         }
 
-        public SelectiveField quantity() {
-            fields.add("quantity");
-            return this;
-        }
-
-        public SelectiveField stockQuantity() {
-            fields.add("stock_quantity");
-            return this;
-        }
-
-        public SelectiveField outOfStockQuantity() {
-            fields.add("out_of_stock_quantity");
-            return this;
-        }
-
         public SelectiveField weight() {
             fields.add("weight");
             return this;
@@ -2775,6 +2570,11 @@ public class ProductOrderDetailExample {
             return this;
         }
 
+        public SelectiveField isStorage() {
+            fields.add("is_storage");
+            return this;
+        }
+
         public SelectiveField wareQuantity() {
             fields.add("ware_quantity");
             return this;
@@ -2782,16 +2582,6 @@ public class ProductOrderDetailExample {
 
         public SelectiveField unwareQuantity() {
             fields.add("unware_quantity");
-            return this;
-        }
-
-        public SelectiveField isStorage() {
-            fields.add("is_storage");
-            return this;
-        }
-
-        public SelectiveField comments() {
-            fields.add("comments");
             return this;
         }
 
@@ -2805,8 +2595,13 @@ public class ProductOrderDetailExample {
             return this;
         }
 
-        public SelectiveField totalWareQuantity() {
-            fields.add("total_ware_quantity");
+        public SelectiveField totalQuantity() {
+            fields.add("total_quantity");
+            return this;
+        }
+
+        public SelectiveField comments() {
+            fields.add("comments");
             return this;
         }
 

@@ -31,22 +31,10 @@ public class ProductPlanDetail implements Serializable {
     private String productPlanCode;
 
     /**
-     * 子生产计划编码
-     */
-    @ApiModelProperty(value="子生产计划编码",required = false)
-    private String productPlanDetailCode;
-
-    /**
      * 生产订单编号（用于回写生产下达状态）
      */
     @ApiModelProperty(value="生产订单编号（用于回写生产下达状态）",required = false)
     private String productOrderCode;
-
-    /**
-     * 生产下达状态
-     */
-    @ApiModelProperty(value="生产下达状态",required = false)
-    private Boolean productStatus;
 
     /**
      * 商品ID
@@ -125,12 +113,6 @@ public class ProductPlanDetail implements Serializable {
      */
     @ApiModelProperty(value="主图",required = false)
     private String mainImgUrl;
-
-    /**
-     * SKU图片ID
-     */
-    @ApiModelProperty(value="SKU图片ID",required = false)
-    private Integer goodsImgId;
 
     /**
      * SKU图片链接
@@ -246,22 +228,6 @@ public class ProductPlanDetail implements Serializable {
     }
 
     /**
-     * 子生产计划编码
-     * @return product_plan_detail_code 子生产计划编码
-     */
-    public String getProductPlanDetailCode() {
-        return productPlanDetailCode;
-    }
-
-    /**
-     * 子生产计划编码
-     * @param productPlanDetailCode 子生产计划编码
-     */
-    public void setProductPlanDetailCode(String productPlanDetailCode) {
-        this.productPlanDetailCode = productPlanDetailCode == null ? null : productPlanDetailCode.trim();
-    }
-
-    /**
      * 生产订单编号（用于回写生产下达状态）
      * @return product_order_code 生产订单编号（用于回写生产下达状态）
      */
@@ -275,22 +241,6 @@ public class ProductPlanDetail implements Serializable {
      */
     public void setProductOrderCode(String productOrderCode) {
         this.productOrderCode = productOrderCode == null ? null : productOrderCode.trim();
-    }
-
-    /**
-     * 生产下达状态
-     * @return product_status 生产下达状态
-     */
-    public Boolean getProductStatus() {
-        return productStatus;
-    }
-
-    /**
-     * 生产下达状态
-     * @param productStatus 生产下达状态
-     */
-    public void setProductStatus(Boolean productStatus) {
-        this.productStatus = productStatus;
     }
 
     /**
@@ -502,22 +452,6 @@ public class ProductPlanDetail implements Serializable {
     }
 
     /**
-     * SKU图片ID
-     * @return goods_img_id SKU图片ID
-     */
-    public Integer getGoodsImgId() {
-        return goodsImgId;
-    }
-
-    /**
-     * SKU图片ID
-     * @param goodsImgId SKU图片ID
-     */
-    public void setGoodsImgId(Integer goodsImgId) {
-        this.goodsImgId = goodsImgId;
-    }
-
-    /**
      * SKU图片链接
      * @return goods_img_url SKU图片链接
      */
@@ -692,9 +626,7 @@ public class ProductPlanDetail implements Serializable {
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getProductPlanMainId() == null ? other.getProductPlanMainId() == null : this.getProductPlanMainId().equals(other.getProductPlanMainId()))
             && (this.getProductPlanCode() == null ? other.getProductPlanCode() == null : this.getProductPlanCode().equals(other.getProductPlanCode()))
-            && (this.getProductPlanDetailCode() == null ? other.getProductPlanDetailCode() == null : this.getProductPlanDetailCode().equals(other.getProductPlanDetailCode()))
             && (this.getProductOrderCode() == null ? other.getProductOrderCode() == null : this.getProductOrderCode().equals(other.getProductOrderCode()))
-            && (this.getProductStatus() == null ? other.getProductStatus() == null : this.getProductStatus().equals(other.getProductStatus()))
             && (this.getGoodsId() == null ? other.getGoodsId() == null : this.getGoodsId().equals(other.getGoodsId()))
             && (this.getGoodsCode() == null ? other.getGoodsCode() == null : this.getGoodsCode().equals(other.getGoodsCode()))
             && (this.getGoodsName() == null ? other.getGoodsName() == null : this.getGoodsName().equals(other.getGoodsName()))
@@ -708,7 +640,6 @@ public class ProductPlanDetail implements Serializable {
             && (this.getSizeCode() == null ? other.getSizeCode() == null : this.getSizeCode().equals(other.getSizeCode()))
             && (this.getSizeName() == null ? other.getSizeName() == null : this.getSizeName().equals(other.getSizeName()))
             && (this.getMainImgUrl() == null ? other.getMainImgUrl() == null : this.getMainImgUrl().equals(other.getMainImgUrl()))
-            && (this.getGoodsImgId() == null ? other.getGoodsImgId() == null : this.getGoodsImgId().equals(other.getGoodsImgId()))
             && (this.getGoodsImgUrl() == null ? other.getGoodsImgUrl() == null : this.getGoodsImgUrl().equals(other.getGoodsImgUrl()))
             && (this.getStockQuantity() == null ? other.getStockQuantity() == null : this.getStockQuantity().equals(other.getStockQuantity()))
             && (this.getOutofstockQuantity() == null ? other.getOutofstockQuantity() == null : this.getOutofstockQuantity().equals(other.getOutofstockQuantity()))
@@ -728,9 +659,7 @@ public class ProductPlanDetail implements Serializable {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getProductPlanMainId() == null) ? 0 : getProductPlanMainId().hashCode());
         result = prime * result + ((getProductPlanCode() == null) ? 0 : getProductPlanCode().hashCode());
-        result = prime * result + ((getProductPlanDetailCode() == null) ? 0 : getProductPlanDetailCode().hashCode());
         result = prime * result + ((getProductOrderCode() == null) ? 0 : getProductOrderCode().hashCode());
-        result = prime * result + ((getProductStatus() == null) ? 0 : getProductStatus().hashCode());
         result = prime * result + ((getGoodsId() == null) ? 0 : getGoodsId().hashCode());
         result = prime * result + ((getGoodsCode() == null) ? 0 : getGoodsCode().hashCode());
         result = prime * result + ((getGoodsName() == null) ? 0 : getGoodsName().hashCode());
@@ -744,7 +673,6 @@ public class ProductPlanDetail implements Serializable {
         result = prime * result + ((getSizeCode() == null) ? 0 : getSizeCode().hashCode());
         result = prime * result + ((getSizeName() == null) ? 0 : getSizeName().hashCode());
         result = prime * result + ((getMainImgUrl() == null) ? 0 : getMainImgUrl().hashCode());
-        result = prime * result + ((getGoodsImgId() == null) ? 0 : getGoodsImgId().hashCode());
         result = prime * result + ((getGoodsImgUrl() == null) ? 0 : getGoodsImgUrl().hashCode());
         result = prime * result + ((getStockQuantity() == null) ? 0 : getStockQuantity().hashCode());
         result = prime * result + ((getOutofstockQuantity() == null) ? 0 : getOutofstockQuantity().hashCode());
@@ -767,9 +695,7 @@ public class ProductPlanDetail implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", productPlanMainId=").append(productPlanMainId);
         sb.append(", productPlanCode=").append(productPlanCode);
-        sb.append(", productPlanDetailCode=").append(productPlanDetailCode);
         sb.append(", productOrderCode=").append(productOrderCode);
-        sb.append(", productStatus=").append(productStatus);
         sb.append(", goodsId=").append(goodsId);
         sb.append(", goodsCode=").append(goodsCode);
         sb.append(", goodsName=").append(goodsName);
@@ -783,7 +709,6 @@ public class ProductPlanDetail implements Serializable {
         sb.append(", sizeCode=").append(sizeCode);
         sb.append(", sizeName=").append(sizeName);
         sb.append(", mainImgUrl=").append(mainImgUrl);
-        sb.append(", goodsImgId=").append(goodsImgId);
         sb.append(", goodsImgUrl=").append(goodsImgUrl);
         sb.append(", stockQuantity=").append(stockQuantity);
         sb.append(", outofstockQuantity=").append(outofstockQuantity);

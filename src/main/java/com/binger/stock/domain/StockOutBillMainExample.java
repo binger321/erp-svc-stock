@@ -109,7 +109,7 @@ public class StockOutBillMainExample {
     }
 
     /**
-     * stock_out_bill_main 2018-05-17
+     * stock_out_bill_main 2018-05-25
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -282,6 +282,76 @@ public class StockOutBillMainExample {
             return (Criteria) this;
         }
 
+        public Criteria andReturnProductReturnCodeIsNull() {
+            addCriterion("return_product_return_code is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReturnProductReturnCodeIsNotNull() {
+            addCriterion("return_product_return_code is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReturnProductReturnCodeEqualTo(String value) {
+            addCriterion("return_product_return_code =", value, "returnProductReturnCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andReturnProductReturnCodeNotEqualTo(String value) {
+            addCriterion("return_product_return_code <>", value, "returnProductReturnCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andReturnProductReturnCodeGreaterThan(String value) {
+            addCriterion("return_product_return_code >", value, "returnProductReturnCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andReturnProductReturnCodeGreaterThanOrEqualTo(String value) {
+            addCriterion("return_product_return_code >=", value, "returnProductReturnCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andReturnProductReturnCodeLessThan(String value) {
+            addCriterion("return_product_return_code <", value, "returnProductReturnCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andReturnProductReturnCodeLessThanOrEqualTo(String value) {
+            addCriterion("return_product_return_code <=", value, "returnProductReturnCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andReturnProductReturnCodeLike(String value) {
+            addCriterion("return_product_return_code like", value, "returnProductReturnCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andReturnProductReturnCodeNotLike(String value) {
+            addCriterion("return_product_return_code not like", value, "returnProductReturnCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andReturnProductReturnCodeIn(List<String> values) {
+            addCriterion("return_product_return_code in", values, "returnProductReturnCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andReturnProductReturnCodeNotIn(List<String> values) {
+            addCriterion("return_product_return_code not in", values, "returnProductReturnCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andReturnProductReturnCodeBetween(String value1, String value2) {
+            addCriterion("return_product_return_code between", value1, value2, "returnProductReturnCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andReturnProductReturnCodeNotBetween(String value1, String value2) {
+            addCriterion("return_product_return_code not between", value1, value2, "returnProductReturnCode");
+            return (Criteria) this;
+        }
+
         public Criteria andOrderSaleCodeIsNull() {
             addCriterion("order_sale_code is null");
             return (Criteria) this;
@@ -349,66 +419,6 @@ public class StockOutBillMainExample {
 
         public Criteria andOrderSaleCodeNotBetween(String value1, String value2) {
             addCriterion("order_sale_code not between", value1, value2, "orderSaleCode");
-            return (Criteria) this;
-        }
-
-        public Criteria andShipmentIdIsNull() {
-            addCriterion("shipment_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andShipmentIdIsNotNull() {
-            addCriterion("shipment_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andShipmentIdEqualTo(Integer value) {
-            addCriterion("shipment_id =", value, "shipmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andShipmentIdNotEqualTo(Integer value) {
-            addCriterion("shipment_id <>", value, "shipmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andShipmentIdGreaterThan(Integer value) {
-            addCriterion("shipment_id >", value, "shipmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andShipmentIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("shipment_id >=", value, "shipmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andShipmentIdLessThan(Integer value) {
-            addCriterion("shipment_id <", value, "shipmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andShipmentIdLessThanOrEqualTo(Integer value) {
-            addCriterion("shipment_id <=", value, "shipmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andShipmentIdIn(List<Integer> values) {
-            addCriterion("shipment_id in", values, "shipmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andShipmentIdNotIn(List<Integer> values) {
-            addCriterion("shipment_id not in", values, "shipmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andShipmentIdBetween(Integer value1, Integer value2) {
-            addCriterion("shipment_id between", value1, value2, "shipmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andShipmentIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("shipment_id not between", value1, value2, "shipmentId");
             return (Criteria) this;
         }
 
@@ -532,66 +542,6 @@ public class StockOutBillMainExample {
             return (Criteria) this;
         }
 
-        public Criteria andStockoutDateIsNull() {
-            addCriterion("stockout_date is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStockoutDateIsNotNull() {
-            addCriterion("stockout_date is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStockoutDateEqualTo(Date value) {
-            addCriterion("stockout_date =", value, "stockoutDate");
-            return (Criteria) this;
-        }
-
-        public Criteria andStockoutDateNotEqualTo(Date value) {
-            addCriterion("stockout_date <>", value, "stockoutDate");
-            return (Criteria) this;
-        }
-
-        public Criteria andStockoutDateGreaterThan(Date value) {
-            addCriterion("stockout_date >", value, "stockoutDate");
-            return (Criteria) this;
-        }
-
-        public Criteria andStockoutDateGreaterThanOrEqualTo(Date value) {
-            addCriterion("stockout_date >=", value, "stockoutDate");
-            return (Criteria) this;
-        }
-
-        public Criteria andStockoutDateLessThan(Date value) {
-            addCriterion("stockout_date <", value, "stockoutDate");
-            return (Criteria) this;
-        }
-
-        public Criteria andStockoutDateLessThanOrEqualTo(Date value) {
-            addCriterion("stockout_date <=", value, "stockoutDate");
-            return (Criteria) this;
-        }
-
-        public Criteria andStockoutDateIn(List<Date> values) {
-            addCriterion("stockout_date in", values, "stockoutDate");
-            return (Criteria) this;
-        }
-
-        public Criteria andStockoutDateNotIn(List<Date> values) {
-            addCriterion("stockout_date not in", values, "stockoutDate");
-            return (Criteria) this;
-        }
-
-        public Criteria andStockoutDateBetween(Date value1, Date value2) {
-            addCriterion("stockout_date between", value1, value2, "stockoutDate");
-            return (Criteria) this;
-        }
-
-        public Criteria andStockoutDateNotBetween(Date value1, Date value2) {
-            addCriterion("stockout_date not between", value1, value2, "stockoutDate");
-            return (Criteria) this;
-        }
-
         public Criteria andAuditDateIsNull() {
             addCriterion("audit_date is null");
             return (Criteria) this;
@@ -649,66 +599,6 @@ public class StockOutBillMainExample {
 
         public Criteria andAuditDateNotBetween(Date value1, Date value2) {
             addCriterion("audit_date not between", value1, value2, "auditDate");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuditPersonIdIsNull() {
-            addCriterion("audit_person_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuditPersonIdIsNotNull() {
-            addCriterion("audit_person_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuditPersonIdEqualTo(Integer value) {
-            addCriterion("audit_person_id =", value, "auditPersonId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuditPersonIdNotEqualTo(Integer value) {
-            addCriterion("audit_person_id <>", value, "auditPersonId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuditPersonIdGreaterThan(Integer value) {
-            addCriterion("audit_person_id >", value, "auditPersonId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuditPersonIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("audit_person_id >=", value, "auditPersonId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuditPersonIdLessThan(Integer value) {
-            addCriterion("audit_person_id <", value, "auditPersonId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuditPersonIdLessThanOrEqualTo(Integer value) {
-            addCriterion("audit_person_id <=", value, "auditPersonId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuditPersonIdIn(List<Integer> values) {
-            addCriterion("audit_person_id in", values, "auditPersonId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuditPersonIdNotIn(List<Integer> values) {
-            addCriterion("audit_person_id not in", values, "auditPersonId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuditPersonIdBetween(Integer value1, Integer value2) {
-            addCriterion("audit_person_id between", value1, value2, "auditPersonId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuditPersonIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("audit_person_id not between", value1, value2, "auditPersonId");
             return (Criteria) this;
         }
 
@@ -899,76 +789,6 @@ public class StockOutBillMainExample {
 
         public Criteria andQuantityNotBetween(Integer value1, Integer value2) {
             addCriterion("quantity not between", value1, value2, "quantity");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarkIsNull() {
-            addCriterion("remark is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarkIsNotNull() {
-            addCriterion("remark is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarkEqualTo(String value) {
-            addCriterion("remark =", value, "remark");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarkNotEqualTo(String value) {
-            addCriterion("remark <>", value, "remark");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarkGreaterThan(String value) {
-            addCriterion("remark >", value, "remark");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarkGreaterThanOrEqualTo(String value) {
-            addCriterion("remark >=", value, "remark");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarkLessThan(String value) {
-            addCriterion("remark <", value, "remark");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarkLessThanOrEqualTo(String value) {
-            addCriterion("remark <=", value, "remark");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarkLike(String value) {
-            addCriterion("remark like", value, "remark");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarkNotLike(String value) {
-            addCriterion("remark not like", value, "remark");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarkIn(List<String> values) {
-            addCriterion("remark in", values, "remark");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarkNotIn(List<String> values) {
-            addCriterion("remark not in", values, "remark");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarkBetween(String value1, String value2) {
-            addCriterion("remark between", value1, value2, "remark");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarkNotBetween(String value1, String value2) {
-            addCriterion("remark not between", value1, value2, "remark");
             return (Criteria) this;
         }
 
@@ -1692,193 +1512,133 @@ public class StockOutBillMainExample {
             return (Criteria) this;
         }
 
-        public Criteria andPackingCostIsNull() {
-            addCriterion("packing_cost is null");
+        public Criteria andTotalAmountIsNull() {
+            addCriterion("total_amount is null");
             return (Criteria) this;
         }
 
-        public Criteria andPackingCostIsNotNull() {
-            addCriterion("packing_cost is not null");
+        public Criteria andTotalAmountIsNotNull() {
+            addCriterion("total_amount is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPackingCostEqualTo(BigDecimal value) {
-            addCriterion("packing_cost =", value, "packingCost");
+        public Criteria andTotalAmountEqualTo(BigDecimal value) {
+            addCriterion("total_amount =", value, "totalAmount");
             return (Criteria) this;
         }
 
-        public Criteria andPackingCostNotEqualTo(BigDecimal value) {
-            addCriterion("packing_cost <>", value, "packingCost");
+        public Criteria andTotalAmountNotEqualTo(BigDecimal value) {
+            addCriterion("total_amount <>", value, "totalAmount");
             return (Criteria) this;
         }
 
-        public Criteria andPackingCostGreaterThan(BigDecimal value) {
-            addCriterion("packing_cost >", value, "packingCost");
+        public Criteria andTotalAmountGreaterThan(BigDecimal value) {
+            addCriterion("total_amount >", value, "totalAmount");
             return (Criteria) this;
         }
 
-        public Criteria andPackingCostGreaterThanOrEqualTo(BigDecimal value) {
-            addCriterion("packing_cost >=", value, "packingCost");
+        public Criteria andTotalAmountGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("total_amount >=", value, "totalAmount");
             return (Criteria) this;
         }
 
-        public Criteria andPackingCostLessThan(BigDecimal value) {
-            addCriterion("packing_cost <", value, "packingCost");
+        public Criteria andTotalAmountLessThan(BigDecimal value) {
+            addCriterion("total_amount <", value, "totalAmount");
             return (Criteria) this;
         }
 
-        public Criteria andPackingCostLessThanOrEqualTo(BigDecimal value) {
-            addCriterion("packing_cost <=", value, "packingCost");
+        public Criteria andTotalAmountLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("total_amount <=", value, "totalAmount");
             return (Criteria) this;
         }
 
-        public Criteria andPackingCostIn(List<BigDecimal> values) {
-            addCriterion("packing_cost in", values, "packingCost");
+        public Criteria andTotalAmountIn(List<BigDecimal> values) {
+            addCriterion("total_amount in", values, "totalAmount");
             return (Criteria) this;
         }
 
-        public Criteria andPackingCostNotIn(List<BigDecimal> values) {
-            addCriterion("packing_cost not in", values, "packingCost");
+        public Criteria andTotalAmountNotIn(List<BigDecimal> values) {
+            addCriterion("total_amount not in", values, "totalAmount");
             return (Criteria) this;
         }
 
-        public Criteria andPackingCostBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("packing_cost between", value1, value2, "packingCost");
+        public Criteria andTotalAmountBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("total_amount between", value1, value2, "totalAmount");
             return (Criteria) this;
         }
 
-        public Criteria andPackingCostNotBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("packing_cost not between", value1, value2, "packingCost");
+        public Criteria andTotalAmountNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("total_amount not between", value1, value2, "totalAmount");
             return (Criteria) this;
         }
 
-        public Criteria andReturnGoodsCodeIsNull() {
-            addCriterion("return_goods_code is null");
+        public Criteria andRemarkIsNull() {
+            addCriterion("remark is null");
             return (Criteria) this;
         }
 
-        public Criteria andReturnGoodsCodeIsNotNull() {
-            addCriterion("return_goods_code is not null");
+        public Criteria andRemarkIsNotNull() {
+            addCriterion("remark is not null");
             return (Criteria) this;
         }
 
-        public Criteria andReturnGoodsCodeEqualTo(String value) {
-            addCriterion("return_goods_code =", value, "returnGoodsCode");
+        public Criteria andRemarkEqualTo(String value) {
+            addCriterion("remark =", value, "remark");
             return (Criteria) this;
         }
 
-        public Criteria andReturnGoodsCodeNotEqualTo(String value) {
-            addCriterion("return_goods_code <>", value, "returnGoodsCode");
+        public Criteria andRemarkNotEqualTo(String value) {
+            addCriterion("remark <>", value, "remark");
             return (Criteria) this;
         }
 
-        public Criteria andReturnGoodsCodeGreaterThan(String value) {
-            addCriterion("return_goods_code >", value, "returnGoodsCode");
+        public Criteria andRemarkGreaterThan(String value) {
+            addCriterion("remark >", value, "remark");
             return (Criteria) this;
         }
 
-        public Criteria andReturnGoodsCodeGreaterThanOrEqualTo(String value) {
-            addCriterion("return_goods_code >=", value, "returnGoodsCode");
+        public Criteria andRemarkGreaterThanOrEqualTo(String value) {
+            addCriterion("remark >=", value, "remark");
             return (Criteria) this;
         }
 
-        public Criteria andReturnGoodsCodeLessThan(String value) {
-            addCriterion("return_goods_code <", value, "returnGoodsCode");
+        public Criteria andRemarkLessThan(String value) {
+            addCriterion("remark <", value, "remark");
             return (Criteria) this;
         }
 
-        public Criteria andReturnGoodsCodeLessThanOrEqualTo(String value) {
-            addCriterion("return_goods_code <=", value, "returnGoodsCode");
+        public Criteria andRemarkLessThanOrEqualTo(String value) {
+            addCriterion("remark <=", value, "remark");
             return (Criteria) this;
         }
 
-        public Criteria andReturnGoodsCodeLike(String value) {
-            addCriterion("return_goods_code like", value, "returnGoodsCode");
+        public Criteria andRemarkLike(String value) {
+            addCriterion("remark like", value, "remark");
             return (Criteria) this;
         }
 
-        public Criteria andReturnGoodsCodeNotLike(String value) {
-            addCriterion("return_goods_code not like", value, "returnGoodsCode");
+        public Criteria andRemarkNotLike(String value) {
+            addCriterion("remark not like", value, "remark");
             return (Criteria) this;
         }
 
-        public Criteria andReturnGoodsCodeIn(List<String> values) {
-            addCriterion("return_goods_code in", values, "returnGoodsCode");
+        public Criteria andRemarkIn(List<String> values) {
+            addCriterion("remark in", values, "remark");
             return (Criteria) this;
         }
 
-        public Criteria andReturnGoodsCodeNotIn(List<String> values) {
-            addCriterion("return_goods_code not in", values, "returnGoodsCode");
+        public Criteria andRemarkNotIn(List<String> values) {
+            addCriterion("remark not in", values, "remark");
             return (Criteria) this;
         }
 
-        public Criteria andReturnGoodsCodeBetween(String value1, String value2) {
-            addCriterion("return_goods_code between", value1, value2, "returnGoodsCode");
+        public Criteria andRemarkBetween(String value1, String value2) {
+            addCriterion("remark between", value1, value2, "remark");
             return (Criteria) this;
         }
 
-        public Criteria andReturnGoodsCodeNotBetween(String value1, String value2) {
-            addCriterion("return_goods_code not between", value1, value2, "returnGoodsCode");
-            return (Criteria) this;
-        }
-
-        public Criteria andBillDateIsNull() {
-            addCriterion("bill_date is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andBillDateIsNotNull() {
-            addCriterion("bill_date is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andBillDateEqualTo(Date value) {
-            addCriterion("bill_date =", value, "billDate");
-            return (Criteria) this;
-        }
-
-        public Criteria andBillDateNotEqualTo(Date value) {
-            addCriterion("bill_date <>", value, "billDate");
-            return (Criteria) this;
-        }
-
-        public Criteria andBillDateGreaterThan(Date value) {
-            addCriterion("bill_date >", value, "billDate");
-            return (Criteria) this;
-        }
-
-        public Criteria andBillDateGreaterThanOrEqualTo(Date value) {
-            addCriterion("bill_date >=", value, "billDate");
-            return (Criteria) this;
-        }
-
-        public Criteria andBillDateLessThan(Date value) {
-            addCriterion("bill_date <", value, "billDate");
-            return (Criteria) this;
-        }
-
-        public Criteria andBillDateLessThanOrEqualTo(Date value) {
-            addCriterion("bill_date <=", value, "billDate");
-            return (Criteria) this;
-        }
-
-        public Criteria andBillDateIn(List<Date> values) {
-            addCriterion("bill_date in", values, "billDate");
-            return (Criteria) this;
-        }
-
-        public Criteria andBillDateNotIn(List<Date> values) {
-            addCriterion("bill_date not in", values, "billDate");
-            return (Criteria) this;
-        }
-
-        public Criteria andBillDateBetween(Date value1, Date value2) {
-            addCriterion("bill_date between", value1, value2, "billDate");
-            return (Criteria) this;
-        }
-
-        public Criteria andBillDateNotBetween(Date value1, Date value2) {
-            addCriterion("bill_date not between", value1, value2, "billDate");
+        public Criteria andRemarkNotBetween(String value1, String value2) {
+            addCriterion("remark not between", value1, value2, "remark");
             return (Criteria) this;
         }
 
@@ -2154,7 +1914,7 @@ public class StockOutBillMainExample {
     }
 
     /**
-     * stock_out_bill_main 2018-05-17
+     * stock_out_bill_main 2018-05-25
      */
     public static class Criterion {
         private String condition;
@@ -2245,7 +2005,7 @@ public class StockOutBillMainExample {
     public static class SelectiveField {
         private Set<String> fields;
 
-        private static String allFields = "id,stockout_bill_main_code,order_sale_code,shipment_id,warehouse_id,bill_type,stockout_date,audit_date,audit_person_id,auditor,stockout_time,quantity,remark,stockout_status,customer_name,country_id,country_code,country_name,address1,delay_days,logist_status,logist_company_name,track_number,logist_money,packing_cost,return_goods_code,bill_date,creator,create_time,modifier,modify_time";
+        private static String allFields = "id,stockout_bill_main_code,return_product_return_code,order_sale_code,warehouse_id,bill_type,audit_date,auditor,stockout_time,quantity,stockout_status,customer_name,country_id,country_code,country_name,address1,delay_days,logist_status,logist_company_name,track_number,logist_money,total_amount,remark,creator,create_time,modifier,modify_time";
 
         private SelectiveField() {
             fields = new HashSet<>();
@@ -2265,13 +2025,13 @@ public class StockOutBillMainExample {
             return this;
         }
 
-        public SelectiveField orderSaleCode() {
-            fields.add("order_sale_code");
+        public SelectiveField returnProductReturnCode() {
+            fields.add("return_product_return_code");
             return this;
         }
 
-        public SelectiveField shipmentId() {
-            fields.add("shipment_id");
+        public SelectiveField orderSaleCode() {
+            fields.add("order_sale_code");
             return this;
         }
 
@@ -2285,18 +2045,8 @@ public class StockOutBillMainExample {
             return this;
         }
 
-        public SelectiveField stockoutDate() {
-            fields.add("stockout_date");
-            return this;
-        }
-
         public SelectiveField auditDate() {
             fields.add("audit_date");
-            return this;
-        }
-
-        public SelectiveField auditPersonId() {
-            fields.add("audit_person_id");
             return this;
         }
 
@@ -2312,11 +2062,6 @@ public class StockOutBillMainExample {
 
         public SelectiveField quantity() {
             fields.add("quantity");
-            return this;
-        }
-
-        public SelectiveField remark() {
-            fields.add("remark");
             return this;
         }
 
@@ -2375,18 +2120,13 @@ public class StockOutBillMainExample {
             return this;
         }
 
-        public SelectiveField packingCost() {
-            fields.add("packing_cost");
+        public SelectiveField totalAmount() {
+            fields.add("total_amount");
             return this;
         }
 
-        public SelectiveField returnGoodsCode() {
-            fields.add("return_goods_code");
-            return this;
-        }
-
-        public SelectiveField billDate() {
-            fields.add("bill_date");
+        public SelectiveField remark() {
+            fields.add("remark");
             return this;
         }
 

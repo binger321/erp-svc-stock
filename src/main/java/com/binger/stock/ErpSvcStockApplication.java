@@ -17,6 +17,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -57,6 +58,7 @@ import java.util.regex.Pattern;
 @MapperScan("com.binger.stock.dao")
 @EnableDiscoveryClient
 @EnableFeignClients
+@EnableScheduling
 public class ErpSvcStockApplication {
 
 	public static void main(String[] args) {

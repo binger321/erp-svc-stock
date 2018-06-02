@@ -19,16 +19,16 @@ public class ProductOrderDetail implements Serializable {
     private Integer id;
 
     /**
+     * 
+     */
+    @ApiModelProperty(value="",required = true)
+    private Integer productOrderMainId;
+
+    /**
      * 生产订单编号
      */
     @ApiModelProperty(value="生产订单编号",required = true)
-    private String productOrderMainId;
-
-    /**
-     * 生产子项目编码,拆单后生成的子订单号
-     */
-    @ApiModelProperty(value="生产子项目编码,拆单后生成的子订单号",required = false)
-    private String productOrderSubCode;
+    private String productOrderMainCode;
 
     /**
      * 商品货号ID
@@ -127,24 +127,6 @@ public class ProductOrderDetail implements Serializable {
     private String sizeName;
 
     /**
-     * 生产数量,备货数量+缺货数量
-     */
-    @ApiModelProperty(value="生产数量,备货数量+缺货数量",required = true)
-    private Integer quantity;
-
-    /**
-     * 备货数量,当有备货的时候写入
-     */
-    @ApiModelProperty(value="备货数量,当有备货的时候写入",required = false)
-    private Integer stockQuantity;
-
-    /**
-     * 缺货数量
-     */
-    @ApiModelProperty(value="缺货数量",required = false)
-    private Integer outOfStockQuantity;
-
-    /**
      * 重量
      */
     @ApiModelProperty(value="重量",required = false)
@@ -169,6 +151,12 @@ public class ProductOrderDetail implements Serializable {
     private BigDecimal localAmount;
 
     /**
+     * 是否生成入库单
+     */
+    @ApiModelProperty(value="是否生成入库单",required = false)
+    private Boolean isStorage;
+
+    /**
      * 入库数量
      */
     @ApiModelProperty(value="入库数量",required = false)
@@ -179,18 +167,6 @@ public class ProductOrderDetail implements Serializable {
      */
     @ApiModelProperty(value="未入库数量",required = false)
     private Integer unwareQuantity;
-
-    /**
-     * 是否生成入库单
-     */
-    @ApiModelProperty(value="是否生成入库单",required = false)
-    private Boolean isStorage;
-
-    /**
-     * 生产子单备注
-     */
-    @ApiModelProperty(value="生产子单备注",required = false)
-    private String comments;
 
     /**
      * 退货数量
@@ -205,10 +181,16 @@ public class ProductOrderDetail implements Serializable {
     private Integer defectiveQuantity;
 
     /**
-     * 总入库数量（实际入库+次品）
+     * 总数量（申请数量）
      */
-    @ApiModelProperty(value="总入库数量（实际入库+次品）",required = false)
-    private Integer totalWareQuantity;
+    @ApiModelProperty(value="总数量（申请数量）",required = false)
+    private Integer totalQuantity;
+
+    /**
+     * 生产子单备注
+     */
+    @ApiModelProperty(value="生产子单备注",required = false)
+    private String comments;
 
     /**
      * 创建人
@@ -256,35 +238,35 @@ public class ProductOrderDetail implements Serializable {
     }
 
     /**
-     * 生产订单编号
-     * @return product_order_main_id 生产订单编号
+     * 
+     * @return product_order_main_id 
      */
-    public String getProductOrderMainId() {
+    public Integer getProductOrderMainId() {
         return productOrderMainId;
     }
 
     /**
+     * 
+     * @param productOrderMainId 
+     */
+    public void setProductOrderMainId(Integer productOrderMainId) {
+        this.productOrderMainId = productOrderMainId;
+    }
+
+    /**
      * 生产订单编号
-     * @param productOrderMainId 生产订单编号
+     * @return product_order_main_code 生产订单编号
      */
-    public void setProductOrderMainId(String productOrderMainId) {
-        this.productOrderMainId = productOrderMainId == null ? null : productOrderMainId.trim();
+    public String getProductOrderMainCode() {
+        return productOrderMainCode;
     }
 
     /**
-     * 生产子项目编码,拆单后生成的子订单号
-     * @return product_order_sub_code 生产子项目编码,拆单后生成的子订单号
+     * 生产订单编号
+     * @param productOrderMainCode 生产订单编号
      */
-    public String getProductOrderSubCode() {
-        return productOrderSubCode;
-    }
-
-    /**
-     * 生产子项目编码,拆单后生成的子订单号
-     * @param productOrderSubCode 生产子项目编码,拆单后生成的子订单号
-     */
-    public void setProductOrderSubCode(String productOrderSubCode) {
-        this.productOrderSubCode = productOrderSubCode == null ? null : productOrderSubCode.trim();
+    public void setProductOrderMainCode(String productOrderMainCode) {
+        this.productOrderMainCode = productOrderMainCode == null ? null : productOrderMainCode.trim();
     }
 
     /**
@@ -544,54 +526,6 @@ public class ProductOrderDetail implements Serializable {
     }
 
     /**
-     * 生产数量,备货数量+缺货数量
-     * @return quantity 生产数量,备货数量+缺货数量
-     */
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    /**
-     * 生产数量,备货数量+缺货数量
-     * @param quantity 生产数量,备货数量+缺货数量
-     */
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    /**
-     * 备货数量,当有备货的时候写入
-     * @return stock_quantity 备货数量,当有备货的时候写入
-     */
-    public Integer getStockQuantity() {
-        return stockQuantity;
-    }
-
-    /**
-     * 备货数量,当有备货的时候写入
-     * @param stockQuantity 备货数量,当有备货的时候写入
-     */
-    public void setStockQuantity(Integer stockQuantity) {
-        this.stockQuantity = stockQuantity;
-    }
-
-    /**
-     * 缺货数量
-     * @return out_of_stock_quantity 缺货数量
-     */
-    public Integer getOutOfStockQuantity() {
-        return outOfStockQuantity;
-    }
-
-    /**
-     * 缺货数量
-     * @param outOfStockQuantity 缺货数量
-     */
-    public void setOutOfStockQuantity(Integer outOfStockQuantity) {
-        this.outOfStockQuantity = outOfStockQuantity;
-    }
-
-    /**
      * 重量
      * @return weight 重量
      */
@@ -656,6 +590,22 @@ public class ProductOrderDetail implements Serializable {
     }
 
     /**
+     * 是否生成入库单
+     * @return is_storage 是否生成入库单
+     */
+    public Boolean getIsStorage() {
+        return isStorage;
+    }
+
+    /**
+     * 是否生成入库单
+     * @param isStorage 是否生成入库单
+     */
+    public void setIsStorage(Boolean isStorage) {
+        this.isStorage = isStorage;
+    }
+
+    /**
      * 入库数量
      * @return ware_quantity 入库数量
      */
@@ -685,38 +635,6 @@ public class ProductOrderDetail implements Serializable {
      */
     public void setUnwareQuantity(Integer unwareQuantity) {
         this.unwareQuantity = unwareQuantity;
-    }
-
-    /**
-     * 是否生成入库单
-     * @return is_storage 是否生成入库单
-     */
-    public Boolean getIsStorage() {
-        return isStorage;
-    }
-
-    /**
-     * 是否生成入库单
-     * @param isStorage 是否生成入库单
-     */
-    public void setIsStorage(Boolean isStorage) {
-        this.isStorage = isStorage;
-    }
-
-    /**
-     * 生产子单备注
-     * @return comments 生产子单备注
-     */
-    public String getComments() {
-        return comments;
-    }
-
-    /**
-     * 生产子单备注
-     * @param comments 生产子单备注
-     */
-    public void setComments(String comments) {
-        this.comments = comments == null ? null : comments.trim();
     }
 
     /**
@@ -752,19 +670,35 @@ public class ProductOrderDetail implements Serializable {
     }
 
     /**
-     * 总入库数量（实际入库+次品）
-     * @return total_ware_quantity 总入库数量（实际入库+次品）
+     * 总数量（申请数量）
+     * @return total_quantity 总数量（申请数量）
      */
-    public Integer getTotalWareQuantity() {
-        return totalWareQuantity;
+    public Integer getTotalQuantity() {
+        return totalQuantity;
     }
 
     /**
-     * 总入库数量（实际入库+次品）
-     * @param totalWareQuantity 总入库数量（实际入库+次品）
+     * 总数量（申请数量）
+     * @param totalQuantity 总数量（申请数量）
      */
-    public void setTotalWareQuantity(Integer totalWareQuantity) {
-        this.totalWareQuantity = totalWareQuantity;
+    public void setTotalQuantity(Integer totalQuantity) {
+        this.totalQuantity = totalQuantity;
+    }
+
+    /**
+     * 生产子单备注
+     * @return comments 生产子单备注
+     */
+    public String getComments() {
+        return comments;
+    }
+
+    /**
+     * 生产子单备注
+     * @param comments 生产子单备注
+     */
+    public void setComments(String comments) {
+        this.comments = comments == null ? null : comments.trim();
     }
 
     /**
@@ -845,7 +779,7 @@ public class ProductOrderDetail implements Serializable {
         ProductOrderDetail other = (ProductOrderDetail) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getProductOrderMainId() == null ? other.getProductOrderMainId() == null : this.getProductOrderMainId().equals(other.getProductOrderMainId()))
-            && (this.getProductOrderSubCode() == null ? other.getProductOrderSubCode() == null : this.getProductOrderSubCode().equals(other.getProductOrderSubCode()))
+            && (this.getProductOrderMainCode() == null ? other.getProductOrderMainCode() == null : this.getProductOrderMainCode().equals(other.getProductOrderMainCode()))
             && (this.getGoodsId() == null ? other.getGoodsId() == null : this.getGoodsId().equals(other.getGoodsId()))
             && (this.getGoodsCode() == null ? other.getGoodsCode() == null : this.getGoodsCode().equals(other.getGoodsCode()))
             && (this.getGoodsName() == null ? other.getGoodsName() == null : this.getGoodsName().equals(other.getGoodsName()))
@@ -862,20 +796,17 @@ public class ProductOrderDetail implements Serializable {
             && (this.getSizeId() == null ? other.getSizeId() == null : this.getSizeId().equals(other.getSizeId()))
             && (this.getSizeCode() == null ? other.getSizeCode() == null : this.getSizeCode().equals(other.getSizeCode()))
             && (this.getSizeName() == null ? other.getSizeName() == null : this.getSizeName().equals(other.getSizeName()))
-            && (this.getQuantity() == null ? other.getQuantity() == null : this.getQuantity().equals(other.getQuantity()))
-            && (this.getStockQuantity() == null ? other.getStockQuantity() == null : this.getStockQuantity().equals(other.getStockQuantity()))
-            && (this.getOutOfStockQuantity() == null ? other.getOutOfStockQuantity() == null : this.getOutOfStockQuantity().equals(other.getOutOfStockQuantity()))
             && (this.getWeight() == null ? other.getWeight() == null : this.getWeight().equals(other.getWeight()))
             && (this.getLastPrice() == null ? other.getLastPrice() == null : this.getLastPrice().equals(other.getLastPrice()))
             && (this.getLocalPrice() == null ? other.getLocalPrice() == null : this.getLocalPrice().equals(other.getLocalPrice()))
             && (this.getLocalAmount() == null ? other.getLocalAmount() == null : this.getLocalAmount().equals(other.getLocalAmount()))
+            && (this.getIsStorage() == null ? other.getIsStorage() == null : this.getIsStorage().equals(other.getIsStorage()))
             && (this.getWareQuantity() == null ? other.getWareQuantity() == null : this.getWareQuantity().equals(other.getWareQuantity()))
             && (this.getUnwareQuantity() == null ? other.getUnwareQuantity() == null : this.getUnwareQuantity().equals(other.getUnwareQuantity()))
-            && (this.getIsStorage() == null ? other.getIsStorage() == null : this.getIsStorage().equals(other.getIsStorage()))
-            && (this.getComments() == null ? other.getComments() == null : this.getComments().equals(other.getComments()))
             && (this.getReturnQuantity() == null ? other.getReturnQuantity() == null : this.getReturnQuantity().equals(other.getReturnQuantity()))
             && (this.getDefectiveQuantity() == null ? other.getDefectiveQuantity() == null : this.getDefectiveQuantity().equals(other.getDefectiveQuantity()))
-            && (this.getTotalWareQuantity() == null ? other.getTotalWareQuantity() == null : this.getTotalWareQuantity().equals(other.getTotalWareQuantity()))
+            && (this.getTotalQuantity() == null ? other.getTotalQuantity() == null : this.getTotalQuantity().equals(other.getTotalQuantity()))
+            && (this.getComments() == null ? other.getComments() == null : this.getComments().equals(other.getComments()))
             && (this.getCreator() == null ? other.getCreator() == null : this.getCreator().equals(other.getCreator()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getModifier() == null ? other.getModifier() == null : this.getModifier().equals(other.getModifier()))
@@ -888,7 +819,7 @@ public class ProductOrderDetail implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getProductOrderMainId() == null) ? 0 : getProductOrderMainId().hashCode());
-        result = prime * result + ((getProductOrderSubCode() == null) ? 0 : getProductOrderSubCode().hashCode());
+        result = prime * result + ((getProductOrderMainCode() == null) ? 0 : getProductOrderMainCode().hashCode());
         result = prime * result + ((getGoodsId() == null) ? 0 : getGoodsId().hashCode());
         result = prime * result + ((getGoodsCode() == null) ? 0 : getGoodsCode().hashCode());
         result = prime * result + ((getGoodsName() == null) ? 0 : getGoodsName().hashCode());
@@ -905,20 +836,17 @@ public class ProductOrderDetail implements Serializable {
         result = prime * result + ((getSizeId() == null) ? 0 : getSizeId().hashCode());
         result = prime * result + ((getSizeCode() == null) ? 0 : getSizeCode().hashCode());
         result = prime * result + ((getSizeName() == null) ? 0 : getSizeName().hashCode());
-        result = prime * result + ((getQuantity() == null) ? 0 : getQuantity().hashCode());
-        result = prime * result + ((getStockQuantity() == null) ? 0 : getStockQuantity().hashCode());
-        result = prime * result + ((getOutOfStockQuantity() == null) ? 0 : getOutOfStockQuantity().hashCode());
         result = prime * result + ((getWeight() == null) ? 0 : getWeight().hashCode());
         result = prime * result + ((getLastPrice() == null) ? 0 : getLastPrice().hashCode());
         result = prime * result + ((getLocalPrice() == null) ? 0 : getLocalPrice().hashCode());
         result = prime * result + ((getLocalAmount() == null) ? 0 : getLocalAmount().hashCode());
+        result = prime * result + ((getIsStorage() == null) ? 0 : getIsStorage().hashCode());
         result = prime * result + ((getWareQuantity() == null) ? 0 : getWareQuantity().hashCode());
         result = prime * result + ((getUnwareQuantity() == null) ? 0 : getUnwareQuantity().hashCode());
-        result = prime * result + ((getIsStorage() == null) ? 0 : getIsStorage().hashCode());
-        result = prime * result + ((getComments() == null) ? 0 : getComments().hashCode());
         result = prime * result + ((getReturnQuantity() == null) ? 0 : getReturnQuantity().hashCode());
         result = prime * result + ((getDefectiveQuantity() == null) ? 0 : getDefectiveQuantity().hashCode());
-        result = prime * result + ((getTotalWareQuantity() == null) ? 0 : getTotalWareQuantity().hashCode());
+        result = prime * result + ((getTotalQuantity() == null) ? 0 : getTotalQuantity().hashCode());
+        result = prime * result + ((getComments() == null) ? 0 : getComments().hashCode());
         result = prime * result + ((getCreator() == null) ? 0 : getCreator().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getModifier() == null) ? 0 : getModifier().hashCode());
@@ -934,7 +862,7 @@ public class ProductOrderDetail implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", productOrderMainId=").append(productOrderMainId);
-        sb.append(", productOrderSubCode=").append(productOrderSubCode);
+        sb.append(", productOrderMainCode=").append(productOrderMainCode);
         sb.append(", goodsId=").append(goodsId);
         sb.append(", goodsCode=").append(goodsCode);
         sb.append(", goodsName=").append(goodsName);
@@ -951,20 +879,17 @@ public class ProductOrderDetail implements Serializable {
         sb.append(", sizeId=").append(sizeId);
         sb.append(", sizeCode=").append(sizeCode);
         sb.append(", sizeName=").append(sizeName);
-        sb.append(", quantity=").append(quantity);
-        sb.append(", stockQuantity=").append(stockQuantity);
-        sb.append(", outOfStockQuantity=").append(outOfStockQuantity);
         sb.append(", weight=").append(weight);
         sb.append(", lastPrice=").append(lastPrice);
         sb.append(", localPrice=").append(localPrice);
         sb.append(", localAmount=").append(localAmount);
+        sb.append(", isStorage=").append(isStorage);
         sb.append(", wareQuantity=").append(wareQuantity);
         sb.append(", unwareQuantity=").append(unwareQuantity);
-        sb.append(", isStorage=").append(isStorage);
-        sb.append(", comments=").append(comments);
         sb.append(", returnQuantity=").append(returnQuantity);
         sb.append(", defectiveQuantity=").append(defectiveQuantity);
-        sb.append(", totalWareQuantity=").append(totalWareQuantity);
+        sb.append(", totalQuantity=").append(totalQuantity);
+        sb.append(", comments=").append(comments);
         sb.append(", creator=").append(creator);
         sb.append(", createTime=").append(createTime);
         sb.append(", modifier=").append(modifier);

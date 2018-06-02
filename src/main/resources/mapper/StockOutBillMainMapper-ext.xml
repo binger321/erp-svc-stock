@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.binger.stock.dao.StockOutBillMainMapper">
+    <resultMap id="StockOutMainRet" type="com.binger.stock.dto.ret.StockOutMainRetDto">
+
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="stockout_bill_main_code" jdbcType="VARCHAR" property="stockoutBillMainCode" />
+        <result column="return_product_return_code" jdbcType="VARCHAR" property="returnProductReturnCode" />
+        <result column="order_sale_code" jdbcType="VARCHAR" property="orderSaleCode" />
+        <result column="warehouse_id" jdbcType="INTEGER" property="warehouseId" />
+        <result column="warehouse_code" jdbcType="VARCHAR" property="warehouseCode"/>
+        <result column="warehouse_name" jdbcType="VARCHAR" property="warehouseName"/>
+        <result column="bill_type" jdbcType="INTEGER" property="billType" />
+        <result column="audit_date" jdbcType="TIMESTAMP" property="auditDate" />
+        <result column="auditor" jdbcType="VARCHAR" property="auditor" />
+        <result column="stockout_time" jdbcType="TIMESTAMP" property="stockoutTime" />
+        <result column="quantity" jdbcType="INTEGER" property="quantity" />
+        <result column="stockout_status" jdbcType="INTEGER" property="stockoutStatus" />
+        <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+        <result column="country_id" jdbcType="INTEGER" property="countryId" />
+        <result column="country_code" jdbcType="VARCHAR" property="countryCode" />
+        <result column="country_name" jdbcType="VARCHAR" property="countryName" />
+        <result column="address1" jdbcType="VARCHAR" property="address1" />
+        <result column="delay_days" jdbcType="INTEGER" property="delayDays" />
+        <result column="logist_status" jdbcType="INTEGER" property="logistStatus" />
+        <result column="logist_company_name" jdbcType="VARCHAR" property="logistCompanyName" />
+        <result column="track_number" jdbcType="VARCHAR" property="trackNumber" />
+        <result column="logist_money" jdbcType="DECIMAL" property="logistMoney" />
+        <result column="total_amount" jdbcType="DECIMAL" property="totalAmount" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="creator" jdbcType="VARCHAR" property="creator" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="modifier" jdbcType="VARCHAR" property="modifier" />
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    </resultMap>
+
+    <select id="countByQuery" resultType="long">
+        SELECT
+        COUNT(1)
+        FROM stock_out_bill_main m
+        <include refid="StockOutMainQueryDto_Where_Clause"/>
+    </select>
+
+    <select id="listByQuery" resultMap="StockOutMainRet">
+        SELECT
+        m.id,
+        m.stockout_bill_main_code,
+        m.return_product_return_code,
+        m.order_sale_code,
+        m.warehouse_id,
+        w.warehouse_code,
+        w.warehouse_name,
+        m.bill_type,
+        m.audit_date,
+        m.auditor,
+        m.stockout_time,
+        m.quantity,
+        m.stockout_status,
+        m.customer_name,
+        m.country_id,
+        m.country_code,
+        m.country_name,
+        m.address1,
+        m.delay_days,
+        m.logist_status,
+        m.logist_company_name,
+        m.track_number,
+        m.total_amount,
+        m.remark,
+        m.creator,
+        m.creator_time,
+        m.modifier,
+        m.modify_time
+        FROM stock_out_bill_main m
+        LEFT warehouse w ON m.warehouse_id = w.id
+        <include refid="StockOutMainQueryDto_Where_Clause"/>
+        <if test="queryDto.limit != null">
+            <if test="queryDto.offset != null">
+                limit #{queryDto.offset}, #{queryDto.limit}
+            </if>
+            <if test="queryDto.limit != null">
+                limit #{queryDto.limit}
+            </if>
+        </if>
+    </select>
+
+    <sql id="StockOutMainQueryDto_Where_Clause">
+        <where>
+            1 = 1
+            <if test="queryDto.stockoutBillMainCode != null">
+                AND m.stockout_bill_main_code like '%${queryDto.stockoutBillMainCode}%'
+            </if>
+            <if test="queryDto.returnProductReturnCode != null">
+                AND m.return_product_return_code like '%${queryDto.returnProductReturnCode}%'
+            </if>
+            <if test="queryDto.orderSaleCode != null">
+                AND m.order_sale_code like '%${queryDto.orderSaleCode}%'
+            </if>
+            <if test="queryDto.warehouseId != null">
+                AND m.warehouse_id = #{queryDto.warehouseId}
+            </if>
+            <if test="queryDto.billType != null">
+                AND m.bill_type = #{queryDto.billType}
+            </if>
+            <if test="queryDto.auditor != null">
+                AND m.auditor like '%${queryDto.auditor}%'
+            </if>
+            <if test="queryDto.stockoutStatus != null">
+                AND m.stockout_status = #{queryDto.stockoutStatus}
+            </if>
+            <if test="queryDto.customerName != null">
+                AND m.customer_name like '%${queryDto.customerName}%'
+            </if>
+            <if test="queryDto.countryName  != null">
+                AND m.country_name like '%${queryDto.countryName}%'
+            </if>
+            <if test="queryDto.logistCompanyName != null">
+                AND m.logist_company_name like '%${queryDto.logistCompanyName}%'
+            </if>
+            <if test="queryDto.trackNumber != null">
+                AND m.track_number like '%${queryDto.trackNumber}%'
+            </if>
+        </where>
+    </sql>
+
+
+</mapper>

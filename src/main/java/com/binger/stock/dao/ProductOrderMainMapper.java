@@ -2,6 +2,8 @@ package com.binger.stock.dao;
 
 import com.binger.stock.domain.ProductOrderMain;
 import com.binger.stock.domain.ProductOrderMainExample;
+import com.binger.stock.dto.query.ProductOrderMainQueryDto;
+import com.binger.stock.dto.ret.ProductOrderMainRetDto;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -32,4 +34,18 @@ public interface ProductOrderMainMapper {
     int updateByPrimaryKeySelective(ProductOrderMain record);
 
     int updateByPrimaryKey(ProductOrderMain record);
+
+    /**
+     * 根据条件来计数
+     * @param productOrderMainQueryDto
+     * @return
+     */
+    Long countByQuery(@Param("queryDto") ProductOrderMainQueryDto productOrderMainQueryDto);
+
+    /**
+     * 根据条件列表
+     * @param productOrderMainQueryDto
+     * @return
+     */
+    List<ProductOrderMainRetDto> listByQuery(@Param("queryDto") ProductOrderMainQueryDto productOrderMainQueryDto);
 }
