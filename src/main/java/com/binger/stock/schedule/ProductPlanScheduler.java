@@ -53,6 +53,7 @@ public class ProductPlanScheduler extends BaseScheduler {
         hystrixCredentialsContext.initializeHystrixRequestContext(new MyScheduleAuthentication(token));
         rewriteBasicUserPrincipal(token);
         logger.warn("【生产计划】登录成功");
+        System.out.println("测试中文输出");
 
         Lock lock = new Lock(applicationName + ":generateProductPlanSchedule:lock", getServerIdentity());
         try {
