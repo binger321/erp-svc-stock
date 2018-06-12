@@ -5,9 +5,11 @@ import com.binger.stock.domain.ProductOrderMainExample;
 import com.binger.stock.dto.query.ProductOrderMainQueryDto;
 import com.binger.stock.dto.ret.ProductOrderMainRetDto;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface ProductOrderMainMapper {
     long countByExample(ProductOrderMainExample example);
 
@@ -48,4 +50,6 @@ public interface ProductOrderMainMapper {
      * @return
      */
     List<ProductOrderMainRetDto> listByQuery(@Param("queryDto") ProductOrderMainQueryDto productOrderMainQueryDto);
+
+
 }

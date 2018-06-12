@@ -2,17 +2,16 @@ package com.binger.stock.service.impl;
 
 import com.binger.common.ResponseCode;
 import com.binger.common.ServerResponse;
-import com.binger.common.enums.BillTypeEnum;
 import com.binger.common.exception.BusinessException;
 import com.binger.common.util.DozerUtils;
 import com.binger.stock.controller.form.ProductOrderDetailForm;
-import com.binger.stock.controller.form.ProductOrderForm;
 import com.binger.stock.controller.form.ProductOrderMainForm;
 import com.binger.stock.dao.ProductOrderDetailMapper;
 import com.binger.stock.dao.ProductOrderMainMapper;
 import com.binger.stock.domain.ProductOrderDetail;
 import com.binger.stock.domain.ProductOrderDetailExample;
 import com.binger.stock.domain.ProductOrderMain;
+import com.binger.stock.domain.ProductOrderMainExample;
 import com.binger.stock.dto.query.ProductOrderMainQueryDto;
 import com.binger.stock.dto.ret.ProductOrderMainRetDto;
 import com.binger.stock.enums.ProductOrderStatusEnum;
@@ -83,45 +82,83 @@ public class ProductOrderServiceImpl implements ProductOrderService {
     }
 
     @Override
-    public ProductOrderVo insert(ProductOrderForm productOrderForm) {
-        ProductOrderMainForm productOrderMainForm = productOrderForm.getProductOrderMainForm();
-        if (productOrderMainForm == null) {
-            throw BusinessException.create("生产订单编号不能为空！");
-        }
-        ProductOrderMain productOrderMain = DozerUtils.convert(productOrderMainForm, ProductOrderMain.class);
-        List<ProductOrderDetailForm> productOrderDetailFormList = productOrderForm.getProductOrderDetailFormList();
-        List<ProductOrderDetail> productOrderDetailList = null;
-        if (CollectionUtils.isNotEmpty(productOrderDetailFormList)) {
-            productOrderDetailList = DozerUtils.convertList(productOrderDetailFormList, ProductOrderDetail.class);
-        }
-        constructForm(productOrderMain, productOrderDetailList);
-        productOrderMain.setProductOrderCode(remoteGenerateBillCode(BillTypeEnum.PRODUCT_ORDER_BILL.getBillType()));
-        productOrderMainMapper.insert(productOrderMain);
-        String billCode = productOrderMain.getProductOrderCode();
-        Integer id = productOrderMain.getId();
-        if (CollectionUtils.isNotEmpty(productOrderDetailList)) {
-            productOrderDetailList.forEach(productOrderDetail -> {
-                productOrderDetail.setProductOrderMainCode(billCode);
-                productOrderDetail.setProductOrderMainId(id);
-                productOrderDetailMapper.insert(productOrderDetail);
-            });
-        }
-        return findById(id);
+    public ProductOrderMainVo findOrderMainById(Integer id) {
+
+        ProductOrderMain productOrderMain = productOrderMainMapper.selectByPrimaryKey(id);
+
+        return DozerUtils.convert(productOrderMain, ProductOrderMainVo.class);
     }
 
     @Override
-    public ProductOrderVo update(ProductOrderForm productOrderForm) {
-        ProductOrderMain productOrderMain = DozerUtils.convert(productOrderForm.getProductOrderMainForm(), ProductOrderMain.class);
-        List<ProductOrderDetail> productOrderDetailList = DozerUtils.convertList(productOrderForm.getProductOrderDetailFormList(), ProductOrderDetail.class);
-        constructForm(productOrderMain, productOrderDetailList);
-        productOrderMainMapper.updateByPrimaryKeySelective(productOrderMain);
-        if (CollectionUtils.isNotEmpty(productOrderDetailList)) {
-            productOrderDetailList.forEach(productOrderDetail ->
-                productOrderDetailMapper.updateByPrimaryKeySelective(productOrderDetail)
-            );
-        }
-        return findById(productOrderMain.getId());
+    public ProductOrderDetailVo findOrderDetailById(Integer id) {
 
+        ProductOrderDetail productOrderDetail =  productOrderDetailMapper.selectByPrimaryKey(id);
+
+        return DozerUtils.convert(productOrderDetail, ProductOrderDetailVo.class);
+    }
+
+
+    @Override
+    public ProductOrderMainVo insertOrderMain(ProductOrderMainForm productOrderMainForm) {
+        if (productOrderMainForm == null) {
+            throw BusinessException.create("不能添加空的生产订单主表！");
+        }
+        ProductOrderMain productOrderMain = DozerUtils.convert(productOrderMainForm, ProductOrderMain.class);
+        productOrderMainMapper.insert(productOrderMain);
+        return DozerUtils.convert(productOrderMain,ProductOrderMainVo.class);
+    }
+
+    @Override
+    public ProductOrderDetailVo insertOrderDetail(ProductOrderDetailForm productOrderDetailForm) {
+        if (productOrderDetailForm == null) {
+            throw BusinessException.create("不能添加空的生产订单子表！");
+        }
+        ProductOrderDetail productOrderDetail = DozerUtils.convert(productOrderDetailForm, ProductOrderDetail.class);
+        productOrderDetailMapper.insert(productOrderDetail);
+
+        constructForm(productOrderDetailForm.getProductOrderMainId());
+
+        return DozerUtils.convert(productOrderDetail,ProductOrderDetailVo.class);
+
+    }
+
+
+
+
+
+    private Integer getOrderMainStatus(Integer id){
+        ProductOrderMainExample example = new ProductOrderMainExample();
+        example.createCriteria().andIdEqualTo(id);
+        example.getSelectiveField().orderStatus();
+        List<ProductOrderMain> productOrderMainList = productOrderMainMapper.selectByExample(example);
+        if (productOrderMainList == null || productOrderMainList.size()==0){
+            throw BusinessException.create("没有这个生产订单主表！");
+        }
+
+        return productOrderMainList.get(0).getOrderStatus();
+    }
+    @Override
+    public ProductOrderMainVo updateOrderMain(ProductOrderMainForm productOrderMainForm, Integer id) {
+        Integer status = getOrderMainStatus(id);
+        if (status.equals(ProductOrderStatusEnum.AUDIT.getCode())){
+            throw BusinessException.create("已审核无法修改");
+        }
+        ProductOrderMain productOrderMain = DozerUtils.convert(productOrderMainForm, ProductOrderMain.class);
+        productOrderMainMapper.updateByPrimaryKeySelective(productOrderMain);
+        return findOrderMainById(productOrderMain.getId());
+    }
+
+
+    @Override
+    public ProductOrderDetailVo updateOrderDetail(ProductOrderDetailForm productOrderDetailForm, Integer id) {
+
+        Integer status = getOrderMainStatus(productOrderDetailForm.getProductOrderMainId());
+        if (status.equals(ProductOrderStatusEnum.AUDIT.getCode())){
+            throw BusinessException.create("已审核无法修改");
+        }
+        ProductOrderDetail productOrderDetail = DozerUtils.convert(productOrderDetailForm,ProductOrderDetail.class);
+        productOrderDetailMapper.updateByPrimaryKeySelective(productOrderDetail);
+        return findOrderDetailById(productOrderDetail.getId());
     }
 
     @Override
@@ -149,7 +186,10 @@ public class ProductOrderServiceImpl implements ProductOrderService {
         throw BusinessException.create("调用远程获取编号失败！");
     }
 
-    private void constructForm(ProductOrderMain productOrderMain, List<ProductOrderDetail> productOrderDetailList) {
+    private void constructForm(Integer orderMainId) {
+        ProductOrderDetailExample example = new ProductOrderDetailExample();
+        example.createCriteria().andProductOrderMainIdEqualTo(orderMainId);
+        List<ProductOrderDetail> productOrderDetailList = productOrderDetailMapper.selectByExample(example);
         BigDecimal amount = new BigDecimal(0);
         Integer count = 0;
         for (ProductOrderDetail productOrderDetail : productOrderDetailList) {
@@ -159,7 +199,11 @@ public class ProductOrderServiceImpl implements ProductOrderService {
             productOrderDetail.setLocalAmount(price);
             count = count + c;
         }
-        productOrderMain.setQuantity(count);
-        productOrderMain.setLocalTotalMny(amount);
+        ProductOrderMain main = new ProductOrderMain();
+        main.setId(orderMainId);
+        main.setQuantity(1);
+        main.setLocalTotalMny(amount);
+        productOrderMainMapper.updateByPrimaryKeySelective(main);
+
     }
 }

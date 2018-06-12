@@ -4,10 +4,12 @@ import com.binger.common.Const;
 import com.binger.common.Page;
 import com.binger.common.ServerResponse;
 import com.binger.common.util.DozerUtils;
-import com.binger.stock.controller.form.ProductOrderForm;
+import com.binger.stock.controller.form.ProductOrderDetailForm;
+import com.binger.stock.controller.form.ProductOrderMainForm;
 import com.binger.stock.controller.query.ProductOrderMainQuery;
 import com.binger.stock.dto.query.ProductOrderMainQueryDto;
 import com.binger.stock.service.ProductOrderService;
+import com.binger.stock.vo.ProductOrderDetailVo;
 import com.binger.stock.vo.ProductOrderMainVo;
 import com.binger.stock.vo.ProductOrderVo;
 import io.swagger.annotations.Api;
@@ -53,26 +55,62 @@ public class ProductOrderController {
         }
     }
 
-    @ApiOperation(value = "查询")
-    @RequestMapping(value = "/findById/{id}", method = RequestMethod.POST)
+    @ApiOperation(value = "通过主表id查询主表")
+    @RequestMapping(value = "/orderMain/findById/{id}", method = RequestMethod.POST)
+    public ServerResponse<ProductOrderMainVo> findOrderMainById(@PathVariable Integer id) {
+        ProductOrderMainVo productOrderMainVo = productOrderService.findOrderMainById(id);
+        return ServerResponse.createBySuccess(Const.SUCCESS_MSG, productOrderMainVo);
+    }
+    @ApiOperation(value = "通过子表id查询子表")
+    @RequestMapping(value = "/orderDetail/findById/{id}", method = RequestMethod.POST)
     public ServerResponse<ProductOrderVo> findById(@PathVariable Integer id) {
         ProductOrderVo productOrderVo = productOrderService.findById(id);
         return ServerResponse.createBySuccess(Const.SUCCESS_MSG, productOrderVo);
     }
 
-    @ApiOperation(value = "新增")
-    @RequestMapping(value = "/insert", method = RequestMethod.POST)
-    public ServerResponse<ProductOrderVo> insert(@RequestBody ProductOrderForm productOrderForm) {
-        ProductOrderVo productOrderVo = productOrderService.insert(productOrderForm);
-        return ServerResponse.createBySuccess(Const.SUCCESS_MSG, productOrderVo);
+
+    @ApiOperation(value = "新增主表")
+    @RequestMapping(value = "/orderMain/insert", method = RequestMethod.POST)
+    public ServerResponse<ProductOrderMainVo> insert(@RequestBody ProductOrderMainForm productOrderMainForm) {
+        ProductOrderMainVo productOrderMainVo = productOrderService.insertOrderMain(productOrderMainForm);
+        return ServerResponse.createBySuccess(Const.SUCCESS_MSG, productOrderMainVo);
+    }
+    @ApiOperation(value = "新增子表")
+    @RequestMapping(value = "/orderDetail/insert", method = RequestMethod.POST)
+    public ServerResponse<ProductOrderDetailVo> insertOrderDetail(@RequestBody ProductOrderDetailForm productOrderDetailForm) {
+        ProductOrderDetailVo productOrderDetailVo = productOrderService.insertOrderDetail(productOrderDetailForm);
+        return ServerResponse.createBySuccess(Const.SUCCESS_MSG, productOrderDetailVo);
+    }
+    @ApiOperation(value = "修改主表")
+    @RequestMapping(value = "/orderMain/update/{id}", method = RequestMethod.POST)
+    public ServerResponse<ProductOrderMainVo> updateOrderMain(@RequestBody ProductOrderMainForm productOrderMainForm,@PathVariable("id") Integer id) {
+        ProductOrderMainVo productOrderMainVo = productOrderService.updateOrderMain(productOrderMainForm,id);
+        return ServerResponse.createBySuccess(Const.SUCCESS_MSG, productOrderMainVo);
     }
 
-    @ApiOperation(value = "修改")
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public ServerResponse<ProductOrderVo> update(@RequestBody ProductOrderForm productOrderForm) {
-        ProductOrderVo productOrderVo = productOrderService.update(productOrderForm);
-        return ServerResponse.createBySuccess(Const.SUCCESS_MSG, productOrderVo);
+    @ApiOperation(value = "修改子表")
+    @RequestMapping(value = "/orderDetail/update/{id}", method = RequestMethod.POST)
+    public ServerResponse<ProductOrderDetailVo> updateOrderDetail(@RequestBody ProductOrderDetailForm productOrderDetailForm,@PathVariable("id") Integer id) {
+        ProductOrderDetailVo productOrderDetailVo = productOrderService.updateOrderDetail(productOrderDetailForm,id);
+        return ServerResponse.createBySuccess(Const.SUCCESS_MSG, productOrderDetailVo);
     }
+
+/*
+    @ApiOperation(value = "删除主表")
+    @RequestMapping(value = "/orderMain/delete/{id}", method = RequestMethod.POST)
+    public ServerResponse<ProductOrderMainVo> deleteOrderMail(@RequestBody ProductOrderMainForm productOrderMainForm,@PathVariable("id") Integer id) {
+        ProductOrderMainVo productOrderMainVo = productOrderService.updateOrderMain(productOrderMainForm,id);
+        return ServerResponse.createBySuccess(Const.SUCCESS_MSG, productOrderMainVo);
+    }
+
+    @ApiOperation(value = "删除子表")
+    @RequestMapping(value = "/orderDetail/delete", method = RequestMethod.POST)
+    public ServerResponse<ProductOrderDetailVo> updateOrderDetail(@RequestBody ProductOrderDetailForm productOrderDetailForm) {
+        ProductOrderDetailVo productOrderDetailVo = productOrderService.updateOrderDetail(productOrderDetailForm, id);
+        return ServerResponse.createBySuccess(Const.SUCCESS_MSG, productOrderDetailVo);
+    }
+*/
+
 
     @ApiOperation(value = "审核")
     @RequestMapping(value = "/audit/{id}", method = RequestMethod.POST)
@@ -80,4 +118,5 @@ public class ProductOrderController {
         ProductOrderMainVo productOrderMainVo = productOrderService.audit(id);
         return ServerResponse.createBySuccess(Const.SUCCESS_MSG, productOrderMainVo);
     }
+
 }

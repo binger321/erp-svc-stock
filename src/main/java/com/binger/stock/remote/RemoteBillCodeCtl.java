@@ -3,6 +3,7 @@ package com.binger.stock.remote;
 import com.binger.common.ServerResponse;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,7 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * To change this template use File | Settings | File Templates.
  * Description:
  */
-@FeignClient(name = "erp-svc-goods1", fallback = RemoteBillCodeCtlFallbak.class)
+@FeignClient(name = "erp-svc-goods2", fallback = RemoteBillCodeCtlFallbak.class)
+@Component
 public interface RemoteBillCodeCtl {
     /**
      * 根据单据类型获取单号

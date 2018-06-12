@@ -1,7 +1,9 @@
 package com.binger.stock.service;
 
-import com.binger.stock.controller.form.ProductOrderForm;
+import com.binger.stock.controller.form.ProductOrderDetailForm;
+import com.binger.stock.controller.form.ProductOrderMainForm;
 import com.binger.stock.dto.query.ProductOrderMainQueryDto;
+import com.binger.stock.vo.ProductOrderDetailVo;
 import com.binger.stock.vo.ProductOrderMainVo;
 import com.binger.stock.vo.ProductOrderVo;
 
@@ -23,9 +25,22 @@ public interface ProductOrderService {
 
     ProductOrderVo findById(Integer id);
 
-    ProductOrderVo insert(ProductOrderForm productOrderForm);
+    ProductOrderMainVo findOrderMainById(Integer id);
 
-    ProductOrderVo update(ProductOrderForm productOrderForm);
+    ProductOrderDetailVo findOrderDetailById(Integer id);
+
+
+
+    ProductOrderMainVo insertOrderMain(ProductOrderMainForm productOrderMainForm);
+
+    ProductOrderDetailVo insertOrderDetail(ProductOrderDetailForm productOrderDetailForm);
+
+
+
+    ProductOrderMainVo updateOrderMain(ProductOrderMainForm productOrderMainForm, Integer id);
+
+    ProductOrderDetailVo updateOrderDetail(ProductOrderDetailForm productOrderDetailForm, Integer id);
+
 
     ProductOrderMainVo audit(Integer id);
 }

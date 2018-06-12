@@ -4,7 +4,9 @@ import com.binger.stock.domain.ProductOrderDetail;
 import com.binger.stock.domain.ProductOrderDetailExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface ProductOrderDetailMapper {
     long countByExample(ProductOrderDetailExample example);
 

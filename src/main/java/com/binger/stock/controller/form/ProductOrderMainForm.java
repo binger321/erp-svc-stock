@@ -14,6 +14,8 @@ import java.util.Date;
 @Data
 public class ProductOrderMainForm {
 
+
+
     /**
      * 生产计划单据号（如果从生产计划制定生产订单）
      */
