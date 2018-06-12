@@ -43,4 +43,8 @@ public interface ProductOrderService {
 
 
     ProductOrderMainVo audit(Integer id);
+
+    int deleteOrderMain(Integer id);
+
+    int deleteOrderDetail(Integer id);
 }

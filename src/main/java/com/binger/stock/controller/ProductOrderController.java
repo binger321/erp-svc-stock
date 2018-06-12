@@ -95,21 +95,25 @@ public class ProductOrderController {
         return ServerResponse.createBySuccess(Const.SUCCESS_MSG, productOrderDetailVo);
     }
 
-/*
+
     @ApiOperation(value = "删除主表")
     @RequestMapping(value = "/orderMain/delete/{id}", method = RequestMethod.POST)
-    public ServerResponse<ProductOrderMainVo> deleteOrderMail(@RequestBody ProductOrderMainForm productOrderMainForm,@PathVariable("id") Integer id) {
-        ProductOrderMainVo productOrderMainVo = productOrderService.updateOrderMain(productOrderMainForm,id);
-        return ServerResponse.createBySuccess(Const.SUCCESS_MSG, productOrderMainVo);
+    public ServerResponse deleteOrderMail(@PathVariable("id") Integer id) {
+        if(productOrderService.deleteOrderMain(id)==1){
+            return ServerResponse.createBySuccess(Const.SUCCESS_MSG,null);
+        }
+        return ServerResponse.createBySuccess(Const.FAIL_MSG, null);
     }
 
     @ApiOperation(value = "删除子表")
-    @RequestMapping(value = "/orderDetail/delete", method = RequestMethod.POST)
-    public ServerResponse<ProductOrderDetailVo> updateOrderDetail(@RequestBody ProductOrderDetailForm productOrderDetailForm) {
-        ProductOrderDetailVo productOrderDetailVo = productOrderService.updateOrderDetail(productOrderDetailForm, id);
-        return ServerResponse.createBySuccess(Const.SUCCESS_MSG, productOrderDetailVo);
+    @RequestMapping(value = "/orderDetail/delete/{id}", method = RequestMethod.POST)
+    public ServerResponse updateOrderDetail(@PathVariable("id") Integer id) {
+       if (productOrderService.deleteOrderDetail(id)==1){
+           return ServerResponse.createBySuccess(Const.SUCCESS_MSG,null);
+       }
+        return ServerResponse.createBySuccess(Const.FAIL_MSG, null);
     }
-*/
+
 
 
     @ApiOperation(value = "审核")
