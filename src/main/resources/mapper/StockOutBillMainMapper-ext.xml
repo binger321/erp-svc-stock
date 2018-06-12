@@ -4,7 +4,7 @@
     <resultMap id="StockOutMainRet" type="com.binger.stock.dto.ret.StockOutMainRetDto">
 
         <id column="id" jdbcType="INTEGER" property="id" />
-        <result column="stockout_bill_main_code" jdbcType="VARCHAR" property="stockoutBillMainCode" />
+        <result column="stock_out_bill_main_code" jdbcType="VARCHAR" property="stockOutBillMainCode" />
         <result column="return_product_return_code" jdbcType="VARCHAR" property="returnProductReturnCode" />
         <result column="order_sale_code" jdbcType="VARCHAR" property="orderSaleCode" />
         <result column="warehouse_id" jdbcType="INTEGER" property="warehouseId" />
@@ -44,7 +44,7 @@
     <select id="listByQuery" resultMap="StockOutMainRet">
         SELECT
         m.id,
-        m.stockout_bill_main_code,
+        m.stock_out_bill_main_code,
         m.return_product_return_code,
         m.order_sale_code,
         m.warehouse_id,
@@ -68,11 +68,11 @@
         m.total_amount,
         m.remark,
         m.creator,
-        m.creator_time,
+        m.create_time,
         m.modifier,
         m.modify_time
         FROM stock_out_bill_main m
-        LEFT warehouse w ON m.warehouse_id = w.id
+        LEFT JOIN warehouse w ON m.warehouse_id = w.id
         <include refid="StockOutMainQueryDto_Where_Clause"/>
         <if test="queryDto.limit != null">
             <if test="queryDto.offset != null">
@@ -87,13 +87,13 @@
     <sql id="StockOutMainQueryDto_Where_Clause">
         <where>
             1 = 1
-            <if test="queryDto.stockoutBillMainCode != null">
-                AND m.stockout_bill_main_code like '%${queryDto.stockoutBillMainCode}%'
+            <if test="queryDto.stockOutBillMainCode != null and queryDto.stockOutBillMainCode != ''">
+                AND m.stock_out_bill_main_code like '%${queryDto.stockOutBillMainCode}%'
             </if>
-            <if test="queryDto.returnProductReturnCode != null">
+            <if test="queryDto.returnProductReturnCode != null and queryDto.returnProductReturnCode != ''">
                 AND m.return_product_return_code like '%${queryDto.returnProductReturnCode}%'
             </if>
-            <if test="queryDto.orderSaleCode != null">
+            <if test="queryDto.orderSaleCode != null and queryDto.orderSaleCode != ''">
                 AND m.order_sale_code like '%${queryDto.orderSaleCode}%'
             </if>
             <if test="queryDto.warehouseId != null">
@@ -102,22 +102,22 @@
             <if test="queryDto.billType != null">
                 AND m.bill_type = #{queryDto.billType}
             </if>
-            <if test="queryDto.auditor != null">
+            <if test="queryDto.auditor != null and queryDto.auditor != ''">
                 AND m.auditor like '%${queryDto.auditor}%'
             </if>
             <if test="queryDto.stockoutStatus != null">
                 AND m.stockout_status = #{queryDto.stockoutStatus}
             </if>
-            <if test="queryDto.customerName != null">
+            <if test="queryDto.customerName != null and queryDto.customerName != ''">
                 AND m.customer_name like '%${queryDto.customerName}%'
             </if>
-            <if test="queryDto.countryName  != null">
+            <if test="queryDto.countryName  != null and queryDto.countryName != ''">
                 AND m.country_name like '%${queryDto.countryName}%'
             </if>
-            <if test="queryDto.logistCompanyName != null">
+            <if test="queryDto.logistCompanyName != null and queryDto.logistCompanyName != ''">
                 AND m.logist_company_name like '%${queryDto.logistCompanyName}%'
             </if>
-            <if test="queryDto.trackNumber != null">
+            <if test="queryDto.trackNumber != null and queryDto.trackNumber != ''">
                 AND m.track_number like '%${queryDto.trackNumber}%'
             </if>
         </where>

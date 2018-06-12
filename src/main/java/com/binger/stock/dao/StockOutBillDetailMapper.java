@@ -4,7 +4,9 @@ import com.binger.stock.domain.StockOutBillDetail;
 import com.binger.stock.domain.StockOutBillDetailExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface StockOutBillDetailMapper {
     long countByExample(StockOutBillDetailExample example);
 

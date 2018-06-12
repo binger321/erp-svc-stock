@@ -6,7 +6,6 @@ import com.binger.common.enums.BillTypeEnum;
 import com.binger.common.exception.BusinessException;
 import com.binger.common.util.DozerUtils;
 import com.binger.stock.controller.form.StockInBillDetailForm;
-import com.binger.stock.controller.form.StockInBillForm;
 import com.binger.stock.controller.form.StockInBillMainForm;
 import com.binger.stock.dao.StockInBillDetailMapper;
 import com.binger.stock.dao.StockInBillMainMapper;
@@ -22,7 +21,6 @@ import com.binger.stock.remote.RemoteBillCodeCtl;
 import com.binger.stock.service.StockInService;
 import com.binger.stock.vo.StockInBillDetailVo;
 import com.binger.stock.vo.StockInBillMainVo;
-import com.binger.stock.vo.StockInBillVo;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,63 +76,130 @@ public class StockInServiceImpl implements StockInService {
     }
 
     @Override
-    public StockInBillVo findById(Integer id) {
-        StockInBillVo stockInBillVo = new StockInBillVo();
-
+    public StockInBillMainVo findById(Integer id) {
         StockInBillMain stockInBillMain = stockInBillMainMapper.selectByPrimaryKey(id);
         if (stockInBillMain != null) {
-            stockInBillVo.setStockInBillMainVo(DozerUtils.convert(stockInBillMain, StockInBillMainVo.class));
-            StockInBillDetailExample stockInBillDetailExample = new StockInBillDetailExample();
-            StockInBillDetailExample.Criteria criteria = stockInBillDetailExample.createCriteria();
-            criteria.andStockInBillMainCodeEqualTo(stockInBillMain.getStockInBillMainCode());
-            List<StockInBillDetail> stockInBillDetailList = stockInBillDetailMapper.selectByExample(stockInBillDetailExample);
-            if (CollectionUtils.isNotEmpty(stockInBillDetailList)) {
-                stockInBillVo.setStockInBillDetailVoList(DozerUtils.convertList(stockInBillDetailList, StockInBillDetailVo.class));
-            }
-        }
-        return stockInBillVo;
-    }
-
-    @Override
-    @Transactional
-    public StockInBillMainVo insert(StockInBillForm stockInBillForm) {
-        StockInBillMain stockInBillMain = DozerUtils.convert(stockInBillForm.getStockInBillMainForm(), StockInBillMain.class);
-        checkUnique(stockInBillMain.getProductOrderCode(), null);
-        //远程调用获取单据编号
-        String billCode = remoteGenerateBillCode(BillTypeEnum.STOCK_IN_BILL.getBillType());
-        stockInBillMain.setStockInBillMainCode(billCode);
-        List<StockInBillDetailForm> stockInBillDetailFormList = stockInBillForm.getStockInBillDetailFormList();
-        List<StockInBillDetail> stockInBillDetailList = null;
-        if (CollectionUtils.isNotEmpty(stockInBillDetailFormList)) {
-            stockInBillDetailList = DozerUtils.convertList(stockInBillForm.getStockInBillDetailFormList(), StockInBillDetail.class);
-        }
-        constructInsertDto(stockInBillMain, stockInBillDetailList);
-        stockInBillMainMapper.insert(stockInBillMain);
-        if (CollectionUtils.isNotEmpty(stockInBillDetailList)) {
-            stockInBillDetailList.forEach(stockInBillDetail -> stockInBillDetailMapper.insert(stockInBillDetail));
-        }
-        StockInBillMain stockInBillMain1 = stockInBillMainMapper.selectByPrimaryKey(stockInBillMain.getId());
-        if (stockInBillMain1 != null) {
-            return DozerUtils.convert(stockInBillMain1, StockInBillMainVo.class);
+            StockInBillMainVo stockInBillMainVo = DozerUtils.convert(stockInBillMain, StockInBillMainVo.class);
+            stockInBillMainVo.setStockinStatusStr(StockInStatusEnum.getStockInStatusByCode(stockInBillMainVo.getStockinStatus()).getStatus());
+            stockInBillMainVo.setBillTypeStr(StockInBillTypeEnum.getBillTypeByCode(stockInBillMainVo.getBillType()).getType());
+            return stockInBillMainVo;
         }
         return null;
     }
 
     @Override
     @Transactional
-    public StockInBillVo update(StockInBillForm stockInBillForm) {
-        StockInBillMainForm stockInBillMainForm = stockInBillForm.getStockInBillMainForm();
+    public StockInBillMainVo insert(StockInBillMainForm stockInBillMainForm) {
         StockInBillMain stockInBillMain = DozerUtils.convert(stockInBillMainForm, StockInBillMain.class);
-        stockInBillMainMapper.updateByPrimaryKey(stockInBillMain);
-        List<StockInBillDetailForm> stockInBillDetailFormList = stockInBillForm.getStockInBillDetailFormList();
-        if (CollectionUtils.isNotEmpty(stockInBillDetailFormList)) {
-            stockInBillDetailFormList.forEach(stockInBillDetailForm -> {
-                StockInBillDetail stockInBillDetail = DozerUtils.convert(stockInBillDetailForm, StockInBillDetail.class);
-                stockInBillDetailMapper.updateByPrimaryKey(stockInBillDetail);
-            });
+        checkUnique(stockInBillMain.getProductOrderCode(), null);
+        //远程调用获取单据编号
+        String billCode = remoteGenerateBillCode(BillTypeEnum.STOCK_IN_BILL.getBillType());
+        stockInBillMain.setStockInBillMainCode(billCode);
+        stockInBillMainMapper.insert(stockInBillMain);
+        StockInBillMain main = stockInBillMainMapper.selectByPrimaryKey(stockInBillMain.getId());
+        if (main != null) {
+            return DozerUtils.convert(main, StockInBillMainVo.class);
         }
-        return findById(stockInBillMainForm.getId());
+        return null;
+    }
 
+    @Override
+    @Transactional
+    public StockInBillMainVo update(StockInBillMain stockInBillMain) {
+        checkUnique(stockInBillMain.getProductOrderCode(), stockInBillMain.getId());
+        stockInBillMainMapper.updateByPrimaryKeySelective(stockInBillMain);
+        return findById(stockInBillMain.getId());
+
+    }
+
+    @Override
+    public List<StockInBillDetailVo> findAllDetailById(Integer id) {
+        StockInBillMain stockInBillMain = stockInBillMainMapper.selectByPrimaryKey(id);
+        StockInBillDetailExample stockInBillDetailExample = new StockInBillDetailExample();
+        StockInBillDetailExample.Criteria criteria = stockInBillDetailExample.createCriteria();
+        criteria.andStockInBillMainCodeEqualTo(stockInBillMain.getStockInBillMainCode());
+        List<StockInBillDetail> stockInBillDetailList = stockInBillDetailMapper.selectByExample(stockInBillDetailExample);
+        if (CollectionUtils.isNotEmpty(stockInBillDetailList)) {
+            return DozerUtils.convertList(stockInBillDetailList, StockInBillDetailVo.class);
+        }
+        return null;
+    }
+
+    @Override
+    public StockInBillDetailVo insertDetail(StockInBillDetailForm stockInBillDetailForm, String stockInBillMainCode) {
+        StockInBillDetail stockInBillDetail = DozerUtils.convert(stockInBillDetailForm, StockInBillDetail.class);
+        stockInBillDetail.setTotalPrice(stockInBillDetail.getPrice().multiply(new BigDecimal(stockInBillDetail.getQuantity())));
+        stockInBillDetail.setStockInBillDetailCode(remoteGenerateBillCode(BillTypeEnum.STOCK_IN_DETAIL_BILL.getBillType()));
+        stockInBillDetail.setStockInBillMainCode(stockInBillMainCode);
+        stockInBillDetailMapper.insertSelective(stockInBillDetail);
+        updateMain(stockInBillMainCode);
+
+        StockInBillDetail detail = stockInBillDetailMapper.selectByPrimaryKey(stockInBillDetail.getId());
+        if (detail != null) {
+            return DozerUtils.convert(detail, StockInBillDetailVo.class);
+        }
+        return null;
+    }
+
+    private void updateMain(String stockInBillMainCode) {
+        StockInBillDetailExample example = new StockInBillDetailExample();
+        example.createCriteria().andStockInBillMainCodeEqualTo(stockInBillMainCode);
+        List<StockInBillDetail> stockInBillDetailList = stockInBillDetailMapper.selectByExample(example);
+        if (CollectionUtils.isNotEmpty(stockInBillDetailList)) {
+            StockInBillMainExample mainExample = new StockInBillMainExample();
+            mainExample.createCriteria().andStockInBillMainCodeEqualTo(stockInBillMainCode);
+            List<StockInBillMain> stockInBillMainList = stockInBillMainMapper.selectByExample(mainExample);
+            if (CollectionUtils.isNotEmpty(stockInBillMainList)) {
+                StockInBillMain stockInBillMain = stockInBillMainList.get(0);
+                constructUpdateDto(stockInBillMain, stockInBillDetailList);
+                stockInBillMainMapper.updateByPrimaryKeySelective(stockInBillMain);
+            }
+        }
+    }
+
+    @Override
+    public StockInBillDetailVo updateDetail(StockInBillDetailForm stockInBillDetailForm, String stockInBillMainCode) {
+        StockInBillDetail stockInBillDetail = DozerUtils.convert(stockInBillDetailForm, StockInBillDetail.class);
+        stockInBillDetail.setTotalPrice(stockInBillDetail.getPrice().multiply(new BigDecimal(stockInBillDetail.getQuantity())));
+        stockInBillDetailMapper.updateByPrimaryKeySelective(stockInBillDetail);
+        updateMain(stockInBillMainCode);
+        StockInBillDetail detail = stockInBillDetailMapper.selectByPrimaryKey(stockInBillDetailForm.getId());
+        if (detail != null) {
+            return DozerUtils.convert(detail, StockInBillDetailVo.class);
+        }
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public void deleteById(Integer id) {
+        StockInBillMain stockInBillMain = stockInBillMainMapper.selectByPrimaryKey(id);
+        StockInBillDetailExample example = new StockInBillDetailExample();
+        example.createCriteria().andStockInBillDetailCodeEqualTo(stockInBillMain.getStockInBillMainCode());
+        int count = stockInBillDetailMapper.deleteByExample(example);
+        int countMain = stockInBillMainMapper.deleteByPrimaryKey(id);
+        if (countMain == 0) {
+            throw BusinessException.create("删除失败");
+        }
+    }
+
+    @Override
+    public void deleteDetailById(Integer id) {
+        StockInBillDetail stockInBillDetail = stockInBillDetailMapper.selectByPrimaryKey(id);
+        int count = stockInBillDetailMapper.deleteByPrimaryKey(id);
+        if (count == 0) {
+            throw BusinessException.create("删除失败");
+        }
+        updateMain(stockInBillDetail.getStockInBillMainCode());
+    }
+
+    @Override
+    public StockInBillDetailVo findDetailById(Integer id) {
+        StockInBillDetail stockInBillDetail = stockInBillDetailMapper.selectByPrimaryKey(id);
+        if (stockInBillDetail != null) {
+            return DozerUtils.convert(stockInBillDetail, StockInBillDetailVo.class);
+        }
+        return null;
     }
 
     /**
@@ -142,15 +207,18 @@ public class StockInServiceImpl implements StockInService {
      * @param stockInBillMain
      * @param stockInBillDetailList
      */
-    private void constructInsertDto(StockInBillMain stockInBillMain, List<StockInBillDetail> stockInBillDetailList) {
+    private void constructUpdateDto(StockInBillMain stockInBillMain, List<StockInBillDetail> stockInBillDetailList) {
         String billMainCode = stockInBillMain.getStockInBillMainCode();
-        stockInBillMain.setStockinStatus(StockInStatusEnum.STOCK_IN_BILL_SAVE.getCode());
         Integer totalQuantity = 0;
+        Integer quantity = 0;
+        Integer defectiveQuantity = 0;
         BigDecimal totalPrice = new BigDecimal(0);
         if (CollectionUtils.isNotEmpty(stockInBillDetailList)) {
             for (StockInBillDetail stockInBillDetail : stockInBillDetailList) {
                 stockInBillDetail.setStockInBillMainCode(billMainCode);
                 totalQuantity = totalQuantity + stockInBillDetail.getQuantity();
+                quantity = stockInBillDetail.getInQuantity() == null ? 0: stockInBillDetail.getInQuantity() + quantity;
+                defectiveQuantity = stockInBillDetail.getInferiorQuantity() == null?0:stockInBillDetail.getInferiorQuantity()+ defectiveQuantity;
                 stockInBillDetail.setTotalPrice(stockInBillDetail.getPrice().multiply(new BigDecimal(stockInBillDetail.getQuantity())));
                 stockInBillDetail.setStockInBillDetailCode(remoteGenerateBillCode(BillTypeEnum.STOCK_IN_DETAIL_BILL.getBillType()));
                 totalPrice = totalPrice.add(stockInBillDetail.getTotalPrice());
@@ -158,8 +226,8 @@ public class StockInServiceImpl implements StockInService {
         }
         stockInBillMain.setApplyQuantity(totalQuantity);
         stockInBillMain.setStockInMoney(totalPrice);
-
-
+        stockInBillMain.setQuantity(quantity);
+        stockInBillMain.setDefectiveQuantity(defectiveQuantity);
 
     }
 

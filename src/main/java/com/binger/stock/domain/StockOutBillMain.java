@@ -1,11 +1,11 @@
 package com.binger.stock.domain;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * 出库表主表
@@ -22,7 +22,7 @@ public class StockOutBillMain implements Serializable {
      * 单据编号
      */
     @ApiModelProperty(value="单据编号",required = true)
-    private String stockoutBillMainCode;
+    private String stockOutBillMainCode;
 
     /**
      * 退货单号
@@ -197,18 +197,18 @@ public class StockOutBillMain implements Serializable {
 
     /**
      * 单据编号
-     * @return stockout_bill_main_code 单据编号
+     * @return stock_out_bill_main_code 单据编号
      */
-    public String getStockoutBillMainCode() {
-        return stockoutBillMainCode;
+    public String getStockOutBillMainCode() {
+        return stockOutBillMainCode;
     }
 
     /**
      * 单据编号
-     * @param stockoutBillMainCode 单据编号
+     * @param stockOutBillMainCode 单据编号
      */
-    public void setStockoutBillMainCode(String stockoutBillMainCode) {
-        this.stockoutBillMainCode = stockoutBillMainCode == null ? null : stockoutBillMainCode.trim();
+    public void setStockOutBillMainCode(String stockOutBillMainCode) {
+        this.stockOutBillMainCode = stockOutBillMainCode == null ? null : stockOutBillMainCode.trim();
     }
 
     /**
@@ -624,7 +624,7 @@ public class StockOutBillMain implements Serializable {
         }
         StockOutBillMain other = (StockOutBillMain) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getStockoutBillMainCode() == null ? other.getStockoutBillMainCode() == null : this.getStockoutBillMainCode().equals(other.getStockoutBillMainCode()))
+            && (this.getStockOutBillMainCode() == null ? other.getStockOutBillMainCode() == null : this.getStockOutBillMainCode().equals(other.getStockOutBillMainCode()))
             && (this.getReturnProductReturnCode() == null ? other.getReturnProductReturnCode() == null : this.getReturnProductReturnCode().equals(other.getReturnProductReturnCode()))
             && (this.getOrderSaleCode() == null ? other.getOrderSaleCode() == null : this.getOrderSaleCode().equals(other.getOrderSaleCode()))
             && (this.getWarehouseId() == null ? other.getWarehouseId() == null : this.getWarehouseId().equals(other.getWarehouseId()))
@@ -657,7 +657,7 @@ public class StockOutBillMain implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getStockoutBillMainCode() == null) ? 0 : getStockoutBillMainCode().hashCode());
+        result = prime * result + ((getStockOutBillMainCode() == null) ? 0 : getStockOutBillMainCode().hashCode());
         result = prime * result + ((getReturnProductReturnCode() == null) ? 0 : getReturnProductReturnCode().hashCode());
         result = prime * result + ((getOrderSaleCode() == null) ? 0 : getOrderSaleCode().hashCode());
         result = prime * result + ((getWarehouseId() == null) ? 0 : getWarehouseId().hashCode());
@@ -693,7 +693,7 @@ public class StockOutBillMain implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", stockoutBillMainCode=").append(stockoutBillMainCode);
+        sb.append(", stockOutBillMainCode=").append(stockOutBillMainCode);
         sb.append(", returnProductReturnCode=").append(returnProductReturnCode);
         sb.append(", orderSaleCode=").append(orderSaleCode);
         sb.append(", warehouseId=").append(warehouseId);

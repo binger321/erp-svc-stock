@@ -109,7 +109,7 @@ public class StockOutBillMainExample {
     }
 
     /**
-     * stock_out_bill_main 2018-05-25
+     * stock_out_bill_main 2018-06-13
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -212,73 +212,73 @@ public class StockOutBillMainExample {
             return (Criteria) this;
         }
 
-        public Criteria andStockoutBillMainCodeIsNull() {
-            addCriterion("stockout_bill_main_code is null");
+        public Criteria andStockOutBillMainCodeIsNull() {
+            addCriterion("stock_out_bill_main_code is null");
             return (Criteria) this;
         }
 
-        public Criteria andStockoutBillMainCodeIsNotNull() {
-            addCriterion("stockout_bill_main_code is not null");
+        public Criteria andStockOutBillMainCodeIsNotNull() {
+            addCriterion("stock_out_bill_main_code is not null");
             return (Criteria) this;
         }
 
-        public Criteria andStockoutBillMainCodeEqualTo(String value) {
-            addCriterion("stockout_bill_main_code =", value, "stockoutBillMainCode");
+        public Criteria andStockOutBillMainCodeEqualTo(String value) {
+            addCriterion("stock_out_bill_main_code =", value, "stockOutBillMainCode");
             return (Criteria) this;
         }
 
-        public Criteria andStockoutBillMainCodeNotEqualTo(String value) {
-            addCriterion("stockout_bill_main_code <>", value, "stockoutBillMainCode");
+        public Criteria andStockOutBillMainCodeNotEqualTo(String value) {
+            addCriterion("stock_out_bill_main_code <>", value, "stockOutBillMainCode");
             return (Criteria) this;
         }
 
-        public Criteria andStockoutBillMainCodeGreaterThan(String value) {
-            addCriterion("stockout_bill_main_code >", value, "stockoutBillMainCode");
+        public Criteria andStockOutBillMainCodeGreaterThan(String value) {
+            addCriterion("stock_out_bill_main_code >", value, "stockOutBillMainCode");
             return (Criteria) this;
         }
 
-        public Criteria andStockoutBillMainCodeGreaterThanOrEqualTo(String value) {
-            addCriterion("stockout_bill_main_code >=", value, "stockoutBillMainCode");
+        public Criteria andStockOutBillMainCodeGreaterThanOrEqualTo(String value) {
+            addCriterion("stock_out_bill_main_code >=", value, "stockOutBillMainCode");
             return (Criteria) this;
         }
 
-        public Criteria andStockoutBillMainCodeLessThan(String value) {
-            addCriterion("stockout_bill_main_code <", value, "stockoutBillMainCode");
+        public Criteria andStockOutBillMainCodeLessThan(String value) {
+            addCriterion("stock_out_bill_main_code <", value, "stockOutBillMainCode");
             return (Criteria) this;
         }
 
-        public Criteria andStockoutBillMainCodeLessThanOrEqualTo(String value) {
-            addCriterion("stockout_bill_main_code <=", value, "stockoutBillMainCode");
+        public Criteria andStockOutBillMainCodeLessThanOrEqualTo(String value) {
+            addCriterion("stock_out_bill_main_code <=", value, "stockOutBillMainCode");
             return (Criteria) this;
         }
 
-        public Criteria andStockoutBillMainCodeLike(String value) {
-            addCriterion("stockout_bill_main_code like", value, "stockoutBillMainCode");
+        public Criteria andStockOutBillMainCodeLike(String value) {
+            addCriterion("stock_out_bill_main_code like", value, "stockOutBillMainCode");
             return (Criteria) this;
         }
 
-        public Criteria andStockoutBillMainCodeNotLike(String value) {
-            addCriterion("stockout_bill_main_code not like", value, "stockoutBillMainCode");
+        public Criteria andStockOutBillMainCodeNotLike(String value) {
+            addCriterion("stock_out_bill_main_code not like", value, "stockOutBillMainCode");
             return (Criteria) this;
         }
 
-        public Criteria andStockoutBillMainCodeIn(List<String> values) {
-            addCriterion("stockout_bill_main_code in", values, "stockoutBillMainCode");
+        public Criteria andStockOutBillMainCodeIn(List<String> values) {
+            addCriterion("stock_out_bill_main_code in", values, "stockOutBillMainCode");
             return (Criteria) this;
         }
 
-        public Criteria andStockoutBillMainCodeNotIn(List<String> values) {
-            addCriterion("stockout_bill_main_code not in", values, "stockoutBillMainCode");
+        public Criteria andStockOutBillMainCodeNotIn(List<String> values) {
+            addCriterion("stock_out_bill_main_code not in", values, "stockOutBillMainCode");
             return (Criteria) this;
         }
 
-        public Criteria andStockoutBillMainCodeBetween(String value1, String value2) {
-            addCriterion("stockout_bill_main_code between", value1, value2, "stockoutBillMainCode");
+        public Criteria andStockOutBillMainCodeBetween(String value1, String value2) {
+            addCriterion("stock_out_bill_main_code between", value1, value2, "stockOutBillMainCode");
             return (Criteria) this;
         }
 
-        public Criteria andStockoutBillMainCodeNotBetween(String value1, String value2) {
-            addCriterion("stockout_bill_main_code not between", value1, value2, "stockoutBillMainCode");
+        public Criteria andStockOutBillMainCodeNotBetween(String value1, String value2) {
+            addCriterion("stock_out_bill_main_code not between", value1, value2, "stockOutBillMainCode");
             return (Criteria) this;
         }
 
@@ -1914,7 +1914,7 @@ public class StockOutBillMainExample {
     }
 
     /**
-     * stock_out_bill_main 2018-05-25
+     * stock_out_bill_main 2018-06-13
      */
     public static class Criterion {
         private String condition;
@@ -2005,7 +2005,7 @@ public class StockOutBillMainExample {
     public static class SelectiveField {
         private Set<String> fields;
 
-        private static String allFields = "id,stockout_bill_main_code,return_product_return_code,order_sale_code,warehouse_id,bill_type,audit_date,auditor,stockout_time,quantity,stockout_status,customer_name,country_id,country_code,country_name,address1,delay_days,logist_status,logist_company_name,track_number,logist_money,total_amount,remark,creator,create_time,modifier,modify_time";
+        private static String allFields = "id,stock_out_bill_main_code,return_product_return_code,order_sale_code,warehouse_id,bill_type,audit_date,auditor,stockout_time,quantity,stockout_status,customer_name,country_id,country_code,country_name,address1,delay_days,logist_status,logist_company_name,track_number,logist_money,total_amount,remark,creator,create_time,modifier,modify_time";
 
         private SelectiveField() {
             fields = new HashSet<>();
@@ -2020,8 +2020,8 @@ public class StockOutBillMainExample {
             return this;
         }
 
-        public SelectiveField stockoutBillMainCode() {
-            fields.add("stockout_bill_main_code");
+        public SelectiveField stockOutBillMainCode() {
+            fields.add("stock_out_bill_main_code");
             return this;
         }
 

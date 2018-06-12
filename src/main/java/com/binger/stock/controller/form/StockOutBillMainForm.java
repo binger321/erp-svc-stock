@@ -27,7 +27,7 @@ public class StockOutBillMainForm {
      * 单据编号
      */
     @ApiModelProperty(value="单据编号",required = true)
-    private String stockoutBillMainCode;
+    private String stockOutBillMainCode;
 
     /**
      * 退货单号
