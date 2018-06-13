@@ -63,9 +63,9 @@ public class ProductOrderController {
     }
     @ApiOperation(value = "通过子表id查询子表")
     @RequestMapping(value = "/orderDetail/findById/{id}", method = RequestMethod.POST)
-    public ServerResponse<ProductOrderDetailVo> findById(@PathVariable Integer id) {
-        ProductOrderDetailVo productOrderDetaVo = productOrderService.findOrderDetailById(id);
-        return ServerResponse.createBySuccess(Const.SUCCESS_MSG, productOrderDetaVo);
+    public ServerResponse<ProductOrderDetailVo> findOrderDetailById(@PathVariable Integer id) {
+        ProductOrderDetailVo productOrderDetailVo = productOrderService.findOrderDetailById(id);
+        return ServerResponse.createBySuccess(Const.SUCCESS_MSG, productOrderDetailVo);
     }
 
 
