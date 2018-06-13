@@ -160,6 +160,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
     @Override
     public ProductOrderMainVo updateOrderMain(ProductOrderMainForm productOrderMainForm, Integer id) {
         Integer status = getOrderMainStatusByOrderMainId(id);
+
         if (status.equals(ProductOrderStatusEnum.AUDIT.getCode())){
             throw BusinessException.create("已审核无法修改");
         }
@@ -172,8 +173,8 @@ public class ProductOrderServiceImpl implements ProductOrderService {
 
     @Override
     public ProductOrderDetailVo updateOrderDetail(ProductOrderDetailForm productOrderDetailForm, Integer id) {
-
-        Integer status = getOrderMainStatusByOrderMainId(productOrderDetailForm.getProductOrderMainId());
+        Integer orderMainId = getOrderMainIdByOrderDerailId(id);
+        Integer status = getOrderMainStatusByOrderMainId(orderMainId);
         if (status.equals(ProductOrderStatusEnum.AUDIT.getCode())){
             throw BusinessException.create("已审核无法修改");
         }
