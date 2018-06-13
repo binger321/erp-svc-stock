@@ -1,9 +1,11 @@
 package com.binger.stock.service;
 
-import com.binger.stock.controller.form.StockOutBillForm;
+import com.binger.stock.controller.form.StockOutBillDetailForm;
+import com.binger.stock.controller.form.StockOutBillMainForm;
+import com.binger.stock.domain.StockOutBillMain;
 import com.binger.stock.dto.query.StockOutMainQueryDto;
+import com.binger.stock.vo.StockOutBillDetailVo;
 import com.binger.stock.vo.StockOutBillMainVo;
-import com.binger.stock.vo.StockOutBillVo;
 
 import java.util.List;
 
@@ -20,9 +22,21 @@ public interface StockOutService {
 
     List<StockOutBillMainVo> listByQuery(StockOutMainQueryDto stockOutMainQueryDto);
 
-    StockOutBillVo findById(Integer id);
+    StockOutBillMainVo findById(Integer id);
 
-    StockOutBillVo insert(StockOutBillForm stockOutBillForm);
+    StockOutBillMainVo insert(StockOutBillMainForm stockOutBillForm);
 
-    StockOutBillVo update(StockOutBillForm stockOutBillForm);
+    StockOutBillMainVo update(StockOutBillMain stockOutBillForm);
+
+    StockOutBillDetailVo findDetailById(Integer id);
+
+    List<StockOutBillDetailVo> findAllDetail(String stockOutBillMainCode);
+
+    StockOutBillDetailVo insertDetail(StockOutBillDetailForm stockOutBillForm);
+
+    StockOutBillDetailVo updateDetail(StockOutBillDetailForm stockOutBillForm);
+
+    void deleteById(Integer id);
+
+    void deleteDetailById(Integer id);
 }

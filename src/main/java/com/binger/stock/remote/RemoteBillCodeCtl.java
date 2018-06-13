@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * To change this template use File | Settings | File Templates.
  * Description:
  */
-@FeignClient(name = "erp-svc-goods2", fallback = RemoteBillCodeCtlFallbak.class)
+@FeignClient(name = "erp-svc-goods1", fallback = RemoteBillCodeCtlFallbak.class)
 @Component
 public interface RemoteBillCodeCtl {
     /**

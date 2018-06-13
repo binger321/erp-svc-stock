@@ -2,6 +2,7 @@ package com.binger.stock.service.impl;
 
 import com.binger.common.ResponseCode;
 import com.binger.common.ServerResponse;
+import com.binger.common.enums.BillTypeEnum;
 import com.binger.common.exception.BusinessException;
 import com.binger.common.util.DozerUtils;
 import com.binger.stock.controller.form.ProductOrderDetailForm;
@@ -24,6 +25,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -104,11 +106,13 @@ public class ProductOrderServiceImpl implements ProductOrderService {
             throw BusinessException.create("不能添加空的生产订单主表！");
         }
         ProductOrderMain productOrderMain = DozerUtils.convert(productOrderMainForm, ProductOrderMain.class);
+        productOrderMain.setProductOrderCode(remoteGenerateBillCode(BillTypeEnum.PRODUCT_ORDER_BILL.getBillType()));
         productOrderMainMapper.insert(productOrderMain);
         return DozerUtils.convert(productOrderMain,ProductOrderMainVo.class);
     }
 
     @Override
+
     public ProductOrderDetailVo insertOrderDetail(ProductOrderDetailForm productOrderDetailForm) {
         if (productOrderDetailForm == null) {
             throw BusinessException.create("不能添加空的生产订单子表！");
@@ -126,7 +130,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
 
 
 
-    private Integer getOrderMainStatus(Integer id){
+    private Integer getOrderMainStatusByOrderMainId(Integer id){
         ProductOrderMainExample example = new ProductOrderMainExample();
         example.createCriteria().andIdEqualTo(id);
         example.getSelectiveField().orderStatus();
@@ -137,9 +141,22 @@ public class ProductOrderServiceImpl implements ProductOrderService {
 
         return productOrderMainList.get(0).getOrderStatus();
     }
+    private Integer getOrderMainStatusByOrderDetailId(Integer id){
+        ProductOrderDetailExample example = new ProductOrderDetailExample();
+        example.createCriteria().andIdEqualTo(id);
+        example.getSelectiveField().productOrderMainId();
+        List<ProductOrderDetail> productOrderDetailList = productOrderDetailMapper.selectByExample(example);
+        if (productOrderDetailList == null || productOrderDetailList.size()==0){
+            throw BusinessException.create("没有这个生产订单子表！");
+        }
+
+
+        return getOrderMainStatusByOrderMainId(productOrderDetailList.get(0).getProductOrderMainId());
+    }
+
     @Override
     public ProductOrderMainVo updateOrderMain(ProductOrderMainForm productOrderMainForm, Integer id) {
-        Integer status = getOrderMainStatus(id);
+        Integer status = getOrderMainStatusByOrderMainId(id);
         if (status.equals(ProductOrderStatusEnum.AUDIT.getCode())){
             throw BusinessException.create("已审核无法修改");
         }
@@ -152,13 +169,36 @@ public class ProductOrderServiceImpl implements ProductOrderService {
     @Override
     public ProductOrderDetailVo updateOrderDetail(ProductOrderDetailForm productOrderDetailForm, Integer id) {
 
-        Integer status = getOrderMainStatus(productOrderDetailForm.getProductOrderMainId());
+        Integer status = getOrderMainStatusByOrderMainId(productOrderDetailForm.getProductOrderMainId());
         if (status.equals(ProductOrderStatusEnum.AUDIT.getCode())){
             throw BusinessException.create("已审核无法修改");
         }
         ProductOrderDetail productOrderDetail = DozerUtils.convert(productOrderDetailForm,ProductOrderDetail.class);
         productOrderDetailMapper.updateByPrimaryKeySelective(productOrderDetail);
         return findOrderDetailById(productOrderDetail.getId());
+    }
+
+    @Override
+    public int deleteOrderMain(Integer id) {
+        Integer status = getOrderMainStatusByOrderMainId(id);
+        if (status.equals(ProductOrderStatusEnum.SAVE.getCode())){
+            throw BusinessException.create("无法删除");
+        }
+        ProductOrderDetailExample example = new ProductOrderDetailExample();
+        example.createCriteria().andProductOrderMainIdEqualTo(id);
+        productOrderDetailMapper.deleteByExample(example);
+        return  productOrderMainMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    @Transactional(rollbackFor = {RuntimeException.class, Exception.class})
+    public int deleteOrderDetail(Integer id) {
+
+        Integer status = getOrderMainStatusByOrderDetailId(id);
+        if (!status.equals(ProductOrderStatusEnum.SAVE.getCode())){
+            throw BusinessException.create("无法删除");
+        }
+        return productOrderDetailMapper.deleteByPrimaryKey(id);
     }
 
     @Override

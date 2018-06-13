@@ -6,7 +6,9 @@ import java.util.List;
 import com.binger.stock.dto.query.StockOutMainQueryDto;
 import com.binger.stock.dto.ret.StockOutMainRetDto;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface StockOutBillMainMapper {
     long countByExample(StockOutBillMainExample example);
 
