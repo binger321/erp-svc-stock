@@ -2,6 +2,7 @@ package com.binger.stock.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -15,6 +16,7 @@ import java.util.Date;
  * Description:
  */
 @ApiModel("生产订单子表")
+@Data
 public class ProductOrderDetailVo {
     /**
      * 生产订单详情ID
