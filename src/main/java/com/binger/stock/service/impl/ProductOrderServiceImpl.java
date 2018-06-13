@@ -187,7 +187,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
     @Override
     public int deleteOrderMain(Integer id) {
         Integer status = getOrderMainStatusByOrderMainId(id);
-        if (status.equals(ProductOrderStatusEnum.SAVE.getCode())){
+        if (status.equals(ProductOrderStatusEnum.AUDIT.getCode())){
             throw BusinessException.create("无法删除");
         }
         ProductOrderDetailExample example = new ProductOrderDetailExample();
