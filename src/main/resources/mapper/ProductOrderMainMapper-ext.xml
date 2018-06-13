@@ -50,16 +50,16 @@
     <sql id="Product_Order_Main_Where_Clause">
         <where>
             1 = 1
-            <if test="queryDto.productPlanCode != null">
+            <if test="queryDto.productPlanCode != null and queryDto.productPlanCode != ''">
                 AND m.product_plan_code like '%${queryDto.productPlanCode}%'
             </if>
-            <if test="queryDto.productOrderCode != null">
+            <if test="queryDto.productOrderCode != null and queryDto.productOrderCode != ''">
                 AND m.product_order_code like '%${queryDto.productOrderCode}%'
             </if>
-            <if test="queryDto.auditUserName != null">
+            <if test="queryDto.auditUserName != null and queryDto.auditUserName != ''">
                 AND m.audit_user_name like '%${queryDto.auditUserName}%'
             </if>
-            <if test="queryDto.payUserName != null">
+            <if test="queryDto.payUserName != null and queryDto.payUserName != ''">
                 AND m.pay_user_name like '%${queryDto.payUserName}%'
             </if>
             <if test="queryDto.settlement != null">
@@ -68,10 +68,10 @@
             <if test="queryDto.supplierId != null">
                 AND m.supplier_id = 'queryDto.supplierId'
             </if>
-            <if test="queryDto.logistNo != null">
+            <if test="queryDto.logistNo != null and queryDto.logistNo != ''">
                 AND m.logist_no like '%${queryDto.logistNo}%'
             </if>
-            <if test="queryDto.logistCompanyName != null">
+            <if test="queryDto.logistCompanyName != null and queryDto.logistCompanyName != ''">
                 AND m.logist_company_name like '%${queryDto.logitCompanyName}%'
             </if>
             <if test="queryDto.warehouseId != null">
@@ -122,7 +122,7 @@
         m.modifier,
         m.modify_time
         FROM product_order_main m
-        LEFT warehouse w on m.warehouse_id = w.id
+        LEFT JOIN warehouse w on m.warehouse_id = w.id
         <include refid="Product_Order_Main_Where_Clause"/>
         <if test="queryDto.limit != null">
             <if test="queryDto.offset != null">
