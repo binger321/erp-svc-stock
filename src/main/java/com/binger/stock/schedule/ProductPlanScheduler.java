@@ -38,7 +38,7 @@ public class ProductPlanScheduler extends BaseScheduler {
     }
 
 //    @Scheduled(cron = "0 25,55 * * * ?")
-    @Scheduled(cron = "*/6 * * * * ?")
+//    @Scheduled(cron = "*/6 * * * * ?")
     public void changeOrderToSendForSchedule() {
         logger.warn("【生产计划】定时任务开始，时间：" + DateUtils.format(new Date()));
 

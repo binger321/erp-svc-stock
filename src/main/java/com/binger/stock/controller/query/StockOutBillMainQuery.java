@@ -20,7 +20,7 @@ public class StockOutBillMainQuery {
      * 单据编号
      */
     @ApiModelProperty(value="单据编号",required = true)
-    private String stockoutBillMainCode;
+    private String stockOutBillMainCode;
 
     /**
      * 退货单号
@@ -45,7 +45,6 @@ public class StockOutBillMainQuery {
      */
     @ApiModelProperty(value="'出库类型,100订单出库-发货出库 200其他出库-报废出库 300返修出库,默认残次品库出库 400调拨出库 500其他出库-改码'",required = false)
     private Integer billType;
-
 
     /**
      * 审核人名字

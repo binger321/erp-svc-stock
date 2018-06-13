@@ -2,6 +2,7 @@ package com.binger.stock.service.impl;
 
 import com.binger.common.ResponseCode;
 import com.binger.common.ServerResponse;
+import com.binger.common.enums.BillTypeEnum;
 import com.binger.common.exception.BusinessException;
 import com.binger.common.util.DozerUtils;
 import com.binger.stock.controller.form.ProductOrderDetailForm;
@@ -105,6 +106,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
             throw BusinessException.create("不能添加空的生产订单主表！");
         }
         ProductOrderMain productOrderMain = DozerUtils.convert(productOrderMainForm, ProductOrderMain.class);
+        productOrderMain.setProductOrderCode(remoteGenerateBillCode(BillTypeEnum.PRODUCT_ORDER_BILL.getBillType()));
         productOrderMainMapper.insert(productOrderMain);
         return DozerUtils.convert(productOrderMain,ProductOrderMainVo.class);
     }

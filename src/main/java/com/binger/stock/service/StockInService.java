@@ -1,9 +1,11 @@
 package com.binger.stock.service;
 
-import com.binger.stock.controller.form.StockInBillForm;
+import com.binger.stock.controller.form.StockInBillDetailForm;
+import com.binger.stock.controller.form.StockInBillMainForm;
+import com.binger.stock.domain.StockInBillMain;
 import com.binger.stock.dto.query.StockInMainQueryDto;
+import com.binger.stock.vo.StockInBillDetailVo;
 import com.binger.stock.vo.StockInBillMainVo;
-import com.binger.stock.vo.StockInBillVo;
 
 import java.util.List;
 
@@ -38,19 +40,31 @@ public interface StockInService {
      * @param id
      * @return
      */
-    StockInBillVo findById(Integer id);
+    StockInBillMainVo findById(Integer id);
 
     /**
      * 新增form
      * @param stockInBillForm
      * @return
      */
-    StockInBillMainVo insert(StockInBillForm stockInBillForm);
+    StockInBillMainVo insert(StockInBillMainForm stockInBillForm);
 
     /**
      * 修改form
      * @param stockInBillForm
      * @return
      */
-    StockInBillVo update(StockInBillForm stockInBillForm);
+    StockInBillMainVo update(StockInBillMain stockInBillForm);
+
+    List<StockInBillDetailVo> findAllDetailById(Integer id);
+
+    StockInBillDetailVo insertDetail(StockInBillDetailForm stockInBillMainForm, String stockInBillMainCode);
+
+    StockInBillDetailVo updateDetail(StockInBillDetailForm stockInBillDetailForm, String stockInBillMainCode);
+
+    void deleteById(Integer id);
+
+    void deleteDetailById(Integer id);
+
+    StockInBillDetailVo findDetailById(Integer id);
 }

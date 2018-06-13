@@ -10,32 +10,33 @@
 
     <sql id="StockInBillMainDto_Where_Clause">
         <where>
-            <if test="queryDto.stockInBillMainCode != null">
-                m.stock_id_bill_main_code like '%${queryDto.stockInBillMainCode}%'
+            1 = 1
+            <if test="queryDto.stockInBillMainCode != null and queryDto.stockInBillMainCode != ''">
+                AND m.stock_id_bill_main_code like '%${queryDto.stockInBillMainCode}%'
             </if>
-            <if test="queryDto.productOrderCode != null">
-                m.product_order_code like '%${queryDto.productOrderCode}%'
+            <if test="queryDto.productOrderCode != null and queryDto.productOrderCode != ''">
+                AND m.product_order_code like '%${queryDto.productOrderCode}%'
             </if>
             <if test="queryDto.billType != null">
-                m.bill_type = #{queryDto.billType}
+                AND m.bill_type = #{queryDto.billType}
             </if>
-            <if test="queryDto.auditor != null">
-                m.auditor like '%${queryDto.auditor}%'
+            <if test="queryDto.auditor != null and queryDto.auditor != ''">
+                AND m.auditor like '%${queryDto.auditor}%'
             </if>
             <if test="queryDto.warehouseId != null">
-                m.warehouseId = #{queryDto.warehouseId}
+                AND m.warehouse_id = #{queryDto.warehouseId}
             </if>
-            <if test="queryDto.trackNumber != null">
-                m.trackNumber like '%${queryDto.trackNumber}%'
+            <if test="queryDto.trackNumber != null and queryDto.trackNumber != ''">
+                AND m.track_number like '%${queryDto.trackNumber}%'
             </if>
             <if test="queryDto.stockinStatus != null">
-                m.stockinStatus = #{queryDto.stockinStatus}
+                AND m.stockin_status = #{queryDto.stockinStatus}
             </if>
             <if test="queryDto.supplierId != null">
-                m.supplierId = #{queryDto.supplierId}
+                AND m.supplier_id = #{queryDto.supplierId}
             </if>
-            <if test="queryDto.receiverName != null">
-                m.reveiverName like '%${queryDto.receiverName}%'
+            <if test="queryDto.receiverName != null and queryDto.receiverName != ''">
+                AND m.reveiver_Name like '%${queryDto.receiverName}%'
             </if>
         </where>
     </sql>
@@ -95,9 +96,6 @@
         FROM stock_in_bill_main m
         LEFT JOIN warehouse w on m.warehouse_id = w.id
         <include refid="StockInBillMainDto_Where_Clause"/>
-        <if test="queryDto.orderByClause != null">
-            ORDER BY #{queryDto.orderByClause}
-        </if>
         <if test="queryDto.limit != null">
             <if test="queryDto.offset != null">
                 limit #{queryDto.offset},#{queryDto.limit}
