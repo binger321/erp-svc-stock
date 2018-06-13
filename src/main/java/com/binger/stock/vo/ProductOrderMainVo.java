@@ -164,6 +164,17 @@ public class ProductOrderMainVo{
     private Integer warehouseId;
 
     /**
+     * 仓库编号
+     */
+    @ApiModelProperty(value = "仓库编号", required = false)
+    private String warehouseCode;
+
+    /**
+     * 仓库名称
+     */
+    @ApiModelProperty(value = "仓库名称", required = false)
+    private String warehouseName;
+    /**
      * 下单总数量,将明细的SKU数累加，用户需要快速查看生产单大小
      */
     @ApiModelProperty(value="下单总数量,将明细的SKU数累加，用户需要快速查看生产单大小",required = false)
