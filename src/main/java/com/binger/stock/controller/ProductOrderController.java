@@ -55,6 +55,15 @@ public class ProductOrderController {
         }
     }
 
+
+
+    @ApiOperation(value = "通过主表id查询所有子表")
+    @RequestMapping(value = "/orderDetail/findAllOrderDetailByOrderMainId/{id}", method = RequestMethod.POST)
+    public ServerResponse<List<ProductOrderDetailVo>> findAllOrderDetailByOrderMainId(@PathVariable Integer id) {
+        List<ProductOrderDetailVo> productOrderDetailVos = productOrderService.findAllOrderDetailByOrderMainId(id);
+        return ServerResponse.createBySuccess(Const.SUCCESS_MSG, productOrderDetailVos);
+    }
+
     @ApiOperation(value = "通过主表id查询主表")
     @RequestMapping(value = "/orderMain/findById/{id}", method = RequestMethod.POST)
     public ServerResponse<ProductOrderMainVo> findOrderMainById(@PathVariable Integer id) {

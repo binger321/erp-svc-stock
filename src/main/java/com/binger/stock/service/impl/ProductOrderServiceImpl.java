@@ -246,4 +246,13 @@ public class ProductOrderServiceImpl implements ProductOrderService {
         productOrderMainMapper.updateByPrimaryKeySelective(main);
 
     }
+
+    @Override
+    public List<ProductOrderDetailVo> findAllOrderDetailByOrderMainId(Integer id) {
+        ProductOrderDetailExample example = new ProductOrderDetailExample();
+        example.createCriteria().andProductOrderMainIdEqualTo(id);
+        List<ProductOrderDetail> productOrderDetailList = productOrderDetailMapper.selectByExample(example);
+        List<ProductOrderDetailVo> productOrderDetailVos = DozerUtils.convertList(productOrderDetailList,ProductOrderDetailVo.class);
+        return productOrderDetailVos;
+    }
 }

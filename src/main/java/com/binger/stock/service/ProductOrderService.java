@@ -47,4 +47,6 @@ public interface ProductOrderService {
     int deleteOrderMain(Integer id);
 
     int deleteOrderDetail(Integer id);
+
+    List<ProductOrderDetailVo> findAllOrderDetailByOrderMainId(Integer id);
 }
