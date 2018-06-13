@@ -141,18 +141,21 @@ public class ProductOrderServiceImpl implements ProductOrderService {
 
         return productOrderMainList.get(0).getOrderStatus();
     }
-    private Integer getOrderMainStatusByOrderDetailId(Integer id){
+
+    private Integer getOrderMainIdByOrderDerailId(Integer orderDetailId){
         ProductOrderDetailExample example = new ProductOrderDetailExample();
-        example.createCriteria().andIdEqualTo(id);
+        example.createCriteria().andIdEqualTo(orderDetailId);
         example.getSelectiveField().productOrderMainId();
         List<ProductOrderDetail> productOrderDetailList = productOrderDetailMapper.selectByExample(example);
         if (productOrderDetailList == null || productOrderDetailList.size()==0){
             throw BusinessException.create("没有这个生产订单子表！");
         }
 
+        return productOrderDetailList.get(0).getProductOrderMainId();
 
-        return getOrderMainStatusByOrderMainId(productOrderDetailList.get(0).getProductOrderMainId());
     }
+
+
 
     @Override
     public ProductOrderMainVo updateOrderMain(ProductOrderMainForm productOrderMainForm, Integer id) {
@@ -161,6 +164,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
             throw BusinessException.create("已审核无法修改");
         }
         ProductOrderMain productOrderMain = DozerUtils.convert(productOrderMainForm, ProductOrderMain.class);
+        productOrderMain.setId(id);
         productOrderMainMapper.updateByPrimaryKeySelective(productOrderMain);
         return findOrderMainById(productOrderMain.getId());
     }
@@ -174,6 +178,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
             throw BusinessException.create("已审核无法修改");
         }
         ProductOrderDetail productOrderDetail = DozerUtils.convert(productOrderDetailForm,ProductOrderDetail.class);
+        productOrderDetail.setId(id);
         productOrderDetailMapper.updateByPrimaryKeySelective(productOrderDetail);
         return findOrderDetailById(productOrderDetail.getId());
     }
@@ -194,11 +199,14 @@ public class ProductOrderServiceImpl implements ProductOrderService {
     @Transactional(rollbackFor = {RuntimeException.class, Exception.class})
     public int deleteOrderDetail(Integer id) {
 
-        Integer status = getOrderMainStatusByOrderDetailId(id);
+        Integer orderMainId = getOrderMainIdByOrderDerailId(id);
+        Integer status = getOrderMainStatusByOrderMainId(orderMainId);
         if (!status.equals(ProductOrderStatusEnum.SAVE.getCode())){
             throw BusinessException.create("无法删除");
         }
-        return productOrderDetailMapper.deleteByPrimaryKey(id);
+        int result =productOrderDetailMapper.deleteByPrimaryKey(id);
+        constructForm(orderMainId);
+        return result;
     }
 
     @Override
