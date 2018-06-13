@@ -108,6 +108,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
         ProductOrderMain productOrderMain = DozerUtils.convert(productOrderMainForm, ProductOrderMain.class);
         productOrderMain.setProductOrderCode(remoteGenerateBillCode(BillTypeEnum.PRODUCT_ORDER_BILL.getBillType()));
         productOrderMainMapper.insert(productOrderMain);
+        productOrderMain.setProductStatus(ProductOrderStatusEnum.SAVE.getCode());
         return DozerUtils.convert(productOrderMain,ProductOrderMainVo.class);
     }
 
@@ -139,7 +140,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
             throw BusinessException.create("没有这个生产订单主表！");
         }
 
-        return productOrderMainList.get(0).getOrderStatus();
+        return productOrderMainList.get(0).getProductStatus();
     }
 
     private Integer getOrderMainIdByOrderDerailId(Integer orderDetailId){
