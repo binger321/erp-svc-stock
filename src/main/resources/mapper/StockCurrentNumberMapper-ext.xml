@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.binger.stock.dao.StockCurrentNumberMapper">
+
+    <resultMap id="CurrentStockMap" type="com.binger.stock.dto.ret.SkuCurrentStockDto">
+        <result column="sku_id" property="skuId" jdbcType="INTEGER"/>
+        <result column="warehouse_id" property="warehouseId" jdbcType="INTEGER"/>
+        <result column="quantity" property="quantity" jdbcType="INTEGER"/>
+        <result column="use_quantity" property="useQuantity" jdbcType="INTEGER"/>
+        <result column="cost_price" property="costPrice" jdbcType="DECIMAL"/>
+    </resultMap>
+    <select id="countCurrentStock" resultMap="CurrentStockMap">
+        SELECT
+        s.sku_id,
+        s.warehouse_id,
+        s.total_number quantity,
+        s.use_number use_quantity,
+        s.cost_price
+        FROM stock_current_number s
+        WHERE 1 = 1
+        <if test="skuId != null">
+            AND s.sku_id = #{skuId}
+        </if>
+        <if test="warehouseId != null">
+            AND s.warehouse_id = #{warehouseId}
+        </if>
+
+    </select>
+    <resultMap id="StockCurrentMap" type="com.binger.stock.vo.StockCurrentVo">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="warehouse_id" jdbcType="INTEGER" property="warehouseId" />
+        <result column="warehouse_code" jdbcType="INTEGER" property="warehouseCode" />
+        <result column="warehouse_name" jdbcType="INTEGER" property="warehouseName" />
+        <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
+        <result column="goods_code" jdbcType="VARCHAR" property="goodsCode" />
+        <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+        <result column="sku_id" jdbcType="INTEGER" property="skuId" />
+        <result column="sku_code" jdbcType="VARCHAR" property="skuCode" />
+        <result column="sku_name" jdbcType="VARCHAR" property="skuName" />
+        <result column="cost_price" jdbcType="DECIMAL" property="costPrice" />
+        <result column="size_id" jdbcType="INTEGER" property="sizeId" />
+        <result column="size_code" jdbcType="VARCHAR" property="sizeCode" />
+        <result column="size_name" jdbcType="VARCHAR" property="sizeName" />
+        <result column="color_id" jdbcType="INTEGER" property="colorId" />
+        <result column="color_code" jdbcType="VARCHAR" property="colorCode" />
+        <result column="color_name" jdbcType="VARCHAR" property="colorName" />
+        <result column="total_number" jdbcType="INTEGER" property="totalNumber" />
+        <result column="use_number" jdbcType="INTEGER" property="useNumber" />
+        <result column="reserve_number" jdbcType="INTEGER" property="reserveNumber" />
+    </resultMap>
+    <select id="listByQuery" resultMap="StockCurrentMap">
+        SELECT
+          s.id,
+		  s.warehouse_id,
+		  w.warehouse_code,
+		  w.warehouse_name,
+		  s.goods_id,
+		  s.goods_code,
+		  s.goods_name,
+		  s.sku_id,
+		  s.sku_code,
+		  s.sku_name,
+		  s.size_id,
+		  s.size_code,
+		  s.size_name,
+		  s.color_id,
+		  s.color_code,
+		  s.color_name,
+		  s.cost_price,
+		  s.total_number,
+		  s.use_number,
+		  s.reserve_number
+		FROM stock_current_number s
+		LEFT JOIN warehouse w on s.warehouse_id = w.id
+		<where>
+            1 = 1
+            <if test="queryDto.warehouseId != null">
+                AND s.warehouse_id = #{queryDto.warehouseId}
+            </if>
+            <if test="queryDto.goodsId != null">
+                AND s.goods_id = #{queryDto.goodsId}
+            </if>
+            <if test="queryDto.skuCode != null and queryDto.skuCode != ''">
+                AND s.sku_code like '%${queryDto.skuCode}%'
+            </if>
+        </where>
+    </select>
+</mapper>

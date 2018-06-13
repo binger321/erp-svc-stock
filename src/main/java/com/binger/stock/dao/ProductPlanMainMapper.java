@@ -4,7 +4,9 @@ import com.binger.stock.domain.ProductPlanMain;
 import com.binger.stock.domain.ProductPlanMainExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface ProductPlanMainMapper {
     long countByExample(ProductPlanMainExample example);
 

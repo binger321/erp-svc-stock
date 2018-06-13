@@ -108,7 +108,7 @@ public class ProductPlanMainExample {
     }
 
     /**
-     * product_plan_main 2018-05-24
+     * product_plan_main 2018-06-13
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -1073,7 +1073,7 @@ public class ProductPlanMainExample {
     }
 
     /**
-     * product_plan_main 2018-05-24
+     * product_plan_main 2018-06-13
      */
     public static class Criterion {
         private String condition;

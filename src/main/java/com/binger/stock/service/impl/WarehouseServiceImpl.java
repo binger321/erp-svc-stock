@@ -2,10 +2,13 @@ package com.binger.stock.service.impl;
 
 import com.binger.common.exception.BusinessException;
 import com.binger.common.util.DozerUtils;
+import com.binger.stock.controller.query.StockCurrentQuery;
+import com.binger.stock.dao.StockCurrentNumberMapper;
 import com.binger.stock.dao.WarehouseMapper;
 import com.binger.stock.domain.Warehouse;
 import com.binger.stock.domain.WarehouseExample;
 import com.binger.stock.service.WarehouseService;
+import com.binger.stock.vo.StockCurrentVo;
 import com.binger.stock.vo.WarehouseVo;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,9 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Autowired
     private WarehouseMapper warehouseMapper;
+
+    @Autowired
+    private StockCurrentNumberMapper stockCurrentNumberMapper;
 
     @Override
     public List<WarehouseVo> listByExample(WarehouseExample example) {
@@ -80,6 +86,11 @@ public class WarehouseServiceImpl implements WarehouseService {
         if (count < 0) {
             throw BusinessException.create("删除失败，可能重复操作！");
         }
+    }
+
+    @Override
+    public List<StockCurrentVo> listCurrentStockByQuery(StockCurrentQuery stockCurrentQuery) {
+        return stockCurrentNumberMapper.listByQuery(stockCurrentQuery);
     }
 
     private void checkUnique(Warehouse warehouse, Integer id) {

@@ -3,6 +3,8 @@ package com.binger.stock.dao;
 import com.binger.stock.domain.StockOutBillDetail;
 import com.binger.stock.domain.StockOutBillDetailExample;
 import java.util.List;
+
+import com.binger.stock.dto.ret.StockOutDelayRetDto;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -33,4 +35,9 @@ public interface StockOutBillDetailMapper {
     int updateByPrimaryKeySelective(StockOutBillDetail record);
 
     int updateByPrimaryKey(StockOutBillDetail record);
+
+    /**
+     * 根据skuid获取最近一个订单的期货时间
+     */
+    List<StockOutDelayRetDto> getDelayDaysBySku(@Param("skuId")Integer skuId);
 }

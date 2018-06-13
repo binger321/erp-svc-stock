@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.binger.stock.dao.StockOutBillDetailMapper">
+    <resultMap id="delayDaysMap" type="com.binger.stock.dto.ret.StockOutDelayRetDto">
+        <result column="sku_id" property="skuId" jdbcType="INTEGER"/>
+        <result column="delay_days" property="delayDays" jdbcType="INTEGER"/>
+    </resultMap>
+    <select id="getDelayDaysBySku" resultMap="delayDaysMap">
+        SELECT
+        d.sku_id,
+        m.delay_days
+        FROM stock_out_bill_main m
+        LEFT JOIN stock_out_bill_detail d on d.stock_out_bill_main_code = m.stock_out_bill_main_code
+        WHERE m.stockout_status = 200
+        AND d.sku_id = #{skuId}
+        ORDER BY m.id DESC
+        LIMIT 1
+    </select>
+</mapper>
+

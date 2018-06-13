@@ -1,6 +1,7 @@
 package com.binger.stock.service;
 
 import com.binger.stock.domain.ProductPlanMainExample;
+import com.binger.stock.vo.ProductPlanDetailVo;
 import com.binger.stock.vo.ProductPlanMainVo;
 import com.binger.stock.vo.ProductPlanVo;
 
@@ -24,8 +25,9 @@ public interface ProductPlanService {
 
     Boolean generateProductPlan();
 
-    ProductPlanVo auditById(Integer id, Integer planStatus);
+    ProductPlanVo auditById(Integer id);
 
     ProductPlanVo cancelById(Integer id);
 
+    List<ProductPlanDetailVo> findDetailByMainId(Integer id);
 }

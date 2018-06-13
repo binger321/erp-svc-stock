@@ -5,10 +5,12 @@ import com.binger.common.Page;
 import com.binger.common.ServerResponse;
 import com.binger.common.util.DozerUtils;
 import com.binger.stock.controller.form.WarehouseForm;
+import com.binger.stock.controller.query.StockCurrentQuery;
 import com.binger.stock.controller.query.WarehouseQuery;
 import com.binger.stock.domain.Warehouse;
 import com.binger.stock.domain.WarehouseExample;
 import com.binger.stock.service.WarehouseService;
+import com.binger.stock.vo.StockCurrentVo;
 import com.binger.stock.vo.WarehouseVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -101,5 +103,15 @@ public class WarehouseController {
         warehouseService.deleteById(id);
         return ServerResponse.createBySuccess(Const.SUCCESS_MSG, null);
     }
+
+
+
+    @RequestMapping(value = "/currentStock/list", method = RequestMethod.POST)
+    @ApiOperation(value = "列出库存")
+    public ServerResponse<List<StockCurrentVo>> delete(@RequestBody(required = false) StockCurrentQuery stockCurrentQuery) {
+        List<StockCurrentVo> stockCurrentVoList = warehouseService.listCurrentStockByQuery(stockCurrentQuery);
+        return ServerResponse.createBySuccess(Const.SUCCESS_MSG, stockCurrentVoList);
+    }
+
 
 }

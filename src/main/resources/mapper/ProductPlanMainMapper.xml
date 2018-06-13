@@ -6,9 +6,7 @@
     <result column="product_plan_code" jdbcType="VARCHAR" property="productPlanCode" />
     <result column="product_comments" jdbcType="VARCHAR" property="productComments" />
     <result column="plan_status" jdbcType="INTEGER" property="planStatus" />
-    <result column="is_assign" jdbcType="BIT" property="isAssign" />
     <result column="audit_time" jdbcType="TIMESTAMP" property="auditTime" />
-    <result column="audit_user_id" jdbcType="INTEGER" property="auditUserId" />
     <result column="audit_user_name" jdbcType="VARCHAR" property="auditUserName" />
     <result column="bill_date" jdbcType="TIMESTAMP" property="billDate" />
     <result column="supplier_id" jdbcType="INTEGER" property="supplierId" />
@@ -78,9 +76,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, product_plan_code, product_comments, plan_status, is_assign, audit_time, audit_user_id, 
-    audit_user_name, bill_date, supplier_id, supplier_code, supplier_name, creator, create_time, 
-    modifier, modify_time
+    id, product_plan_code, product_comments, plan_status, audit_time, audit_user_name, 
+    bill_date, supplier_id, supplier_code, supplier_name, creator, create_time, modifier, 
+    modify_time
   </sql>
   <select id="selectByExample" parameterType="com.binger.stock.domain.ProductPlanMainExample" resultMap="BaseResultMap">
     select
@@ -126,17 +124,15 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into product_plan_main (product_plan_code, product_comments, 
-      plan_status, is_assign, audit_time, 
-      audit_user_id, audit_user_name, bill_date, 
-      supplier_id, supplier_code, supplier_name, 
-      creator, create_time, modifier, 
-      modify_time)
+      plan_status, audit_time, audit_user_name, 
+      bill_date, supplier_id, supplier_code, 
+      supplier_name, creator, create_time, 
+      modifier, modify_time)
     values (#{productPlanCode,jdbcType=VARCHAR}, #{productComments,jdbcType=VARCHAR}, 
-      #{planStatus,jdbcType=INTEGER}, #{isAssign,jdbcType=BIT}, #{auditTime,jdbcType=TIMESTAMP}, 
-      #{auditUserId,jdbcType=INTEGER}, #{auditUserName,jdbcType=VARCHAR}, #{billDate,jdbcType=TIMESTAMP}, 
-      #{supplierId,jdbcType=INTEGER}, #{supplierCode,jdbcType=VARCHAR}, #{supplierName,jdbcType=VARCHAR}, 
-      #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, 
-      #{modifyTime,jdbcType=TIMESTAMP})
+      #{planStatus,jdbcType=INTEGER}, #{auditTime,jdbcType=TIMESTAMP}, #{auditUserName,jdbcType=VARCHAR}, 
+      #{billDate,jdbcType=TIMESTAMP}, #{supplierId,jdbcType=INTEGER}, #{supplierCode,jdbcType=VARCHAR}, 
+      #{supplierName,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifier,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.binger.stock.domain.ProductPlanMain">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -153,14 +149,8 @@
       <if test="planStatus != null">
         plan_status,
       </if>
-      <if test="isAssign != null">
-        is_assign,
-      </if>
       <if test="auditTime != null">
         audit_time,
-      </if>
-      <if test="auditUserId != null">
-        audit_user_id,
       </if>
       <if test="auditUserName != null">
         audit_user_name,
@@ -200,14 +190,8 @@
       <if test="planStatus != null">
         #{planStatus,jdbcType=INTEGER},
       </if>
-      <if test="isAssign != null">
-        #{isAssign,jdbcType=BIT},
-      </if>
       <if test="auditTime != null">
         #{auditTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="auditUserId != null">
-        #{auditUserId,jdbcType=INTEGER},
       </if>
       <if test="auditUserName != null">
         #{auditUserName,jdbcType=VARCHAR},
@@ -247,30 +231,6 @@
   <update id="updateByExampleSelective" parameterType="map">
     update product_plan_main
     <set>
-      <if test="record.planStatus != null">
-        <if test="record.planStatus == -99999">
-          plan_status= null,
-        </if>
-        <if test="record.planStatus != -99999">
-          plan_status= #{record.planStatus,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="record.auditUserId != null">
-        <if test="record.auditUserId == -99999">
-          audit_user_id= null,
-        </if>
-        <if test="record.auditUserId != -99999">
-          audit_user_id= #{record.auditUserId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="record.supplierId != null">
-        <if test="record.supplierId == -99999">
-          supplier_id= null,
-        </if>
-        <if test="record.supplierId != -99999">
-          supplier_id= #{record.supplierId,jdbcType=INTEGER},
-        </if>
-      </if>
       <if test="record.auditTime != null">
         <if test="record.auditTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
           audit_time= null,
@@ -359,8 +319,21 @@
           modifier= #{record.modifier,jdbcType=VARCHAR},
         </if>
       </if>
-      <if test="record.isAssign != null">
-        is_assign= #{record.isAssign,jdbcType=BIT},
+      <if test="record.planStatus != null">
+        <if test="record.planStatus == -99999">
+          plan_status= null,
+        </if>
+        <if test="record.planStatus != -99999">
+          plan_status= #{record.planStatus,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="record.supplierId != null">
+        <if test="record.supplierId == -99999">
+          supplier_id= null,
+        </if>
+        <if test="record.supplierId != -99999">
+          supplier_id= #{record.supplierId,jdbcType=INTEGER},
+        </if>
       </if>
     </set>
     <if test="_parameter != null">
@@ -373,9 +346,7 @@
       product_plan_code = #{record.productPlanCode,jdbcType=VARCHAR},
       product_comments = #{record.productComments,jdbcType=VARCHAR},
       plan_status = #{record.planStatus,jdbcType=INTEGER},
-      is_assign = #{record.isAssign,jdbcType=BIT},
       audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
-      audit_user_id = #{record.auditUserId,jdbcType=INTEGER},
       audit_user_name = #{record.auditUserName,jdbcType=VARCHAR},
       bill_date = #{record.billDate,jdbcType=TIMESTAMP},
       supplier_id = #{record.supplierId,jdbcType=INTEGER},
@@ -392,30 +363,6 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.binger.stock.domain.ProductPlanMain">
     update product_plan_main
     <set>
-      <if test="planStatus != null">
-        <if test="planStatus == -99999">
-          plan_status= null,
-        </if>
-        <if test="planStatus != -99999">
-          plan_status= #{planStatus,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="auditUserId != null">
-        <if test="auditUserId == -99999">
-          audit_user_id= null,
-        </if>
-        <if test="auditUserId != -99999">
-          audit_user_id= #{auditUserId,jdbcType=INTEGER},
-        </if>
-      </if>
-      <if test="supplierId != null">
-        <if test="supplierId == -99999">
-          supplier_id= null,
-        </if>
-        <if test="supplierId != -99999">
-          supplier_id= #{supplierId,jdbcType=INTEGER},
-        </if>
-      </if>
       <if test="auditTime != null">
         <if test="auditTime.toString() == 'Thu Jan 01 08:00:00 CST 1970'">
           audit_time= null,
@@ -504,8 +451,21 @@
           modifier= #{modifier,jdbcType=VARCHAR},
         </if>
       </if>
-      <if test="isAssign != null">
-        is_assign= #{isAssign,jdbcType=BIT},
+      <if test="planStatus != null">
+        <if test="planStatus == -99999">
+          plan_status= null,
+        </if>
+        <if test="planStatus != -99999">
+          plan_status= #{planStatus,jdbcType=INTEGER},
+        </if>
+      </if>
+      <if test="supplierId != null">
+        <if test="supplierId == -99999">
+          supplier_id= null,
+        </if>
+        <if test="supplierId != -99999">
+          supplier_id= #{supplierId,jdbcType=INTEGER},
+        </if>
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -515,9 +475,7 @@
     set product_plan_code = #{productPlanCode,jdbcType=VARCHAR},
       product_comments = #{productComments,jdbcType=VARCHAR},
       plan_status = #{planStatus,jdbcType=INTEGER},
-      is_assign = #{isAssign,jdbcType=BIT},
       audit_time = #{auditTime,jdbcType=TIMESTAMP},
-      audit_user_id = #{auditUserId,jdbcType=INTEGER},
       audit_user_name = #{auditUserName,jdbcType=VARCHAR},
       bill_date = #{billDate,jdbcType=TIMESTAMP},
       supplier_id = #{supplierId,jdbcType=INTEGER},

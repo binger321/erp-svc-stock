@@ -1,7 +1,9 @@
 package com.binger.stock.service;
 
+import com.binger.stock.controller.query.StockCurrentQuery;
 import com.binger.stock.domain.Warehouse;
 import com.binger.stock.domain.WarehouseExample;
+import com.binger.stock.vo.StockCurrentVo;
 import com.binger.stock.vo.WarehouseVo;
 
 import java.util.List;
@@ -26,4 +28,6 @@ public interface WarehouseService {
     WarehouseVo add(Warehouse warehouse);
 
     void deleteById(Integer id);
+
+    List<StockCurrentVo> listCurrentStockByQuery(StockCurrentQuery stockCurrentQuery);
 }
