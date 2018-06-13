@@ -203,7 +203,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
 
         Integer orderMainId = getOrderMainIdByOrderDerailId(id);
         Integer status = getOrderMainStatusByOrderMainId(orderMainId);
-        if (!status.equals(ProductOrderStatusEnum.SAVE.getCode())){
+        if (status.equals(ProductOrderStatusEnum.AUDIT.getCode())){
             throw BusinessException.create("无法删除");
         }
         int result =productOrderDetailMapper.deleteByPrimaryKey(id);
